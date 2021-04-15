@@ -1,0 +1,27 @@
+ru:
+  algorithms:
+    index:
+      title: 'Управляющие алгоритмические структуры'
+      algorithm: 'Алгоритм'
+      which_first: 'Какое действие должно выполняться первым?'
+      which_next: 'Какое действие должно выполняться следующим?'
+      syntax_guide: 'Краткая справка'
+      trace: 'Траcса:'
+      act_has_mistakes: 'Вам стоит обратить внимание'
+      algorithm_error: 'Ошибка алгоритма, проверьте алгоритм.'
+    teacher_modal:
+      header: 'Пожалуйста, расскажите нам о себе'
+      description: 'Нам важно знать кому интересен наш сервис. Мы собираем статистику чтобы его улучшить.'
+      institution: 'Учебное заведение'
+      institution_placeholder: 'МГУ'
+      type: 'Тип'
+      position: 'Должность'
+      position_placeholder: 'Доцент'
+      feedback: 'Отзыв'
+      cancel: 'Я хочу остаться инкогнито'
+    success_modal:
+      header: 'Поздравляем!'
+      description: 'Вы успешно справились с заданием!'
+      ok: 'Продолжить'
+    run: 'Получить трассу'
+    check: 'Проверить'

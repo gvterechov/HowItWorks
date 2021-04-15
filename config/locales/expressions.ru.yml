@@ -1,0 +1,24 @@
+ru:
+  expressions:
+    index:
+      title: 'Порядок выполнения выражения'
+      expression: 'Введите выражение, разделяя токены пробелами'
+      expr_placeholder: 'Введите выражение...'
+    show_task:
+      expression: 'Выбирайте операторы в порядке их выполнения:'
+    teacher_modal:
+      header: 'Пожалуйста, расскажите нам о себе'
+      description: 'Нам важно знать кому интересен наш сервис. Мы собираем статистику чтобы его улучшить.'
+      institution: 'Учебное заведение'
+      institution_placeholder: 'МГУ'
+      type: 'Тип'
+      position: 'Должность'
+      position_placeholder: 'Доцент'
+      feedback: 'Отзыв'
+      cancel: 'Я хочу остаться инкогнито'
+    success_modal:
+      header: 'Поздравляем!'
+      description: 'Вы успешно справились с заданием!'
+      ok: 'Продолжить'
+    run: 'Получить трассу'
+    prepare: 'Запустить'

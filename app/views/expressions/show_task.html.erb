@@ -1,0 +1,29 @@
+<% title t('expressions.index.title') %>
+
+<%= render partial: 'expressions/task/header' %>
+
+<input type="hidden" id="lang" value="<%= I18n.locale %>">
+<input type="hidden" id="task_lang" value="<%= @task_lang %>">
+<input type="hidden" id="expression" value="<%= @expression_sting %>">
+
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <div class="row">
+      <div class="ui form ">
+        <div class="field">
+          <label><%= t('expressions.show_task.expression') %></label>
+        </div>
+      </div>
+    </div>
+
+    <div id="expression_trainer">
+      <%= render partial: 'expressions/common/expression_trainer', locals: { data: @result_data } %>
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'common/footer' %>
+
+<%= render partial: 'expressions/common/success_modal' %>
+
+<%= render partial: 'expressions/common/script' %>

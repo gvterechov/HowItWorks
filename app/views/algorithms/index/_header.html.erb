@@ -1,0 +1,111 @@
+<div class="ui stackable menu">
+  <div class="header item">
+    <%= link_to 'How It Works', '/' %>
+  </div>
+
+  <!-- variant 1
+  <div class="item">
+    <button class="ui primary button"><i class="file outline icon"></i> New</button>
+  </div>
+  <div class="item">
+    <button class="ui primary button"><i class="play icon"></i> Run</button>
+  </div>
+  <div class="item">
+    <button class="ui primary button"><i class="share icon"></i> Share</button>
+  </div>
+  -->
+
+  <!-- variant 2
+  <div class="item">
+    <div class="ui buttons">
+      <button class="ui primary button"><i class="file outline icon"></i> New</button>
+      <button class="ui primary button"><i class="play icon"></i> Run</button>
+      <button class="ui primary button"><i class="share icon"></i> Share</button>
+    </div>
+  </div>
+  -->
+
+  <!-- variant 3 -->
+  <div class="item">
+    <div class="ui basic buttons">
+<!--      <div class="ui button"><i class="file outline icon"></i> <%#= t('new') %></div>-->
+      <div class="ui button share" id="create_task"><i class="save icon"></i> <%= t('share') %></div>
+    </div>
+  </div>
+
+  <div class="ui fluid popup bottom left transition hidden share">
+<!--    <div class="ui action input">-->
+    <div class="ui input">
+      <input type="text" value="" id="task_url">
+      <!--
+      <button class="ui teal right labeled icon toggle button">
+        <i class="copy icon"></i>
+        <%= t('copy') %>
+      </button>
+      -->
+    </div>
+  </div>
+
+  <!--
+  <div class="item">
+    <button class="ui basic button"><i class="question circle icon"></i> <%= t('help') %></button>
+  </div>
+  -->
+
+  <!-- variant 1 -->
+  <!--
+  <div class="ui dropdown item">
+    <%= t('examples') %>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a class="item"><%= t('example1') %></a>
+      <a class="item"><%= t('example2') %></a>
+      <a class="item"><%= t('example3') %></a>
+    </div>
+  </div>
+  -->
+
+  <!-- variant 2
+  <div class="item">
+    <div class="ui compact menu">
+      <div class="ui simple dropdown item">
+        Examples
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item">Example 1</a>
+          <a class="item">Example 2</a>
+          <a class="item">Example 3</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <div class="right menu">
+    <div class="item">
+      <!-- variant 1
+      <a href="#">Ru</a>
+      <span style="margin: 0 3px;">|</span>
+      <a href="#">En</a>
+      -->
+
+      <!-- variant 2
+      <div class="ui buttons">
+        <button class="ui button">Ru</button>
+        <button class="ui button">En</button>
+      </div>
+      -->
+
+      <!-- variant 3
+      <button class="ui left attached button disabled"><i class="ru flag"></i>Ru</button>
+      <button class="right attached ui button">En <i class="gb uk flag"></i></button>
+      -->
+
+      <!-- variant 4 -->
+      <!--      <button class="ui button"><i class="ru flag"></i>Ru</button>-->
+      <!--      <button class="ui button"><i class="gb uk flag"></i>En</button>-->
+      <%= language_switcher %>
+    </div>
+<!--    <a class="item"><%#= t('sign_in') %></a>-->
+  </div>
+</div>

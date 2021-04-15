@@ -1,0 +1,33 @@
+<% title t('index.title') %>
+
+<%= render partial: 'application/index/header' %>
+
+<input type="hidden" id="lang" value="<%= I18n.locale %>">
+
+<div class="ui placeholder segment">
+  <div class="ui two column stackable center aligned grid">
+    <div class="ui vertical divider">Or</div>
+    <div class="middle aligned row">
+      <div class="column">
+        <div class="ui icon header">
+          <i class="ellipsis horizontal icon"></i>
+        </div>
+        <%= link_to t('index.expressions_trainer'),
+                    '/expressions',
+                    class: "ui primary button"
+        %>
+      </div>
+      <div class="column">
+        <div class="ui icon header">
+          <i class="tasks icon"></i>
+        </div>
+        <%= link_to t('index.algorithms_trainer'),
+                    '/algorithms',
+                    class: "ui primary button"
+        %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'common/footer' %>

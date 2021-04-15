@@ -1,0 +1,55 @@
+<div class="field">
+  <label>
+    <%= t('algorithms.index.algorithm') %>:<!-- (<a href="<%#= asset_pack_path("media/pdf/syntax_guide.pdf") %>"
+                                    target="_blank"><%= t('algorithms.index.syntax_guide') %></a>):-->
+
+    <div class="ui mini floating labeled icon dropdown button task_lang"
+         style="z-index: 100;"
+    >
+      <i class="dropdown icon"></i>
+      <span class="text"><%= t('syntax') %></span>
+    </div>
+
+    <div class="ui mini green button" id="prepare"><i class="play icon"></i> <%= t('algorithms.run') %></div>
+  </label>
+
+  <!-- TODO for style guide
+  <div class="ui button">Show flowing popup</div>
+  <div class="ui flowing popup top left transition hidden">
+    <div class="ui three column divided center aligned grid">
+      <div class="column">
+        <h4 class="ui header">Basic Plan</h4>
+        <p><b>2</b> projects, $10 a month</p>
+        <div class="ui button">Choose</div>
+      </div>
+      <div class="column">
+        <h4 class="ui header">Business Plan</h4>
+        <p><b>5</b> projects, $20 a month</p>
+        <div class="ui button">Choose</div>
+      </div>
+      <div class="column">
+        <h4 class="ui header">Premium Plan</h4>
+        <p><b>8</b> projects, $25 a month</p>
+        <div class="ui button">Choose</div>
+      </div>
+    </div>
+  </div>
+  -->
+  <div class="ui error mini message" id="errors"></div>
+
+  <!--      <div class="ui segment" style="padding-top: 40px;">-->
+  <!--        <div class="ui top left attached label">Algorithm (<a href="#">Quick syntax guide</a>)</div>-->
+<!--  <textarea id="alg"></textarea>-->
+  <!--      </div>-->
+
+<!--  <div id="blocklyArea" style="height: 480px; width: 600px;"></div>-->
+
+  <div id="blocklyDiv" style="height: 500px; width: 1000px;"></div>
+<!--  <div id="blocklyDiv" style="position: absolute;"></div>-->
+</div>
+
+<%= render partial: 'algorithms/common/init_blockly_script' %>
+
+<% if I18n.locale == :ru %>
+  <%= render partial: 'algorithms/common/blockly_ru_script' %>
+<% end %>

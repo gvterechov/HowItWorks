@@ -1,0 +1,15 @@
+<div class="field">
+  <label><%= (data[:full_trace_json]) ? t('algorithms.index.which_next') :  t('algorithms.index.which_first') %></label>
+  <div id="algorithm_text_field" class="ui message">
+    <%= data[:algorithm_as_html].html_safe %>
+  </div>
+</div>
+
+<input type="hidden"
+       id="algorithm_json"
+       value="<%= data[:algorithm_json].to_json %>"
+>
+<input type="hidden"
+       id="existing_trace_json"
+       value="<%= (data[:full_trace_json] or []).to_json %>"
+>

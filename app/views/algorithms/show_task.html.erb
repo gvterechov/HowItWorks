@@ -1,0 +1,102 @@
+<% title t('algorithms.index.title') %>
+
+<%= render partial: 'algorithms/show_task/header' %>
+
+<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+<%= render partial: 'algorithms/common/algorithm_style' %>
+
+<input type="hidden" id="lang" value="<%= I18n.locale %>">
+<input type="hidden" id="task_lang" value="<%= @task_lang %>">
+
+<div class="ui aligned basic segment">
+  <div class="ui form" id="algorithm_trainer">
+    <%= render partial: 'algorithms/common/algorithm_text_field', locals: { data: @result } %>
+    <%#= render partial: 'algorithms/common/trace_field', locals: { data: @result } %>
+  </div>
+</div>
+
+<%#= render partial: 'common/footer' %>
+
+<%= render partial: 'algorithms/common/success_modal' %>
+
+<%= render partial: 'algorithms/show_task/student_first_modal' %>
+<%= render partial: 'algorithms/show_task/student_second_modal' %>
+
+
+
+<script>
+  $(function() {
+    // $('.ui.dropdown').dropdown();
+
+    $('.ui.modal').modal({
+      allowMultiple: false
+    });
+    // attach events to buttons
+    $('.second.modal')
+        .modal('attach events', '.first.modal .button');
+
+	function bindAlgorithmButtons(argument) {
+	    $('.alg_button').click(algorithmClick);
+    }
+    bindAlgorithmButtons();
+
+    function prepareData(elem) {
+      let lang = $('#lang').val();
+      let algorithm_json = JSON.parse($('#algorithm_json').val());
+      let algorithm_element_id = parseInt(elem.attr('algorithm_element_id'));
+      let act_type = elem.attr('act_type'); // SOLVED: algorithm_button_tips уже не актуален
+      let existing_trace_json = JSON.parse($('#existing_trace_json').val()); // SOLVED: список всех актов, т.к. фильтрация по is_valid == true производится на стороне c_owl.
+
+      return {
+        user_language: lang,
+        algorithm_json: algorithm_json,
+        algorithm_element_id: algorithm_element_id,
+        act_type: act_type,
+        existing_trace_json: existing_trace_json,
+      }
+    }
+
+    function algorithmClick() {
+      // TODO блокировать нажатие на элементы алгоритма пока не пришел ответ от сервера
+      
+      // заменим кнопки на часики: hourglass half
+      $('#algorithm_text_field .icon').removeClass("alg_button tooltip play stop").addClass("hourglass half");
+      
+
+
+      $.ajax({
+        method: "POST",
+        // url: '/algorithms/' + $('#lang').val() + '/verify_trace_act',
+        url: '/algorithms/verify_trace_act',
+        data: { data: JSON.stringify(prepareData($(this))) },
+        // dataType: "json",
+        error: function (jqXHR) {
+          // TODO показать сообщение об ошибке
+          alert('error');
+        },
+        success: function (data) {
+          // alert('success');
+          // TODO после ответа от сервера обновлять следующие элементы: json трассы
+
+          // Обновить алгоритм и трассу
+          $('#algorithm_trainer').html(data);
+
+          // Показать модальное окно об успешном завершении задачи
+          // (если в full_trace_json есть акт, у которого is_final true)
+          if ($('#is_final').length > 0) {
+            $('.ui.modal.success').modal('show');
+
+          	// Задача решена - убрать все кнопки из algorithm_text_field
+          	$('.alg_button').remove();
+          	
+          } else {
+            bindAlgorithmButtons();
+          }
+        }//,
+        // complete: function() {
+          // TODO разблокировать нажатие на элементы алгоритма
+        // }
+      });
+    }
+  });
+</script>

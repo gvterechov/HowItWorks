@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="ui buttons large">
+    <% data[:expression].each_with_index do |elem, index| %>
+      <%
+        order = elem[:check_order] if elem[:check_order].present? && elem[:check_order] < 1000
+      %>
+      <button class="operator ui button compact <%= 'disabled' unless elem[:enabled] %>
+                                       <%= 'green' if elem[:status] == 'correct' || (order && elem[:status] != 'wrong') %>
+                                       <%= 'red' if elem[:status] == 'wrong' %>"
+              data-index="<%= index %>"
+              <%= "data-order=#{order}" if order  %>
+      >
+        <%= elem[:text] %>
+        <% if order %>
+          <span>/<%= order %></span>
+        <% end %>
+        <br><small><%= index + 1 %></small>
+      </button>
+    <% end %>
+  </div>
+</div>
+
+<% if data[:errors].present? %>
+  <br>
+  <div class="row">
+    <% data[:errors].each do |error| %>
+      <% error_text = error[:parts].map { |el| el[:text] }.join(' ') %>
+      <div class="ui message">
+        <p><%= error_text %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

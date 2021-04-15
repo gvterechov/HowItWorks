@@ -1,0 +1,38 @@
+<% title t('expressions.index.title') %>
+
+<%= render partial: 'expressions/index/header' %>
+
+<input type="hidden" id="lang" value="<%= I18n.locale %>">
+
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <div class="row">
+      <div class="ui form ">
+
+        <%= render partial: 'expressions/index/input_expression' %>
+
+        <!--
+        <div class="ui error mini message">
+          <i class="close icon"></i>
+          <div class="header">
+            During execution of loop 'waiting', a new iteration must not start because condition 'not_green' is false.
+          </div>
+        </div>
+        -->
+
+      </div>
+    </div>
+
+    <div id="expression_trainer"></div>
+    <%#= render partial: 'expressions/common/expression_trainer' %>
+
+  </div>
+</div>
+
+<%= render partial: 'common/footer' %>
+
+<%= render partial: 'expressions/index/teacher_modal' %>
+
+<%= render partial: 'expressions/common/success_modal' %>
+
+<%= render partial: 'expressions/common/script' %>

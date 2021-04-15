@@ -1,0 +1,45 @@
+<style type="text/css" media="screen">
+
+
+	/* Подсветка алгоритма */
+
+	#algorithm_text_field {
+	  font-family: courier; 
+	  font-size: 10pt;
+	  line-height: 1.1;
+	}
+
+
+    span.string, span.atom { color: #f08; font-style: italic; font-weight: bold; }
+    span.comment { color: #262; font-style: italic; line-height: 1em; }
+    span.meta { color: #555; font-style: italic; line-height: 1em; }
+    span.variable { color: #700; text-decoration: underline; }
+    span.variable-2 { color: #b11; }
+    span.struct { color: #07c; font-weight: bold; }
+    span.number { color: #f00; font-weight: bold; }
+    span.program { color: #f70; font-weight: bold; }
+    span.function { color: #707; font-weight: bold; }
+    span.action { color: #077; font-weight: bold; }
+    span.qualifier { color: #555; }
+    span.keyword { color: #00a; font-weight: bold; }
+    span.builtin { color: #30a; }
+    span.link { color: #762; }
+
+    span.warning { background-color: #ff9; }
+    span.error { background-color: #fdd; }
+
+    /*Подчёркивание кнопки точками при наведениии на всю активную лексему (акцентирование внимания на кнопке)*/
+    span:hover .alg_button {
+      cursor: pointer;
+      border: 1px dotted black;
+      margin: -1px;
+    }
+    
+    .code-block {
+      border-left: 1px solid transparent;
+    }
+    .code-line:hover > .code-block {
+      border-left: 1px dotted green;
+    }
+
+</style>

@@ -30,4 +30,19 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  index:
+    title: "How It Works"
+    expressions_trainer: 'Expressions trainer'
+    algorithms_trainer: 'Algorithms trainer'
+  copyright: 'POAS department, VSTU©'
+  new: 'New task'
+  share: 'Save task'
+  help: 'Help'
+  syntax: 'Syntax'
+  copy: 'Copy'
+  submit: 'Submit'
+  examples: 'Examples'
+  example1: 'Example 1'
+  example2: 'Example 2'
+  example3: 'Example 3'
+  sign_in: 'Sign in'

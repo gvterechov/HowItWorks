@@ -1,0 +1,38 @@
+<!-- first modal -->
+<div class="ui first tiny modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Let's work this out
+  </div>
+  <div class="content">
+    <%
+      variants = [
+        'the number of completed iterations;',
+        'the value of loop\'s control condition;',
+        'the value of the loop counter;',
+        'the first statement of the loop\'s body.'
+      ]
+    %>
+    <div class="ui form">
+      <div class="grouped fields">
+        <label>What determines whether an iteration of a while loop should begin:</label>
+        <% variants.each do |variant| %>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="example2">
+              <label><%= variant %></label>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui primary deny button">
+      Submit
+    </div>
+    <div class="ui positive right button">
+      I understood my mistake
+    </div>
+  </div>
+</div>

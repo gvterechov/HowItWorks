@@ -1,0 +1,28 @@
+<div class="field">
+  <label>
+    <%= t('expressions.index.expression') %>:
+
+    <div class="ui mini floating labeled icon dropdown button task_lang">
+      <i class="dropdown icon"></i>
+      <span class="text"><%= t('syntax') %></span>
+    </div>
+
+    <!--        <div class="ui mini green button"><i class="play icon"></i> <%#= t('run') %></div>-->
+  </label>
+
+  <div class="ui error mini message">
+    <i class="close icon"></i>
+    <div class="header">
+      There were some errors with your submission
+    </div>
+    <ul class="list">
+      <li>You must include both a upper and lower case letters in your password.</li>
+      <li>You need to select your home country.</li>
+    </ul>
+  </div>
+
+  <div class="ui action input">
+    <input type="text" placeholder="<%= t('expressions.index.expr_placeholder') %>" id="expression">
+    <button class="ui button" id="prepare"><%= t('expressions.prepare') %></button>
+  </div>
+</div>

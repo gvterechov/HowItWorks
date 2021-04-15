@@ -1,0 +1,27 @@
+en:
+  algorithms:
+    index:
+      title: 'Control flow statements'
+      algorithm: 'Algorithm'
+      which_first: 'Which action has to be carried out first?'
+      which_next: 'Which action has to be carried out next?'
+      syntax_guide: 'Quick syntax guide'
+      trace: 'Trace:'
+      act_has_mistakes: 'You should pay attention'
+      algorithm_error: 'Algorithm error, check the algorithm.'
+    teacher_modal:
+      header: 'Please tell us about yourself'
+      description: 'It is important for us to know who is interested in our service. We collect statistics to improve it.'
+      institution: 'Institution'
+      institution_placeholder: 'University of Oxford'
+      type: 'Type'
+      position: 'Position'
+      position_placeholder: 'Lecturer'
+      feedback: 'Feedback'
+      cancel: 'I want to stay incognito'
+    success_modal:
+      header: 'Congratulations!'
+      description: 'You have successfully completed the task!'
+      ok: 'Ok'
+    run: 'Get trace'
+    check: 'Check'

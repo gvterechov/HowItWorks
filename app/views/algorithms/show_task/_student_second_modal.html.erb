@@ -1,0 +1,36 @@
+<!-- second modal -->
+<div class="ui second tiny modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Let's work this out
+  </div>
+  <div class="content">
+    <%
+      variants = [
+        'true;',
+        'false.'
+      ]
+    %>
+    <div class="ui form">
+      <div class="grouped fields">
+        <label>What value of the control condition allows the iteration of a while loop to start:</label>
+        <% variants.each do |variant| %>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="example2">
+              <label><%= variant %></label>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui primary deny button">
+      Submit
+    </div>
+    <div class="ui positive right button">
+      I understood my mistake
+    </div>
+  </div>
+</div>

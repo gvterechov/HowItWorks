@@ -1,0 +1,17 @@
+ru:
+  index:
+    title: "Как это работает"
+    expressions_trainer: 'Тренажер выражений'
+    algorithms_trainer: 'Тренажер алгоритмов'
+  copyright: 'Кафедра ПОАС, ВолгГТУ©'
+  new: 'Новая задача'
+  share: 'Сохранить задачу'
+  help: 'Помощь'
+  syntax: 'Синтаксис'
+  copy: 'Копировать'
+  submit: 'Отправить'
+  examples: 'Примеры'
+  example1: 'Пример 1'
+  example2: 'Пример 2'
+  example3: 'Пример 3'
+  sign_in: 'Войти'

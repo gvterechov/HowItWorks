@@ -1,0 +1,11 @@
+<% if errors.present? %>
+  <i class="close icon"></i>
+  <div class="header">
+    <%= t('algorithms.index.algorithm_error') %>
+  </div>
+  <ul class="list">
+    <% errors.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
