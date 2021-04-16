@@ -10,7 +10,12 @@
 
 <div class="ui aligned basic segment">
   <div class="ui form" id="algorithm_trainer">
-    <%= render partial: 'algorithms/common/algorithm_text_field', locals: { data: @result } %>
+    <%= render partial: 'algorithms/common/algorithm_text_field',
+               locals: {
+                 data: @result,
+                 task_lang: @task_lang
+               }
+    %>
     <%#= render partial: 'algorithms/common/trace_field', locals: { data: @result } %>
   </div>
 </div>

@@ -8,9 +8,9 @@ class Algorithms::AlgorithmsController < ApplicationController
     task = Task.find_by(token: params[:token])
     task.update_column(:views_count, task.views_count + 1)
 
-    @task_lang = task.task_lang
-
     data = JSON.parse(task.expression)
+
+    @task_lang = data['task_lang']
     @result = COwl.creating_task(data)
 
     render '/algorithms/show_task'
@@ -58,7 +58,13 @@ class Algorithms::AlgorithmsController < ApplicationController
     result = COwl.verify_trace_act(data)
 
     respond_to do |format|
-      format.html { render partial: '/algorithms/show_task/algorithm_trainer', locals: { data: result } }
+      format.html {
+        render partial: '/algorithms/show_task/algorithm_trainer',
+               locals: {
+                 data: result,
+                 task_lang: data['task_lang']
+               }
+      }
     end
   end
 
@@ -80,6 +86,6 @@ class Algorithms::AlgorithmsController < ApplicationController
   private
     # TODO вынести в tasks_controller
     def task_params
-      params.require(:task).permit(:expression, :task_lang)
+      params.require(:task).permit(:expression)
     end
 end

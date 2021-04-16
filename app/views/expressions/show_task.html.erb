@@ -11,7 +11,12 @@
     <div class="row">
       <div class="ui form ">
         <div class="field">
-          <label><%= t('expressions.show_task.expression') %></label>
+          <label>
+            <%= t('expressions.show_task.expression') %>
+            <div class="ui label">
+              <%= expression_language_name(@task_lang) %>
+            </div>
+          </label>
         </div>
       </div>
     </div>

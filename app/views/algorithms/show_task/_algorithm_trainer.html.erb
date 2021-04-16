@@ -1,2 +1,7 @@
-<%= render partial: 'algorithms/common/algorithm_text_field', locals: { data: data } %>
+<%= render partial: 'algorithms/common/algorithm_text_field',
+           locals: {
+             data: data,
+             task_lang: task_lang
+           }
+%>
 <%= render partial: 'algorithms/common/trace_field', locals: { data: data } %>

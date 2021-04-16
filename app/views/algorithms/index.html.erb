@@ -95,7 +95,7 @@
       $.ajax({
         method: "POST",
         url: '/algorithms/create_task',
-        data: { task: { expression: JSON.stringify(prepareExpression()), task_lang: taskLang() } },
+        data: { task: { expression: JSON.stringify(prepareExpression()) } },
         // data: { data: JSON.stringify(prepareExpression()) },
         // dataType: "json",
         error: function (jqXHR) {
