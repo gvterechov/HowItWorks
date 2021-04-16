@@ -73,7 +73,7 @@
         method: "POST",
         // url: '/algorithms/' + $('#lang').val() + '/verify_trace_act',
         url: '/algorithms/verify_trace_act',
-        data: { data: JSON.stringify(prepareData($(this))) },
+        data: { data: JSON.stringify(prepareData($(this))), task_lang: $('#task_lang').val() },
         // dataType: "json",
         error: function (jqXHR) {
           // TODO показать сообщение об ошибке

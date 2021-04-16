@@ -5,7 +5,7 @@ class Expressions::ExpressionsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def show_task
-    task = Task.find_by(token: params[:token])
+    task = ExpressionTask.find_by(token: params[:token])
     task.update_column(:views_count, task.views_count + 1)
 
     @task_lang = task.task_lang
@@ -31,7 +31,7 @@ class Expressions::ExpressionsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def create_task
-    task = Task.new(task_params)
+    task = ExpressionTask.new(task_params)
 
     respond_to do |format|
       if task.save

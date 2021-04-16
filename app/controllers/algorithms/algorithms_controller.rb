@@ -5,10 +5,10 @@ class Algorithms::AlgorithmsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def show_task
-    task = Task.find_by(token: params[:token])
+    task = AlgorithmTask.find_by(token: params[:token])
     task.update_column(:views_count, task.views_count + 1)
 
-    data = JSON.parse(task.expression)
+    data = JSON.parse(task.data)
 
     @task_lang = data['task_lang']
     @result = COwl.creating_task(data)
@@ -41,7 +41,7 @@ class Algorithms::AlgorithmsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def create_task
-    task = Task.new(task_params)
+    task = AlgorithmTask.new(task_params)
 
     respond_to do |format|
       if task.save
@@ -62,7 +62,7 @@ class Algorithms::AlgorithmsController < ApplicationController
         render partial: '/algorithms/show_task/algorithm_trainer',
                locals: {
                  data: result,
-                 task_lang: data['task_lang']
+                 task_lang: params[:task_lang]
                }
       }
     end
@@ -86,6 +86,6 @@ class Algorithms::AlgorithmsController < ApplicationController
   private
     # TODO вынести в tasks_controller
     def task_params
-      params.require(:task).permit(:expression)
+      params.require(:task).permit(:data)
     end
 end
