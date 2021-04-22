@@ -11,6 +11,8 @@ const ARROW_LENGTH = ARROW_WIDTH * 0.86;
 const FONT_SIZE = U * 0.5;
 const ALLOW_SQUEEZE = false;  // ex. hide borders of single-action sequence
 
+// TODO: сделать функцию для умножения U на число и масштабирования всех остальных чисел
+
 let LBL = {
 	1: "true",
 	0: "false",
