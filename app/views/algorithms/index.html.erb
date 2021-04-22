@@ -27,7 +27,7 @@
       dataType: "json",
       error: function (jqXHR) {
         // TODO показать сообщение об ошибке
-        alert('error');
+        alert('error: available_syntaxes');
       },
       success: function (data) {
         // data = JSON.parse(data);
@@ -62,7 +62,7 @@
         // dataType: "json",
         error: function (jqXHR) {
           // TODO показать сообщение об ошибке
-          alert('error');
+          alert('error: get trace');
         },
         success: function (data) {
           data = JSON.parse(data);
@@ -100,7 +100,7 @@
         // dataType: "json",
         error: function (jqXHR) {
           // TODO показать сообщение об ошибке
-          alert('error');
+          alert('error: create_task');
         },
         success: function (data) {
           $("#task_url").val(window.location.href + data['task_path']);
