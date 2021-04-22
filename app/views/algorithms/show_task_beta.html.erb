@@ -10,7 +10,8 @@
 
 <div class="ui aligned basic segment">
   <div class="ui form" id="algorithm_trainer">
-    <%= render partial: 'algorithms/common/algorithm_text_field',
+    <!--  'algorithms/common/algorithm_text_field' -->
+    <%= render partial: 'algorithms/show_task/algorithm_trainer_beta',
                locals: {
                  data: @result,
                  task_lang: @task_lang
@@ -28,6 +29,17 @@
 <%= render partial: 'algorithms/show_task/student_second_modal' %>
 
 
+<!-- Paper -->
+<canvas id="myCanvas" class="canvas"></canvas>
+
+<script type="text/paperscript" canvas="myCanvas" src="/static/paper/paper-canvas.js"> </script>
+
+<script type="text/javascript" src="/static/paper/paper-full.min.js"></script>
+
+<script type="text/javascript" src="/static/paper/diagram.js"> </script>
+<script type="text/javascript" src="/static/paper/activity-vis.js"> </script>
+<!-- /Paper -->
+
 
 <script>
   $(function() {
@@ -40,7 +52,7 @@
     $('.second.modal')
         .modal('attach events', '.first.modal .button');
 
-	  function bindAlgorithmButtons(argument) {
+	function bindAlgorithmButtons(argument) {
 	    $('.alg_button').click(algorithmClick);
     }
     bindAlgorithmButtons();
@@ -68,9 +80,12 @@
       $('#algorithm_text_field .icon').removeClass("alg_button tooltip play stop").addClass("hourglass half");
 
 
+
       $.ajax({
         method: "POST",
-        url: `/${$('#lang').val()}/algorithms/verify_trace_act`,
+        // url: '/algorithms/' + $('#lang').val() + '/verify_trace_act',
+        // url: '/algorithms/verify_trace_act',
+        url: '/' + $('#lang').val() + '/algorithms/verify_trace_act',
         data: { data: JSON.stringify(prepareData($(this))), task_lang: $('#task_lang').val() },
         // dataType: "json",
         error: function (jqXHR) {
@@ -95,11 +110,57 @@
           } else {
             bindAlgorithmButtons();
           }
+
+          draw_diagram();
         }//,
         // complete: function() {
           // TODO разблокировать нажатие на элементы алгоритма
         // }
       });
     }
+
+
+    // paper
+
+    function draw_diagram() {
+        // paper
+        let algorithm_json = JSON.parse($('#algorithm_json').val());
+        let existing_trace_json = JSON.parse($('#existing_trace_json').val());
+        const elem = $('#diagram_area');
+        const pos = elem.offset();
+        const width = elem.width();
+        const height = elem.height();
+        // console.log("pos:", pos);
+        const point = [pos.left, pos.top];
+        const size = [width, height];
+
+        redraw_activity_diagram(algorithm_json, existing_trace_json, {viewport: {point, size}});
+        // /paper
+    }
+
+    function paper_on_load() {
+	    if (!window.globals || !window.globals.paper_init) {
+		    setTimeout(paper_on_load, 200);
+	    	console.log("Waiting for paperscript loaded ...")
+	    	return;
+	    }
+
+		console.log("paper_on_load() ...")
+        window.globals.paper_init();
+        diagram_init();
+		console.log("paper_on_load() OK.")
+
+		// отрисовать диаграмму в первый раз
+		draw_diagram();
+
+		// /// test canvas
+		// var myCircle = new paper.Path.Circle(new paper.Point(600, 170), 150);
+		// myCircle.fillColor = 'black';
+		// // console.log(myCircle);
+    }
+    paper_on_load();
+
+    // /paper
+
   });
 </script>
