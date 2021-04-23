@@ -40,7 +40,7 @@
     $('.second.modal')
         .modal('attach events', '.first.modal .button');
 
-	function bindAlgorithmButtons(argument) {
+	  function bindAlgorithmButtons(argument) {
 	    $('.alg_button').click(algorithmClick);
     }
     bindAlgorithmButtons();
@@ -66,13 +66,10 @@
       
       // заменим кнопки на часики: hourglass half
       $('#algorithm_text_field .icon').removeClass("alg_button tooltip play stop").addClass("hourglass half");
-      
-
 
       $.ajax({
         method: "POST",
-        // url: '/algorithms/' + $('#lang').val() + '/verify_trace_act',
-        url: '/algorithms/verify_trace_act',
+        url: `/${$('#lang').val()}/algorithms/verify_trace_act`,
         data: { data: JSON.stringify(prepareData($(this))), task_lang: $('#task_lang').val() },
         // dataType: "json",
         error: function (jqXHR) {

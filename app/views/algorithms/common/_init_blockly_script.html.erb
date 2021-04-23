@@ -518,8 +518,9 @@ function setup_blockly_workspace(workspace) {
 
 function patch_localization() {
   // find out what lang is ON
-  const en = (Blockly.Msg["ADD_COMMENT"] === "Add Comment");
-  const ru = (Blockly.Msg["ADD_COMMENT"] === "Добавить комментарий");
+  const en = $('#lang').val() == 'en';
+  const ru = $('#lang').val() == 'ru';
+
   if (!en && !ru) {
 	console.log("Warning: Blockly's i10n patch: unknown language used, defaulting to English.");
   }
