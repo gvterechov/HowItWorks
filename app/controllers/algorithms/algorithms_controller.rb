@@ -12,21 +12,9 @@ class Algorithms::AlgorithmsController < ApplicationController
 
     @task_lang = data['task_lang']
     @result = COwl.creating_task(data)
+    @hide_trace = true
 
-    render '/algorithms/show_task'
-    # render '/algorithms/show_task_beta'
-  end
-
-  def show_task_beta
-    task = AlgorithmTask.find_by(token: params[:token])
-    task.update_column(:views_count, task.views_count + 1)
-
-    data = JSON.parse(task.data)
-
-    @task_lang = data['task_lang']
-    @result = COwl.creating_task(data)
-
-    render '/algorithms/show_task_beta'
+    render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
   end
 
   def check_expression
@@ -60,10 +48,6 @@ class Algorithms::AlgorithmsController < ApplicationController
       if task.save
         # TODO вот тут бы совсем правильный путь получить, с учетом языка клиента
         format.json { render json: { task_path: "/tasks/#{task.token}" }, status: :created }
-        # # хардкод: перенаправить обычный tasks/ -> tasks/beta/ с диаграммой (временно)
-        beta = true ? 'beta/' : ''
-        format.json { render json: { task_path: "/tasks/#{beta}#{task.token}" }, status: :created }
-        # #{I18n.locale}/
       else
         head :bad_request
       end
@@ -81,7 +65,6 @@ class Algorithms::AlgorithmsController < ApplicationController
                locals: {
                  data: result,
                  task_lang: params[:task_lang],
-                 hide_trace: true
                }
       }
     end

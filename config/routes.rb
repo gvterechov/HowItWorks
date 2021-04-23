@@ -24,10 +24,11 @@ Rails.application.routes.draw do
   routes = -> do
     namespace :algorithms do
       get '/', to: 'algorithms#index'
-      get '/beta', to: 'algorithms#index'
+      get '/beta', to: 'algorithms#index', defaults: {beta: false}
 
       get "/tasks/:token", to: 'algorithms#show_task'
-      get "/tasks/beta/:token", to: 'algorithms#show_task_beta'
+      get "/tasks/beta/:token", to: 'algorithms#show_task', defaults: {beta: true}
+      get "/beta/tasks/:token", to: 'algorithms#show_task', defaults: {beta: true}
       get :check_expression, to: 'algorithms#check_expression', format: :json
       post :create_task, to: 'algorithms#create_task', format: :json
       post :verify_trace_act, to: 'algorithms#verify_trace_act', format: :json
