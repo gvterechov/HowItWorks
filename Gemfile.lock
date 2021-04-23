@@ -199,9 +199,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (1.1.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
@@ -248,7 +245,6 @@ DEPENDENCIES
   scout_apm
   selenium-webdriver
   spring
-  turbolinks (~> 5)
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
