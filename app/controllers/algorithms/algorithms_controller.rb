@@ -64,7 +64,7 @@ class Algorithms::AlgorithmsController < ApplicationController
         render partial: (true ? '/algorithms/show_task/algorithm_trainer_beta' : '/algorithms/show_task/algorithm_trainer'),
                locals: {
                  data: result,
-                 task_lang: params[:task_lang],
+                 task_lang: params[:task_lang]
                }
       }
     end

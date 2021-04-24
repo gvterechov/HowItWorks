@@ -5,18 +5,18 @@
     </colgroup>
     <tr>
       <td>
-		<%
-			hide_trace ||= false  # set the default if not set
-		%>
-		<%= render partial: '/algorithms/show_task/algorithm_trainer',
-		       locals: {
-		         data: data,
-		         task_lang: task_lang,
-		         hide_trace: hide_trace
-		       }
-		%>
+        <%
+          hide_trace ||= false  # set the default if not set
+        %>
+        <%= render partial: '/algorithms/show_task/algorithm_trainer',
+              locals: {
+                data: data,
+                task_lang: task_lang,
+                hide_trace: hide_trace
+              }
+        %>
       </td>
-      <td id='diagram_area'>
+      <td id="diagram_area">
       </td>
     </tr>
   </table>
