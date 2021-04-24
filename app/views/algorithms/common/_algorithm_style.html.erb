@@ -4,7 +4,7 @@
 	/* Подсветка алгоритма */
 
 	#algorithm_text_field {
-	  font-family: courier; 
+	  font-family: courier;
 	  font-size: 10pt;
 	  line-height: 1.1;
 	}
@@ -34,12 +34,30 @@
       border: 1px dotted black;
       margin: -1px;
     }
-    
+
     .code-block {
       border-left: 1px solid transparent;
     }
     .code-line:hover > .code-block {
       border-left: 1px dotted green;
     }
+
+	/* Paper */
+	.paper_canvas{
+		z-index: -1000;
+		/*width: 100%;*/
+		/*height: 100%;*/
+		width: 2000px;  /* Нужно константно задать ширину, не меньшую, чем размер окна - но как её получить/сюда вписать? Нельзя, чтобы Canvas растягивался при масштабировании окна (чтобы изберать искажений изображения на нём). */
+		height: 600px;
+		position: absolute; /* change */
+		left: 0;
+		top: 0;
+	}
+
+	.table_with_diagram {
+	  height: 100%;
+	  width: 100%;
+	}
+	/* /Paper */
 
 </style>

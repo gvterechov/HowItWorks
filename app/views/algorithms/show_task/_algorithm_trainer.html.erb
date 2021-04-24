@@ -4,4 +4,7 @@
              task_lang: task_lang
            }
 %>
-<%= render partial: 'algorithms/common/trace_field', locals: { data: data } %>
+
+<% unless hide_trace %>
+  <%= render partial: 'algorithms/common/trace_field', locals: { data: data } %>
+<% end %>

@@ -1,0 +1,22 @@
+  <table class="table_with_diagram">
+    <colgroup>
+       <col span="1" style="width: 50%;">
+       <col span="1" style="width: 50%;">
+    </colgroup>
+    <tr>
+      <td>
+        <%
+          hide_trace ||= false  # set the default if not set
+        %>
+        <%= render partial: '/algorithms/show_task/algorithm_trainer',
+              locals: {
+                data: data,
+                task_lang: task_lang,
+                hide_trace: hide_trace
+              }
+        %>
+      </td>
+      <td id="diagram_area">
+      </td>
+    </tr>
+  </table>

@@ -12,8 +12,9 @@ class Algorithms::AlgorithmsController < ApplicationController
 
     @task_lang = data['task_lang']
     @result = COwl.creating_task(data)
+    @hide_trace = true
 
-    render '/algorithms/show_task'
+    render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
   end
 
   def check_expression
@@ -59,7 +60,8 @@ class Algorithms::AlgorithmsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        render partial: '/algorithms/show_task/algorithm_trainer',
+        # render partial: '/algorithms/show_task/algorithm_trainer',
+        render partial: (true ? '/algorithms/show_task/algorithm_trainer_beta' : '/algorithms/show_task/algorithm_trainer'),
                locals: {
                  data: result,
                  task_lang: params[:task_lang]
