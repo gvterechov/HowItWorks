@@ -14,7 +14,8 @@
     <%= render partial: 'algorithms/show_task/algorithm_trainer_beta',
                locals: {
                  data: @result,
-                 task_lang: @task_lang
+                 task_lang: @task_lang,
+                 hide_trace: @hide_trace
                }
     %>
     <%#= render partial: 'algorithms/common/trace_field', locals: { data: @result } %>
