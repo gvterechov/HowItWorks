@@ -1,4 +1,6 @@
 class Algorithms::AlgorithmsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:verify_trace_act]
+
   def index
     render '/algorithms/index'
   end
