@@ -5,7 +5,8 @@
 
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
-import "channels"
+import "../javascripts/channels"
+import 'semantic-ui/dist/semantic.js'
 
 Rails.start()
 ActiveStorage.start()

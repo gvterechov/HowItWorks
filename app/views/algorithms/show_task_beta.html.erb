@@ -3,7 +3,7 @@
 <%= render partial: 'algorithms/show_task/header' %>
 
 <!-- <script src="https://unpkg.com/blockly/blockly.min.js"></script> -->
-<%= render partial: 'algorithms/common/algorithm_style' %>
+<%= stylesheet_pack_tag 'algorithms' %>
 
 <input type="hidden" id="lang" value="<%= I18n.locale %>">
 <input type="hidden" id="task_lang" value="<%= @task_lang %>">
@@ -41,7 +41,7 @@
 <script type="text/javascript" src="/static/paper/activity-vis.js"> </script>
 <!-- /Paper -->
 
-<%= render partial: 'algorithms/show_task/show_task_script' %>
+<%= javascript_pack_tag 'algorithms' %>
 
 <script>
   $(function() {
