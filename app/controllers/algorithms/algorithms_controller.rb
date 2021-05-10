@@ -58,6 +58,7 @@ class Algorithms::AlgorithmsController < ApplicationController
 
   def verify_trace_act
     data = JSON.parse(params[:data])
+    data[:syntax] = params[:task_lang]
     result = COwl.verify_trace_act(data)
 
     respond_to do |format|
