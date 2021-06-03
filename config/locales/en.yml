@@ -32,8 +32,8 @@
 en:
   index:
     title: "How It Works"
-    expressions_trainer: 'Expressions trainer'
-    algorithms_trainer: 'Algorithms trainer'
+    expressions_trainer: 'Expressions exerciser'
+    algorithms_trainer: 'How It Works: Algorithms (exerciser)'
   copyright: 'POAS department, VSTU©'
   new: 'New task'
   share: 'Save task'
