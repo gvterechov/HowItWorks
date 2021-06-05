@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     root 'application#index', as: :root_with_locale
   end
 
+  get '/diagram-demo', to: redirect('/en/algorithms/beta/tasks/bd51df206deb86779699461bb4122822')
+
   routes = -> do
     namespace :expressions do
       get '/', to: 'expressions#index'

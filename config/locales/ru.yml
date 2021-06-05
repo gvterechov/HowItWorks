@@ -2,7 +2,7 @@ ru:
   index:
     title: "Как это работает"
     expressions_trainer: 'Тренажер выражений'
-    algorithms_trainer: 'Тренажер алгоритмов'
+    algorithms_trainer: 'Как это работает: Алгоритмы (тренажер)'
   copyright: 'Кафедра ПОАС, ВолгГТУ©'
   new: 'Новая задача'
   share: 'Сохранить задачу'

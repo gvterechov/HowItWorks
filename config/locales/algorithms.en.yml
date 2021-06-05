@@ -1,7 +1,7 @@
 en:
   algorithms:
     index:
-      title: 'Control flow statements'
+      title: 'How It Works: Algorithms - Control flow statements'
       algorithm: 'Algorithm'
       which_first: 'Which action has to be carried out first?'
       which_next: 'Which action has to be carried out next?'
