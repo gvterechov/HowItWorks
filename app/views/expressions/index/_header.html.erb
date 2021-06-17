@@ -3,25 +3,7 @@
     <%= link_to 'How It Works', root_path %>
   </div>
 
-  <div class="item">
-    <div class="ui basic buttons">
-<!--      <div class="ui button"><i class="file outline icon"></i> <%#= t('new') %></div>-->
-      <div class="ui button share" id="create_task"><i class="save icon"></i> <%= t('share') %></div>
-    </div>
-  </div>
-
-  <div class="ui fluid popup bottom left transition hidden share">
-<!--    <div class="ui action input">-->
-    <div class="ui input">
-      <input type="text" value="" id="task_url">
-      <!--
-      <button class="ui teal right labeled icon toggle button">
-        <i class="copy icon"></i>
-        <%= t('copy') %>
-      </button>
-      -->
-    </div>
-  </div>
+  <%= save_button %>
 
   <!--
   <div class="item">

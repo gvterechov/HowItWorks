@@ -103,7 +103,10 @@
           alert('error: create_task');
         },
         success: function (data) {
-          $("#task_url").val(window.location.href + data['task_path']);
+          let task_url = $("#task_url");
+          task_url.val(window.location.href + data['task_path']);
+          task_url.select();
+          task_url.parent().toggleClass('focus');
         },
         complete: function() {
           elem.toggleClass('loading');

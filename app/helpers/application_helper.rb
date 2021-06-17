@@ -16,6 +16,10 @@ module ApplicationHelper
     end
   end
 
+  def save_button
+    render partial: 'common/save_btn'
+  end
+
   # Генерирует альтернативный url для заданной локали на основе заданного url
   # @param original_url [String] исходная ссылка
   # @param locale [Symbol] локаль, для которой сгенерировать ссылку
