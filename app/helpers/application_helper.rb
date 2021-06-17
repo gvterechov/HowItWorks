@@ -11,7 +11,9 @@ module ApplicationHelper
         name = "<i class='#{flags[loc]} flag'></i> #{loc.to_s.capitalize!}".html_safe
         return link_to(name,
                        alternate_url(request.original_url, loc),
-                       class: "ui teal button")
+                       class: "ui teal button",
+                       'data-tooltip': I18n.t('change_language', locale: loc),
+                       'data-position': "bottom right")
       end
     end
   end
