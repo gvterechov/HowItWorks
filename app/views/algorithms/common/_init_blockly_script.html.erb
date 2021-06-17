@@ -480,13 +480,40 @@ function init_blockly_environment(argument=null) {
 
 function setup_blockly_workspace(workspace) {
 
-  // Восстановаить блоки из предыдущей сессии  
-  xml_text = load_xml()
-  if (xml_text)
+  function loadXML(xml_text)
   {
         var xml = Blockly.Xml.textToDom(xml_text);
 		Blockly.Xml.domToWorkspace(xml, workspace);
 		console.log("Blockly workspace restored.");
+  }
+
+  // Восстановить блоки из предыдущей сессии
+  xml_text = load_xml()
+  if (!xml_text) {
+  	// load the algorithm by default
+  	// const url = '/static/default-algorithm.xml'
+  	$.ajax({
+  	  method: "GET",
+  	  url: '/static/default-algorithm.xml',
+  	  // dataType: "text/plain",
+  	  mimeType: "text/plain",
+  	  dataFilter: function(data, dtype) {
+  	    // console.log('dataFilter: ' + data);
+  	  	return data.replace(/^"/, '').replace(/"$/, '');
+  	  },
+  	  error: function (jqXHR) {
+  	    // TODO показать сообщение об ошибке
+  	    console.warn('Warning: cannot fetch the algorithm by default.', jqXHR);
+  	  },
+  	  success: function (data) {
+  	    // console.log('loading XML: ' + data);
+  	  	loadXML(data);
+  	  }
+  	});
+  }
+  else if (xml_text)
+  {
+    loadXML(xml_text);
   }
 
   // сохраняем блоки в localStorage на случай внезапного закрытия страницы
