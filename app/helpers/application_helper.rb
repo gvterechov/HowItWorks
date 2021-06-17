@@ -5,11 +5,13 @@ module ApplicationHelper
   end
 
   def language_switcher
+    flags = { ru: 'ru', en: 'gb uk' }
     I18n.available_locales.each do |loc|
       if I18n.locale != loc
-        return link_to(loc.to_s.capitalize!,
+        name = "<i class='#{flags[loc]} flag'></i> #{loc.to_s.capitalize!}".html_safe
+        return link_to(name,
                        alternate_url(request.original_url, loc),
-                       class: "ui button")
+                       class: "ui teal button")
       end
     end
   end
