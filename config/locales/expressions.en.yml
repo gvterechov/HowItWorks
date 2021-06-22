@@ -6,16 +6,6 @@ en:
       expr_placeholder: 'Input expresion...'
     show_task:
       expression: 'Select operators in the order they are executed:'
-    teacher_modal:
-      header: 'Please tell us about yourself'
-      description: 'It is important for us to know who is interested in our service. We collect statistics to improve it.'
-      institution: 'Institution'
-      institution_placeholder: 'University of Oxford'
-      type: 'Type'
-      position: 'Position'
-      position_placeholder: 'Lecturer'
-      feedback: 'Feedback'
-      cancel: 'I want to stay incognito'
     success_modal:
       header: 'Congratulations!'
       description: 'You have successfully completed the task!'

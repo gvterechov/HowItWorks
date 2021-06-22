@@ -1,0 +1,62 @@
+<!-- teacher modal -->
+<div class="ui teacher tiny modal">
+  <i class="close icon"></i>
+  <div class="header">
+    <%= t('teacher_modal.header') %>
+  </div>
+  <div class="scrolling content">
+    <form class="ui form"
+          id="teacher_feedback">
+      <div class="description">
+        <p><%= t('teacher_modal.description') %></p>
+
+        <div class="field">
+          <label><%= t('teacher_modal.name') %>*</label>
+          <input id="teacher_name"
+                 type="text"
+                 name="full_name"
+                 placeholder="<%= t('teacher_modal.name_placeholder') %>">
+        </div>
+
+        <div class="field">
+          <label><%= t('teacher_modal.institution') %>*</label>
+          <!--
+          <div class="ui left action input">
+            <div class="ui basic floating dropdown button">
+              <div class="text"><%= t('teacher_modal.type') %></div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item">университет</div>
+                <div class="item">академия</div>
+                <div class="item">институт</div>
+              </div>
+            </div>
+
+          </div>-->
+          <input type="text" name="institution" placeholder="<%= t('teacher_modal.institution_placeholder') %>">
+        </div>
+        <div class="field">
+          <label><%= t('teacher_modal.position') %>*</label>
+          <input type="text" name="position" placeholder="<%= t('teacher_modal.position_placeholder') %>">
+        </div>
+        <div class="field">
+          <label><%= t('teacher_modal.feedback') %></label>
+          <textarea rows="3"
+                    name="feedback"
+                    placeholder="<%= t('teacher_modal.feedback_placeholder') %>"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div class="ui green button"
+         id="teacher_modal_submit_btn">
+      <%= t('submit') %>
+    </div>
+    <div class="ui right deny button">
+      <%= t('teacher_modal.cancel') %>
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'common/teacher_script' %>

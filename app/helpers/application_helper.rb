@@ -18,6 +18,16 @@ module ApplicationHelper
     end
   end
 
+  def feedback_button
+    button_tag(t('feedback'),
+               type: 'button',
+               id: 'feedback_btn',
+               class: 'ui basic button',
+               style: 'margin-right: 10px;',
+               'data-tooltip': I18n.t('teacher_modal.header'),
+               'data-position': "bottom center")
+  end
+
   def save_button
     render partial: 'common/save_btn'
   end
