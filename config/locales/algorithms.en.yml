@@ -3,6 +3,7 @@ en:
     index:
       title: 'How It Works: Algorithms - Control flow statements'
       algorithm: 'Algorithm'
+      build_trace: 'Build a program trace by clicking on the beginning and end of statements in the order of execution.'
       which_first: 'Which action has to be carried out first?'
       which_next: 'Which action has to be carried out next?'
       syntax_guide: 'Quick syntax guide'

@@ -2,7 +2,8 @@
   <div class="ui label">
     <%= task_lang.html_safe %>
   </div>
-  <label><%= (data[:full_trace_json]) ? t('algorithms.index.which_next') :  t('algorithms.index.which_first') %></label>
+  <label><%= t('algorithms.index.build_trace') %></label>
+  <label><%= (data[:full_trace_json]) ? t('algorithms.index.which_next') : t('algorithms.index.which_first') %></label>
   <div id="algorithm_text_field" class="ui message">
     <%= data[:algorithm_as_html].html_safe %>
   </div>
