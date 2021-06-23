@@ -1,22 +1,28 @@
 <div class="item">
   <div class="ui basic buttons">
     <!--      <div class="ui button"><i class="file outline icon"></i> <%#= t('new') %></div>-->
-    <div class="ui button share" id="create_task"><i class="save icon"></i> <%= t('share') %></div>
+    <div class="ui button share" id="save_task"><i class="save icon"></i> <%= t('share') %></div>
   </div>
 </div>
 
 <div class="ui fluid popup bottom left transition hidden share">
-  <!--    <div class="ui action input">-->
-  <div class="ui form" style="width: 530px;">
+  <!-- Вводим инфо о задаче сюда -->
+  <div id="task_info_form"
+       class="ui action input"
+       style="width: 530px;">
+    <input id="task_name"
+           type="text"
+           placeholder="<%= t('task_name_placeholder') %>">
+    <button class="ui teal button" id="create_task"><%= t('save') %></button>
+  </div>
+
+  <!-- Ссылка на сохраненную задачу -->
+  <div id="task_url_form"
+       class="ui form"
+       style="width: 530px;">
     <div class="field">
       <label><%= t('task_link') %></label>
-      <input type="text" value="" id="task_url">
-      <!--
-        <button class="ui teal right labeled icon toggle button">
-          <i class="copy icon"></i>
-          <%= t('copy') %>
-        </button>
-        -->
+      <input type="text" value="" id="task_url" readonly>
     </div>
   </div>
 </div>

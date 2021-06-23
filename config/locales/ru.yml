@@ -21,6 +21,7 @@ ru:
   share: 'Сохранить задачу'
   help: 'Помощь'
   syntax: 'Синтаксис'
+  save: 'Сохранить'
   copy: 'Копировать'
   submit: 'Отправить'
   examples: 'Примеры'
@@ -30,4 +31,5 @@ ru:
   sign_in: 'Войти'
   change_language: 'Изменить язык'
   feedback: 'Оставить отзыв'
+  task_name_placeholder: 'Введите имя задачи...'
   task_link: 'Ссылка на задачу'

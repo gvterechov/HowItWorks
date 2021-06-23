@@ -38,15 +38,31 @@
       }
     });
 
+    $('#save_task').click(function() {
+      $('#task_info_form').show();
+      $('#task_url_form').hide();
+    });
+
     // Сохранение выражения
     $('#create_task').click(function() {
+      // TODO заблокировать кнопку сохранения задачи, когда пустое имя задачи, если имя задано - разблокировать
+      if (taskName() == '') {
+        return;
+      }
+
       let elem = $(this);
       elem.toggleClass('loading');
 
       $.ajax({
         method: "POST",
         url: '/expressions/create_task',
-        data: { task: { expression: JSON.stringify(expressionTokens()), task_lang: taskLang() } },
+        data: {
+          task: {
+            expression: JSON.stringify(expressionTokens()),
+            task_lang: taskLang(),
+            title: taskName()
+          }
+        },
         // data: { task: JSON.stringify(prepareExpression()) },
         // dataType: "json",
         error: function (jqXHR) {
@@ -54,6 +70,9 @@
           alert('error');
         },
         success: function (data) {
+          $('#task_info_form').hide();
+          $('#task_url_form').show();
+
           let task_url = $("#task_url");
           task_url.val(window.location.href + data['task_path']);
           task_url.select();
@@ -110,6 +129,10 @@
         return $('.ui.dropdown.task_lang').dropdown('get value');
       }
       return $('#task_lang').val();
+    };
+
+    function taskName() {
+      return $('#task_name').val();
     };
 
     function expressionTokens(selected_index = null) {

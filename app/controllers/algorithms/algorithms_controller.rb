@@ -92,6 +92,6 @@ class Algorithms::AlgorithmsController < ApplicationController
   private
     # TODO вынести в tasks_controller
     def task_params
-      params.require(:task).permit(:data)
+      params.require(:task).permit(:data, :title)
     end
 end

@@ -52,6 +52,7 @@ en:
   share: 'Save task'
   help: 'Help'
   syntax: 'Syntax'
+  save: 'Save'
   copy: 'Copy'
   submit: 'Submit'
   examples: 'Examples'
@@ -61,4 +62,5 @@ en:
   sign_in: 'Sign in'
   change_language: 'Change language'
   feedback: 'Give feedback'
+  task_name_placeholder: 'Input task name...'
   task_link: 'Task link'
