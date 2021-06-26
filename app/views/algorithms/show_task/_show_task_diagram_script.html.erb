@@ -1,18 +1,19 @@
 <!-- Paper -->
 <canvas id="my_paper_canvas" class="paper_canvas"></canvas>
 
-<script type="text/paperscript" canvas="my_paper_canvas" src="/static/paper/paper-canvas.js"> </script>
+<script type="text/javascript" src="/static/paper/paper-canvas.js"> </script>
 
-<script type="text/javascript" src="/static/paper/paper-full.min.js"></script>
+<script type="text/javascript" src="/static/paper/paper-core.min.js"></script>
 
 <script type="text/javascript" src="/static/paper/diagram.js"> </script>
 <script type="text/javascript" src="/static/paper/activity-vis.js"> </script>
 <!-- /Paper -->
 
-
 <script>
   $(function() {
-    paper_on_load();
+    if ($('#preview_mode').val() != "true") {
+      paper_on_load();
+    }
   });
 
   function on_solve_step(is_final) {
@@ -22,29 +23,29 @@
   // paper
 
   function draw_diagram() {
-      let algorithm_json = JSON.parse($('#algorithm_json').val());
-      let existing_trace_json = JSON.parse($('#existing_trace_json').val());
-      const elem = $('#diagram_area');
-      const pos = elem.offset();
-      const width = elem.width();
-      const height = elem.height();
-      // console.log("pos:", pos);
-      const point = [pos.left, pos.top];
-      const size = [width, height];
+    let algorithm_json = JSON.parse($('#algorithm_json').val());
+    let existing_trace_json = JSON.parse($('#existing_trace_json').val());
+    const elem = $('#diagram_area');
+    const pos = elem.offset();
+    const width = elem.width();
+    const height = elem.height();
+    // console.log("pos:", pos);
+    const point = [pos.left, pos.top];
+    const size = [width, height];
 
-      redraw_activity_diagram(algorithm_json, existing_trace_json, {viewport: {point, size}});
+    redraw_activity_diagram(algorithm_json, existing_trace_json, {viewport: {point, size}});
   }
 
   function paper_on_load() {
     if (!window.globals || !window.globals.paper_init) {
       setTimeout(paper_on_load, 200);
-      console.log("Waiting for paperscript loaded ...")
+      console.log("Waiting for diagram script loaded ...")
       return;
     }
 
     console.log("paper_on_load() ...")
-        window.globals.paper_init();
-        diagram_init();
+    window.globals.paper_init("my_paper_canvas");
+    diagram_init();
     console.log("paper_on_load() OK.")
 
     // отрисовать диаграмму в первый раз
@@ -57,5 +58,4 @@
   }
 
   // /paper
-
 </script>
