@@ -487,6 +487,7 @@ function setup_blockly_workspace(workspace) {
     $.ajax({
       method: "GET",
       // исследовать: кешируется ли браузером? Если да, то прокидывать через экшн
+      cache: false,  // решение: https://stackoverflow.com/a/735084/12824563
       url: '/static/default-algorithm.xml',
       // dataType: "text/plain",
       mimeType: "text/plain",
