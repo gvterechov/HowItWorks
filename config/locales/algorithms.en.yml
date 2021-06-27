@@ -10,9 +10,5 @@ en:
       trace: 'Trace:'
       act_has_mistakes: 'You should pay attention'
       algorithm_error: 'Algorithm error, check the algorithm.'
-    success_modal:
-      header: 'Congratulations!'
-      description: 'You have successfully completed the task!'
-      ok: 'Ok'
     run: 'Get trace'
     check: 'Check'

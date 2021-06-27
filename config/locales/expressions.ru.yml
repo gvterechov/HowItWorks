@@ -6,9 +6,5 @@ ru:
       expr_placeholder: 'Введите выражение...'
     show_task:
       expression: 'Выбирайте операторы в порядке их выполнения:'
-    success_modal:
-      header: 'Поздравляем!'
-      description: 'Вы успешно справились с заданием!'
-      ok: 'Продолжить'
     run: 'Получить трассу'
     prepare: 'Запустить'

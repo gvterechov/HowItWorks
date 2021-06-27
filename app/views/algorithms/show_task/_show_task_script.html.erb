@@ -1,3 +1,4 @@
+<%= render partial: 'common/attempt_script' %>
 <script>
   $(function() {
     // $('.ui.dropdown').dropdown();
@@ -36,14 +37,16 @@
       // заменим кнопки на часики: hourglass half
       $('#algorithm_text_field .icon').removeClass("alg_button tooltip play stop").addClass("hourglass half");
 
-
-
       $.ajax({
         method: "POST",
         // url: '/algorithms/' + $('#lang').val() + '/verify_trace_act',
         // url: '/algorithms/verify_trace_act',
         url: '/' + $('#lang').val() + '/algorithms/verify_trace_act',
-        data: { data: JSON.stringify(prepareData($(this))), task_lang: $('#task_lang').val() },
+        data: {
+          data: JSON.stringify(prepareData($(this))),
+          task_lang: $('#task_lang').val(),
+          attempt_id: $('#attempt_id').val()
+        },
         // dataType: "json",
         error: function (jqXHR) {
           // TODO показать сообщение об ошибке
@@ -59,6 +62,7 @@
           // Показать модальное окно об успешном завершении задачи
           // (если в full_trace_json есть акт, у которого is_final true)
           if ($('#is_final').length > 0) {
+            getAttemptData();
             $('.ui.modal.success').modal('show');
 
           	// Задача решена - убрать все кнопки из algorithm_text_field

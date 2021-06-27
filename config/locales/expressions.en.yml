@@ -6,9 +6,5 @@ en:
       expr_placeholder: 'Input expresion...'
     show_task:
       expression: 'Select operators in the order they are executed:'
-    success_modal:
-      header: 'Congratulations!'
-      description: 'You have successfully completed the task!'
-      ok: 'Ok'
     run: 'Get trace'
     prepare: 'Prepare'

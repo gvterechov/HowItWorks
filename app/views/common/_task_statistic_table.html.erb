@@ -1,0 +1,41 @@
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <h3>
+      <%= link_to "<i class='reply icon'></i>#{t('my_tasks')}".html_safe,
+                  tasks_path,
+                  class: 'ui basic button'
+      %>
+      <%= t('task_statistic.attempts') %>: <%= task_name(task) %>
+    </h3>
+    <div class="row">
+      <table class="ui selectable striped table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th><%= t('task_statistic.completion_time') %></th>
+          <th><%= t('task_statistic.student') %></th>
+          <th><%= t('task_statistic.steps') %></th>
+          <th><%= t('task_statistic.errors') %></th>
+          <th><%= t('task_statistic.completed_successfully') %></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% task.attempts
+                .order(updated_at: :desc)
+                .each_with_index do |attempt, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= full_datetime(attempt.updated_at) %></td>
+            <td><%= attempt.student_name %></td>
+            <td><%= attempt.total_steps %></td>
+            <td><%= attempt.error_steps %></td>
+            <td><%= book_icon(attempt.done?) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <h3>
+      <%= t('my_tasks') %>
+      <%= link_to "<i class='plus icon'></i>#{t('new')}".html_safe,
+                  new_task_path,
+                  class: 'ui basic button'
+      %>
+    </h3>
+    <div class="row">
+      <table class="ui selectable striped table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th><%= t('tasks.created_at') %></th>
+          <th><%= t('tasks.name') %></th>
+          <th><%= t('tasks.views_count') %></th>
+          <th><%= t('tasks.started_attempts_count') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% tasks.each_with_index do |task, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= full_date(task.created_at) %></td>
+            <td>
+              <%= link_to task_name(task),
+                          "#{show_task_path}/#{task.token}",
+                          target: '_blank'
+              %>
+            </td>
+            <td><%= task.views_count %></td>
+            <td>
+              <% if task.attempts.count > 0 %>
+                <%= link_to task.attempts.count,
+                            "#{show_task_path}/#{task.token}/statistic",
+                            target: '_blank',
+                            'data-tooltip': t('tasks.show_statistic')
+                %>
+              <% else %>
+                0
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

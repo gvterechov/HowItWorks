@@ -1,0 +1,12 @@
+<%
+  best_attempt = attempt.task.best_attempt
+%>
+<div class="ui info message">
+  <div class="header">
+    <%= task_result_in(attempt) %>
+  </div>
+  <ul class="list">
+    <li><%= task_total_steps(attempt, best_attempt) %>;</li>
+    <li><%= task_error_steps(attempt, best_attempt) %>.</li>
+  </ul>
+</div>

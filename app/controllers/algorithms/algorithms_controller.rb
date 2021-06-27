@@ -7,10 +7,10 @@ class Algorithms::AlgorithmsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def show_task
-    task = AlgorithmTask.find_by(token: params[:token])
-    task.update_column(:views_count, task.views_count + 1)
+    @task = AlgorithmTask.find_by(token: params[:token])
+    @task.update_column(:views_count, @task.views_count + 1)
 
-    data = JSON.parse(task.data)
+    data = JSON.parse(@task.data)
 
     @task_lang = data['task_lang']
     @result = COwl.creating_task(data)
@@ -19,6 +19,7 @@ class Algorithms::AlgorithmsController < ApplicationController
     render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
   end
 
+  # TODO объединить с verify_trace_act?
   def check_expression
     data = JSON.parse(params[:data])
     data[:syntax] = data[:task_lang]
@@ -61,6 +62,22 @@ class Algorithms::AlgorithmsController < ApplicationController
     data[:syntax] = params[:task_lang]
     result = COwl.verify_trace_act(data)
 
+    if params[:attempt_id].present?
+      # Есть ошибка - когда статус хотя бы одного узла выражения 'wrong'
+      was_error = false
+      # Задача решена - когда нет кликабельных узлов выражения
+      done = false
+
+      trace_json = (result[:full_trace_json] || result[:trace_json])
+      if trace_json.present?
+        was_error = trace_json.any? { |elem| !elem[:is_valid] }
+        done = trace_json.any? { |elem| elem[:is_final] }
+      end
+
+      Attempt.find(params[:attempt_id])
+        &.increment_steps(was_error: was_error, done: done)
+    end
+
     respond_to do |format|
       format.html {
         # render partial: '/algorithms/show_task/algorithm_trainer',
@@ -87,6 +104,20 @@ class Algorithms::AlgorithmsController < ApplicationController
     respond_to do |format|
       format.json { render json: result, status: :ok }
     end
+  end
+
+  # TODO вынести в tasks_controller
+  def tasks
+    @tasks = AlgorithmTask.all.includes(:attempts).order(:created_at)
+
+    render '/algorithms/tasks'
+  end
+
+  # TODO вынести в tasks_controller
+  def task_statistic
+    @task = AlgorithmTask.includes(:attempts).find_by(token: params[:token])
+
+    render '/algorithms/task_statistic'
   end
 
   private

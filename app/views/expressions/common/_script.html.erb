@@ -1,4 +1,5 @@
 <!-- TODO временно вынести в отдельный партиал и подключить на странице просмотра задачи -->
+<%= render partial: 'common/attempt_script' %>
 <script>
   $(function() {
     $('.ui.dropdown.task_lang').dropdown({
@@ -93,7 +94,10 @@
         method: "GET",
         // url: '/check_expression.json',
         url: '/expressions/check_expression',
-        data: { data: JSON.stringify(prepareExpression(index)) },
+        data: {
+          data: JSON.stringify(prepareExpression(index)),
+          attempt_id: $('#attempt_id').val()
+        },
         // dataType: "json",
         error: function (jqXHR) {
           // TODO показать сообщение об ошибке
@@ -105,6 +109,7 @@
           $('.operator').click(operatorClick);
           // Если все кнопки отключены, то задача успешно решена
           if ($('.operator').length == $('.operator.disabled').length) {
+            getAttemptData();
             $('.ui.modal.success').modal('show');
           }
         },

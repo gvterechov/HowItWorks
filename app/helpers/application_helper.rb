@@ -33,6 +33,15 @@ module ApplicationHelper
     render partial: 'common/save_btn'
   end
 
+  def tasks_button(href)
+    # TODO показывать только залогиненым
+    css_class = 'item'
+    css_class += 'active' if request.fullpath.match(href)
+    link_to t('my_tasks'),
+            href,
+            class: css_class
+  end
+
   # Генерирует альтернативный url для заданной локали на основе заданного url
   # @param original_url [String] исходная ссылка
   # @param locale [Symbol] локаль, для которой сгенерировать ссылку
@@ -49,5 +58,9 @@ module ApplicationHelper
     else
       "#{original_url}/#{locale}"
     end
+  end
+
+  def task_name(task)
+    task.title.presence || t('name_not_set')
   end
 end

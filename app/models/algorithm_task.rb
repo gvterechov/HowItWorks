@@ -11,9 +11,15 @@
 #  title       :string           default("")
 #
 class AlgorithmTask < ApplicationRecord
+  has_many :attempts, as: :task
+
   before_create :set_token
 
   validates :title, presence: true
+
+  def best_attempt
+    attempts.was_done.order(:total_steps).first
+  end
 
   private
 

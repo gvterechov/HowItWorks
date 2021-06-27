@@ -1,0 +1,15 @@
+<% title t('algorithms.index.title') %>
+
+<%= render partial: 'algorithms/common/header' %>
+
+<input type="hidden" id="lang" value="<%= I18n.locale %>">
+
+<%= render partial: 'common/tasks_table',
+           locals: {
+             tasks: @tasks,
+             new_task_path: "/#{I18n.locale}/algorithms",
+             show_task_path: "/algorithms/tasks"
+           }
+%>
+
+<%#= render partial: 'common/footer' %>

@@ -1,10 +1,12 @@
 <% title t('expressions.index.title') %>
 
-<%= render partial: 'expressions/task/header' %>
+<%= render partial: 'expressions/common/header' %>
 
 <input type="hidden" id="lang" value="<%= I18n.locale %>">
 <input type="hidden" id="task_lang" value="<%= @task_lang %>">
 <input type="hidden" id="expression" value="<%= @expression_sting %>">
+<input type="hidden" id="task_token" value="<%= @task.token %>">
+<input type="hidden" id="task_type" value="<%= @task.class.name %>">
 
 <div class="ui aligned basic segment">
   <div class="ui centered grid">
@@ -29,6 +31,8 @@
 
 <%= render partial: 'common/footer' %>
 
-<%= render partial: 'expressions/common/success_modal' %>
+<%= render partial: 'common/success_modal' %>
+
+<%= render partial: 'common/student_modal' %>
 
 <%= render partial: 'expressions/common/script' %>

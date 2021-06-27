@@ -5,12 +5,12 @@ class Expressions::ExpressionsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def show_task
-    task = ExpressionTask.find_by(token: params[:token])
-    task.update_column(:views_count, task.views_count + 1)
+    @task = ExpressionTask.find_by(token: params[:token])
+    @task.update_column(:views_count, @task.views_count + 1)
 
-    @task_lang = task.task_lang
+    @task_lang = @task.task_lang
 
-    expression_json = JSON.parse(task.expression)
+    expression_json = JSON.parse(@task.expression)
     @expression_sting = expression_json.reduce("") { |memo, elem| memo << "#{elem['text']} " }.chop!
 
     expression = { expression: expression_json, lang: I18n.locale.to_s }
@@ -23,6 +23,16 @@ class Expressions::ExpressionsController < ApplicationController
   def check_expression
     data = JSON.parse(params[:data])
     result = OwlEvaluationOrderCheck.call(data)
+
+    if params[:attempt_id].present?
+      # Есть ошибка - когда статус хотя бы одного узла выражения 'wrong'
+      was_error = result[:expression].any? { |elem| elem[:status] == 'wrong' }
+      # Задача решена - когда нет кликабельных узлов выражения
+      done = !result[:expression].any? { |elem| elem[:enabled] }
+
+      Attempt.find(params[:attempt_id])
+             &.increment_steps(was_error: was_error, done: done)
+    end
 
     respond_to do |format|
       format.html { render partial: '/expressions/common/expression_trainer', locals: { data: result } }
@@ -41,6 +51,20 @@ class Expressions::ExpressionsController < ApplicationController
         head :bad_request
       end
     end
+  end
+
+  # TODO вынести в tasks_controller
+  def tasks
+    @tasks = ExpressionTask.all.includes(:attempts).order(:created_at)
+
+    render '/expressions/tasks'
+  end
+
+  # TODO вынести в tasks_controller
+  def task_statistic
+    @task = ExpressionTask.includes(:attempts).find_by(token: params[:token])
+
+    render '/expressions/task_statistic'
   end
 
   private

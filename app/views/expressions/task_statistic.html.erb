@@ -1,0 +1,14 @@
+<% title t('expressions.index.title') %>
+
+<%= render partial: 'expressions/common/header' %>
+
+<input type="hidden" id="lang" value="<%= I18n.locale %>">
+
+<%= render partial: 'common/task_statistic_table',
+           locals: {
+             task: @task,
+             tasks_path: "/#{I18n.locale}/expressions/tasks"
+           }
+%>
+
+<%#= render partial: 'common/footer' %>

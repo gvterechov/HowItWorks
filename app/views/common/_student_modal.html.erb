@@ -1,0 +1,32 @@
+<!-- student modal -->
+<div class="ui student tiny modal">
+  <div class="header">
+    <%= t('student_modal.header') %>
+  </div>
+  <div class="scrolling content">
+    <form class="ui form"
+          id="student_feedback">
+      <div class="description">
+        <p><%= t('student_modal.description') %></p>
+
+        <div class="field">
+          <label><%= t('student_modal.name') %>*</label>
+          <input id="student_name"
+                 type="text"
+                 name="full_name"
+                 placeholder="<%= t('student_modal.name_placeholder') %>">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div class="ui green button"
+         id="student_modal_submit_btn">
+      <%= t('student_modal.start_attempt') %>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="attempt_id" value="">
+
+<%= render partial: 'common/student_script' %>

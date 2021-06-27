@@ -1,0 +1,37 @@
+<script>
+  $(function() {
+    $('.ui.modal.student').modal('setting', 'closable', false);
+    $('.ui.modal.student').modal('show');
+
+    // Создаем попытку, когда студент ввел имя
+    $('#student_modal_submit_btn').click(function(){
+      let elem = $(this);
+      elem.toggleClass('loading');
+
+      $.ajax({
+        method: "POST",
+        url: '/attempts.json',
+        data: {
+          attempt: {
+            student_name: $('#student_name').val(),
+            task_type: $('#task_type').val(),
+            task_token: $('#task_token').val()
+          }
+        },
+        // dataType: "json",
+        error: function (jqXHR) {
+          // TODO показать сообщение об ошибке
+          alert('error');
+        },
+        success: function (data) {
+          $('#attempt_id').val(data['id']);
+          $('.ui.modal.student').modal('hide');
+        },
+        complete: function() {
+          // TODO разблокировать нажатие на элементы алгоритма
+          elem.toggleClass('loading');
+        }
+      });
+    });
+  });
+</script>
