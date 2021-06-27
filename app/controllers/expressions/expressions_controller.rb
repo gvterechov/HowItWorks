@@ -44,6 +44,7 @@ class Expressions::ExpressionsController < ApplicationController
   # TODO вынести в tasks_controller
   def create_task
     task = ExpressionTask.new(task_params)
+    task.user_id = current_user.id if current_user.present?
 
     respond_to do |format|
       if task.save
@@ -57,14 +58,20 @@ class Expressions::ExpressionsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def tasks
-    @tasks = ExpressionTask.all.includes(:attempts).order(:created_at)
+    @tasks = current_user.expression_tasks
+                         .includes(:attempts)
+                         .order(:created_at)
 
     render '/expressions/tasks'
   end
 
   # TODO вынести в tasks_controller
   def task_statistic
-    @task = ExpressionTask.includes(:attempts).find_by(token: params[:token])
+    @task = current_user.expression_tasks
+                        .includes(:attempts)
+                        .find_by(token: params[:token])
+
+    return if @task.blank?
 
     render '/expressions/task_statistic'
   end

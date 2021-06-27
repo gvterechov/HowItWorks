@@ -9,9 +9,11 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  title       :string           default("")
+#  user_id     :bigint
 #
 class AlgorithmTask < ApplicationRecord
-  has_many :attempts, as: :task
+  has_many :attempts, as: :task, dependent: :destroy
+  belongs_to :user
 
   before_create :set_token
 
@@ -19,6 +21,10 @@ class AlgorithmTask < ApplicationRecord
 
   def best_attempt
     attempts.was_done.order(:total_steps).first
+  end
+
+  def linked_to_user?
+    user_id.present?
   end
 
   private

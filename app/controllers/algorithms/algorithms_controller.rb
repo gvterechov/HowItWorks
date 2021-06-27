@@ -47,6 +47,7 @@ class Algorithms::AlgorithmsController < ApplicationController
   # TODO вынести в tasks_controller
   def create_task
     task = AlgorithmTask.new(task_params)
+    task.user_id = current_user.id if current_user.present?
 
     respond_to do |format|
       if task.save
@@ -109,14 +110,20 @@ class Algorithms::AlgorithmsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def tasks
-    @tasks = AlgorithmTask.all.includes(:attempts).order(:created_at)
+    @tasks = current_user.algorithm_tasks
+                         .includes(:attempts)
+                         .order(:created_at)
 
     render '/algorithms/tasks'
   end
 
   # TODO вынести в tasks_controller
   def task_statistic
-    @task = AlgorithmTask.includes(:attempts).find_by(token: params[:token])
+    @task = current_user.algorithm_tasks
+                        .includes(:attempts)
+                        .find_by(token: params[:token])
+
+    return if @task.blank?
 
     render '/algorithms/task_statistic'
   end

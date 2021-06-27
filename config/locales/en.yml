@@ -64,7 +64,7 @@ en:
     name: 'Name'
     views_count: 'Views count'
     started_attempts_count: 'Started attempts count'
-    show_statistic: 'Show statistic'
+    show_statistic: 'Show statistics'
   task_statistic:
     attempts: 'Attempts for task'
     completion_time: 'Completed at'
