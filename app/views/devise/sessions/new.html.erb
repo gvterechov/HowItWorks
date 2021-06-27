@@ -1,0 +1,57 @@
+<%= render partial: 'common/devise/style' %>
+<%= render partial: 'common/devise/script' %>
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <!--      <img src="assets/images/logo.png" class="image">-->
+      <div class="content">
+        Log-in to your account
+      </div>
+    </h2>
+    <%= form_for resource, as: resource_name,
+                 url: session_path(resource_name),
+                 html: {
+                   class: 'ui large form'
+                 } do |f| %>
+      <div class="ui stacked segment">
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail address" %>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password" %>
+          </div>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="field">
+            <div class="ui checkbox">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me, style: 'cursor: pointer;' %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="ui fluid large teal submit button">Login</div>
+      </div>
+
+<!--      <div class="ui error message">-->
+        <%#= render "devise/shared/error_messages", resource: resource %>
+<!--      </div>-->
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+
+<!--    <div class="ui message">-->
+<!--      New to us? <a href="#">Sign Up</a>-->
+<!--    </div>-->
+  </div>
+</div>

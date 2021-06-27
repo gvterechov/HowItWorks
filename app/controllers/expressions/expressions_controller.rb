@@ -1,4 +1,6 @@
 class Expressions::ExpressionsController < ApplicationController
+  before_action :authenticate_user!, only: [:tasks, :task_statistic]
+
   def index
     render '/expressions/index'
   end

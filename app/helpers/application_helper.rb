@@ -34,12 +34,30 @@ module ApplicationHelper
   end
 
   def tasks_button(href)
-    # TODO показывать только залогиненым
-    css_class = 'item'
-    css_class += 'active' if request.fullpath.match(href)
-    link_to t('my_tasks'),
-            href,
-            class: css_class
+    if current_user.present?
+      css_class = 'item'
+      css_class += 'active' if request.fullpath.match(href)
+      link_to t('my_tasks'),
+              href,
+              class: css_class
+    end
+  end
+
+  def sign_out_button
+    link_to("#{sign_out_icon}#{t('sign_out')}".html_safe,
+            destroy_user_session_url,
+            style: 'margin-right: 10px;',
+            'data-method': :delete)
+  end
+
+  def sign_in_button
+    link_to("#{sign_in_icon}#{t('sign_in')}".html_safe,
+            new_user_session_url,
+            style: 'margin-right: 10px;')
+  end
+
+  def user_session_button
+    current_user.present? ? sign_out_button : sign_in_button
   end
 
   # Генерирует альтернативный url для заданной локали на основе заданного url

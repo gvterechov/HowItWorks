@@ -92,6 +92,7 @@ en:
   example2: 'Example 2'
   example3: 'Example 3'
   sign_in: 'Sign in'
+  sign_out: 'Sign out'
   change_language: 'Change language'
   feedback: 'Give feedback'
   task_name_placeholder: 'Input task name...'

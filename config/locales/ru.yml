@@ -61,6 +61,7 @@ ru:
   example2: 'Пример 2'
   example3: 'Пример 3'
   sign_in: 'Войти'
+  sign_out: 'Выйти'
   change_language: 'Изменить язык'
   feedback: 'Оставить отзыв'
   task_name_placeholder: 'Введите имя задачи...'

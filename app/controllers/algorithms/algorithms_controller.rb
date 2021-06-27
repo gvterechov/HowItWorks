@@ -1,4 +1,5 @@
 class Algorithms::AlgorithmsController < ApplicationController
+  before_action :authenticate_user!, only: [:tasks, :task_statistic]
   skip_before_action :verify_authenticity_token, only: [:verify_trace_act]
 
   def index
