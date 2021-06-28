@@ -80,8 +80,8 @@ en:
     bad_result: 'Your result is below average :('
     result_in: 'Your result is among the %{percent}% of the best!'
     steps_count: 'total steps: %{steps}'
-    error_steps_count: 'steps with error: %{steps}'
-    steps_from_best: '%{steps} more than best'
+    error_steps_count: 'wrong steps: %{steps}'
+    steps_from_best: '%{steps} more than the best'
   task_claim:
     success: 'Task "%{task_title}" was successfully attached'
     have_user: 'Task "%{task_title}" is already attached to another user'
