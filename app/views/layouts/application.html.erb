@@ -23,5 +23,7 @@
 
   <body>
     <%= yield %>
+
+    <input type="hidden" id="lang" value="<%= I18n.locale %>">
   </body>
 </html>
