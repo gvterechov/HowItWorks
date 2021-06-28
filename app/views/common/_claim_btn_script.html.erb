@@ -33,7 +33,7 @@
         success: function (data) {
           $('#claimed_result').html(data['message']);
 
-          $('#task_url').val('');
+          $('#claimed_task_url').val('');
 
           $('#task_url_form').hide();
           $('#task_success_form').show();
@@ -45,7 +45,7 @@
     });
 
     function taskUrl() {
-      return $('#task_url').val();
+      return $('#claimed_task_url').val();
     }
   });
 </script>
