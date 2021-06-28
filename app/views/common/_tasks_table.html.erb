@@ -14,8 +14,8 @@
           <th>#</th>
           <th><%= t('tasks.created_at') %></th>
           <th><%= t('tasks.name') %></th>
-          <th><%= t('tasks.views_count') %></th>
           <th><%= t('tasks.started_attempts_count') %></th>
+          <th><%= t('tasks.done_attempts_count') %></th>
         </tr>
         </thead>
         <tbody>
@@ -29,7 +29,6 @@
                           target: '_blank'
               %>
             </td>
-            <td><%= task.views_count %></td>
             <td>
               <% if task.attempts.count > 0 %>
                 <%= link_to task.attempts.count,
@@ -41,6 +40,7 @@
                 0
               <% end %>
             </td>
+            <td><%= task.attempts.was_done.count %></td>
           </tr>
         <% end %>
         </tbody>

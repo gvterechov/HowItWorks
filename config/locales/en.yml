@@ -64,6 +64,7 @@ en:
     name: 'Name'
     views_count: 'Views count'
     started_attempts_count: 'Started attempts count'
+    done_attempts_count: 'Successful attempts count'
     show_statistic: 'Show statistics'
     claim: 'Claim task by url'
   task_statistic:

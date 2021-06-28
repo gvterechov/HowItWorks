@@ -33,6 +33,7 @@ ru:
     name: 'Название'
     views_count: 'Количество просмотров'
     started_attempts_count: 'Количество начатых попыток'
+    done_attempts_count: 'Количество успешных попыток'
     show_statistic: 'Посмотреть статистику'
     claim: 'Привязать задачу по ссылке'
   task_statistic:
