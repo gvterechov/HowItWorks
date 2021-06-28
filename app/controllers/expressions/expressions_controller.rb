@@ -49,7 +49,7 @@ class Expressions::ExpressionsController < ApplicationController
     respond_to do |format|
       if task.save
         # TODO вот тут бы совсем правильный путь получить, с учетом языка клиента
-        format.json { render json: { task_path: "/tasks/#{task.token}" }, status: :created }
+        format.json { render json: { task_path: "/tasks/#{task.token}", task_title: task.title }, status: :created }
       else
         head :bad_request
       end

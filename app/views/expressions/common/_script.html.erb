@@ -71,13 +71,15 @@
           alert('error');
         },
         success: function (data) {
-          $('#task_info_form').hide();
-          $('#task_url_form').show();
-
           let task_url = $("#task_url");
           task_url.val(window.location.href + data['task_path']);
           task_url.select();
           task_url.parent().toggleClass('focus');
+
+          $('#saved_task_name').html(data['task_title']);
+
+          $('#task_info_form').hide();
+          $('#task_url_form').show();
         },
         complete: function() {
           elem.toggleClass('loading');
