@@ -65,6 +65,7 @@ en:
     views_count: 'Views count'
     started_attempts_count: 'Started attempts count'
     show_statistic: 'Show statistics'
+    claim: 'Claim task by url'
   task_statistic:
     attempts: 'Attempts for task'
     completion_time: 'Completed at'
@@ -79,6 +80,11 @@ en:
     steps_count: 'total steps: %{steps}'
     error_steps_count: 'steps with error: %{steps}'
     steps_from_best: '%{steps} more than best'
+  task_claim:
+    success: 'Task "%{task_title}" was successfully attached'
+    have_user: 'Task "%{task_title}" is already attached to another user'
+    your_task: 'Task "%{task_title}" is already assigned to you'
+    not_exists: 'Task does not exist'
   copyright: 'POAS department, VSTU©'
   new: 'New task'
   share: 'Save task'
@@ -98,4 +104,5 @@ en:
   change_language: 'Change language'
   feedback: 'Give feedback'
   task_name_placeholder: 'Input task name...'
+  task_url_placeholder: 'Input task url...'
   task_link: 'Task link'

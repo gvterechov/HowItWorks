@@ -1,0 +1,29 @@
+<div class="ui basic button claim"
+     id="claim_task"
+     style="margin-right: 10px;"
+>
+  <i class="linkify icon"></i> <%= t('tasks.claim') %>
+</div>
+
+<div class="ui fluid popup bottom left transition hidden claim">
+  <!-- Вводим ссылку на задачу сюда -->
+  <div id="task_url_form"
+       class="ui action input"
+       style="width: 530px;">
+    <input id="task_url"
+           type="text"
+           placeholder="<%= t('task_url_placeholder') %>">
+    <button class="ui teal button" id="claim_task_btn"><%= t('save') %></button>
+  </div>
+
+  <!-- Инфо об успешно сохраненной задаче -->
+  <div id="task_success_form"
+       class="ui form"
+       style="width: 530px;">
+    <div class="field">
+      <div id="claimed_result" class="ui message"></div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'common/claim_btn_script' %>

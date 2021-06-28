@@ -34,6 +34,7 @@ ru:
     views_count: 'Количество просмотров'
     started_attempts_count: 'Количество начатых попыток'
     show_statistic: 'Посмотреть статистику'
+    claim: 'Привязать задачу по ссылке'
   task_statistic:
     attempts: 'Попытки для задачи'
     completion_time: 'Время завершения'
@@ -48,6 +49,11 @@ ru:
     steps_count: 'шагов сделано: %{steps}'
     error_steps_count: 'ошибочных шагов: %{steps}'
     steps_from_best: 'на %{steps} больше, чем наилучший'
+  task_claim:
+    success: 'Задача "%{task_title}" успешно прикреплена'
+    have_user: 'Задача "%{task_title}" уже прикреплена к другому пользователю'
+    your_task: 'Задача "%{task_title}" уже закреплена за Вами'
+    not_exists: 'Задача не существует'
   copyright: 'Кафедра ПОАС, ВолгГТУ©'
   new: 'Новая задача'
   share: 'Сохранить задачу'
@@ -67,4 +73,5 @@ ru:
   change_language: 'Изменить язык'
   feedback: 'Оставить отзыв'
   task_name_placeholder: 'Введите имя задачи...'
+  task_url_placeholder: 'Ссылка на задачу...'
   task_link: 'Ссылка на задачу'

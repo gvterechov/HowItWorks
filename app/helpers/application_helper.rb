@@ -60,6 +60,10 @@ module ApplicationHelper
     current_user.present? ? sign_out_button : sign_in_button
   end
 
+  def claim_task_button
+    render partial: 'common/claim_btn' if current_user.present?
+  end
+
   # Генерирует альтернативный url для заданной локали на основе заданного url
   # @param original_url [String] исходная ссылка
   # @param locale [Symbol] локаль, для которой сгенерировать ссылку

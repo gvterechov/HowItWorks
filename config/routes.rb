@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get :statistic
     end
   end
+  put '/users/claim_task', to: 'users#claim_task', format: :json
 
   scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
     root 'application#index', as: :root_with_locale
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
         get :statistic
       end
     end
+    put '/users/claim_task', to: 'users#claim_task', format: :json
   end
 
   get '/diagram-demo', to: redirect('/en/algorithms/beta/tasks/bd51df206deb86779699461bb4122822')
