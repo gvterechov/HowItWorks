@@ -16,8 +16,8 @@
           <th><%= t('task_statistic.student') %></th>
           <th><%= t('task_statistic.steps') %></th>
           <th><%= t('task_statistic.errors') %></th>
+          <th><%= t('task_statistic.duration') %></th>
           <th><%= t('task_statistic.completed_successfully') %></th>
-          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +30,7 @@
             <td><%= attempt.student_name %></td>
             <td><%= attempt.total_steps %></td>
             <td><%= attempt.error_steps %></td>
+            <td><%= full_time(attempt.duration) %></td>
             <td><%= book_icon(attempt.done?) %></td>
           </tr>
         <% end %>

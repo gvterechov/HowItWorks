@@ -42,6 +42,7 @@ ru:
     student: 'Студент'
     steps: 'Шагов'
     errors: 'Ошибок'
+    duration: 'Длительность'
     completed_successfully: 'Завершил успешно?'
     best_result: 'Ваш результат лучший!'
     average_result: 'Вы показали средний результат'

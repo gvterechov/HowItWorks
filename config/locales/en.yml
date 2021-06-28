@@ -73,6 +73,7 @@ en:
     student: 'Student'
     steps: 'Steps'
     errors: 'Errors'
+    duration: 'Duration'
     completed_successfully: 'Completed successfully?'
     best_result: 'Your result is the best!'
     average_result: 'You showed an average result'

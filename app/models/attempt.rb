@@ -30,4 +30,8 @@ class Attempt < ApplicationRecord
     updated_at if done?
     nil
   end
+
+  def duration
+    Time.at(updated_at - created_at).utc
+  end
 end
