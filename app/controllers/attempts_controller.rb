@@ -19,13 +19,17 @@ class AttemptsController < ApplicationController
 
   # GET /attempts/1/statistic
   def statistic
-    @attempt = Attempt.includes(task: :attempts).find(params[:id])
+    @attempt = Attempt.includes(task: :attempts).find_by(id: params[:id])
 
     respond_to do |format|
-      format.html { render partial: 'expressions/common/attempt_statistic',
-                           locals: { attempt: @attempt },
-                           layout: false
-      }
+      if @attempt.present?
+        format.html { render partial: 'expressions/common/attempt_statistic',
+                             locals: { attempt: @attempt },
+                             layout: false
+        }
+      else
+        format.html { head :ok }
+      end
     end
   end
 
