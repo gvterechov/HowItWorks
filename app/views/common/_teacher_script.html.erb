@@ -43,8 +43,8 @@
     function showTeacherModal() {
       if (getCookie('teacher_modal_was_shown') == undefined) {
         $('.ui.modal.teacher').modal('show');
-        // запомнить что модальное окно уже было показано, не показывать больше
-        document.cookie = 'teacher_modal_was_shown=true';
+        // запомнить (на 1 год) что модальное окно уже было показано, не показывать больше
+        document.cookie = 'teacher_modal_was_shown=true; max-age=31536000';
       }
     }
 
