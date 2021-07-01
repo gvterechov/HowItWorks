@@ -1,5 +1,6 @@
 <div class="field">
-  <label>
+
+  <span>
     <%= t('algorithms.index.algorithm') %>:<!-- (<a href="<%#= asset_pack_path("media/pdf/syntax_guide.pdf") %>"
                                     target="_blank"><%= t('algorithms.index.syntax_guide') %></a>):-->
 
@@ -10,8 +11,15 @@
       <span class="text"><%= t('syntax') %></span>
     </div>
 
-    <div class="ui mini green button" id="prepare"><i class="play icon"></i> <%= t('algorithms.run') %></div>
-  </label>
+    <div class="ui mini green button" id="prepare"><i class="chevron down icon"></i> <%= t('algorithms.run') %></div>
+
+    <div class="ui mini green button" id="preview"><i class="play icon"></i> <%= t('algorithms.preview') %></div>
+
+    <div class="ui mini checkbox disabled" id="enable_diagram_check">
+      <input type="checkbox" class="hidden">
+      <label><%= t('algorithms.enable_diagram') %></label>
+    </div>
+  </span>
 
   <!-- TODO for style guide
   <div class="ui button">Show flowing popup</div>

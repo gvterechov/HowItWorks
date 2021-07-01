@@ -6,10 +6,14 @@
 <%= render partial: 'algorithms/common/algorithm_style' %>
 
 <input type="hidden" id="task_lang" value="<%= @task_lang %>">
-<input type="hidden" id="task_token" value="<%= @task.token %>">
-<input type="hidden" id="task_type" value="<%= @task.class.name %>">
+<input type="hidden" id="task_token" value="<%= @preview_mode? 'null' : @task.token %>">
+<input type="hidden" id="task_type" value="<%= @preview_mode? 'null' : @task.class.name %>">
+<input type="hidden" id="preview_mode" value="<%= @preview_mode %>">
 
 <div class="ui aligned basic segment">
+
+  <div class="ui mini blue button <%= if @preview_mode then '' else 'hidden' end %>" id="back_to_editor"><i class="edit icon"></i> <%= t('algorithms.back_to_editor') %></div>
+
   <div class="ui form" id="algorithm_trainer">
     <!--  'algorithms/common/algorithm_text_field' -->
     <%= render partial: 'algorithms/show_task/algorithm_trainer_beta',
