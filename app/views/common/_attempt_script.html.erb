@@ -1,5 +1,10 @@
 <script>
   function getAttemptData() {
+
+    // не выполнять запрос в режиме preview
+    if (window.location.href.includes('preview'))
+      return;
+
     $.ajax({
       method: "GET",
       url: '/' + $('#lang').val() + '/attempts/' + $('#attempt_id').val() + '/statistic',
