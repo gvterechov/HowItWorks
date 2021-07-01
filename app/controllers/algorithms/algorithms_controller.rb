@@ -15,6 +15,26 @@ class Algorithms::AlgorithmsController < ApplicationController
 
     @task_lang = data['task_lang']
     @result = COwl.creating_task(data)
+    @preview_mode = false
+    @hide_trace = true
+
+    render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
+  end
+
+  def preview_task
+    # preview mode
+    @task = {
+      token: 'null'
+    }
+    @result = {
+      syntax_errors: [],
+      algorithm_json: {},
+      algorithm_as_html: t('algorithms.index.algorithm_loading'),
+      trace_json: []
+    }
+    @task_lang = 'C++' # just avoiding invalid values
+
+    @preview_mode = true
     @hide_trace = true
 
     render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
@@ -38,7 +58,9 @@ class Algorithms::AlgorithmsController < ApplicationController
                                         locals: {
                                           errors: result[:syntax_errors]
                                         },
-                                        layout: false)
+                                        layout: false),
+          algorithm_json: result[:algorithm_json],
+          algorithm_as_html: result[:algorithm_as_html]
         }
       }
     end

@@ -3,6 +3,12 @@
   $(function() {
     // $('.ui.dropdown').dropdown();
 
+    // Кнопка "возврат в редактор"
+    $('#back_to_editor').click(function() {
+      window.location.href = window.location.href.replace("/tasks/preview", '');
+    });
+
+
     $('.ui.modal').modal({
       allowMultiple: false
     });
@@ -10,10 +16,78 @@
     $('.second.modal')
         .modal('attach events', '.first.modal .button');
 
-	function bindAlgorithmButtons(argument) {
+	function bindAlgorithmButtons() {
 	    $('.alg_button').click(algorithmClick);
     }
+
+  function initPreviewMode() {
+    // получить syntax и XML из localstorage
+    // запросить check_expression с синтаксисом
+    // получить данные по алгоритму
+    // отрисовать его
+
+    // move the button to be outside of replaceable div
+    // $("#back_to_editor").before($("#algorithm_trainer"));
+    var target = document.getElementById('algorithm_trainer').parentNode;
+    target.prepend(document.getElementById('back_to_editor'));
+
+    const task_syntax = localStorage.task_syntax || "<%= t('algorithms.default_syntax') %>";
+    const blockly_xml = localStorage.blockly_xml_backup || null;
+
+    // update text of label & hidden field
+    $('#syntax_label').html(task_syntax);
+    $('#task_lang').val(task_syntax);
+
+    if (!blockly_xml) {
+          algorithm_text_field = $('#algorithm_text_field');
+          algorithm_text_field.addClass('negative');
+          // TODO: add i18n
+          algorithm_text_field.html("!<br><%= t('algorithms.empty_algorithm') %>");
+          return;
+    }
+
+    let lang = $('#lang').val();
+    const check_data = { algorithm_text: blockly_xml, task_lang: task_syntax, user_language: lang }
+
+
+    $.ajax({
+      method: "GET",
+      url: '/algorithms/check_expression',
+      data: { data: JSON.stringify(check_data) },
+      // dataType: "json",
+      error: function (jqXHR) {
+        // TODO показать сообщение об ошибке
+        alert('error: making task');
+      },
+      success: function (data) {
+        data = JSON.parse(data);
+        const algorithm_text_field = $('#algorithm_text_field');
+        algorithm_text_field.removeClass('negative');
+        if (data['errors_html'].length > 0) {
+          algorithm_text_field.addClass('negative');
+          algorithm_text_field.html("!<br>" + data['errors_html']);
+        } else {
+          $('#algorithm_json').val(JSON.stringify(data['algorithm_json']));
+          algorithm_text_field.html(data['algorithm_as_html']);
+          bindAlgorithmButtons();
+          // run custom init code
+          if (window.paper_on_load)
+            paper_on_load()
+        }
+      // },
+      // complete: function() {
+      //   // elem.toggleClass('loading');
+      }
+    });
+
+  }
+
+
+  if ($('#preview_mode').val() == "true") {
+    initPreviewMode();
+  } else {
     bindAlgorithmButtons();
+  }
 
     function prepareData(elem) {
       let lang = $('#lang').val();
