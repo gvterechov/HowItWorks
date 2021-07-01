@@ -14,6 +14,8 @@ class Algorithms::AlgorithmsController < ApplicationController
     data = JSON.parse(@task.data)
 
     @task_lang = data['task_lang']
+    @task_token = @task.token
+    @task_type = @task.class.name
     @result = COwl.creating_task(data)
     @preview_mode = false
     @hide_trace = true
@@ -33,6 +35,8 @@ class Algorithms::AlgorithmsController < ApplicationController
       trace_json: []
     }
     @task_lang = 'C++' # just avoiding invalid values
+    @task_token = 'null'
+    @task_type = 'null'
 
     @preview_mode = true
     @hide_trace = true
