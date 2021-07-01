@@ -67,11 +67,11 @@
 
           	// Задача решена - убрать все кнопки из algorithm_text_field
           	$('.alg_button').remove();
-            on_solve_step(true);
+            if (window.on_solve_step) on_solve_step(true);
 
           } else {
             bindAlgorithmButtons();
-            on_solve_step(false);
+            if (window.on_solve_step) on_solve_step(false);
           }
 
         }//,
