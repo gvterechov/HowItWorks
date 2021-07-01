@@ -12,7 +12,7 @@
 
 <div class="ui aligned basic segment">
 
-  <div class="ui mini blue button <%= if @preview_mode then '' else 'hidden' end %>" id="back_to_editor"><i class="edit icon"></i> <%= t('algorithms.back_to_editor') %></div>
+  <div class="ui mini blue button" <% unless @preview_mode %> style="display: none;" <% end %> id="back_to_editor"><i class="edit icon"></i> <%= t('algorithms.back_to_editor') %></div>
 
   <div class="ui form" id="algorithm_trainer">
     <!--  'algorithms/common/algorithm_text_field' -->
@@ -35,7 +35,8 @@
 
 <%= render partial: 'algorithms/show_task/student_first_modal' %>
 <%= render partial: 'algorithms/show_task/student_second_modal' %>
-<%= render partial: 'algorithms/show_task/show_task_script' %>
-
 
 <%= render partial: 'algorithms/show_task/show_task_diagram_script' %>
+
+<%= render partial: 'algorithms/show_task/show_task_script' %>
+
