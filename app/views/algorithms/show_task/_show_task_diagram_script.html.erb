@@ -37,24 +37,13 @@
   }
 
   function paper_on_load() {
-    if (!window.globals || !window.globals.paper_init) {
-      setTimeout(paper_on_load, 200);
-      console.log("Waiting for diagram script loaded ...")
-      return;
-    }
-
-    console.log("paper_on_load() ...")
+    console.debug("paper_on_load() ...")
     window.globals.paper_init("my_paper_canvas");
     diagram_init();
-    console.log("paper_on_load() OK.")
+    console.debug("paper_on_load() OK.")
 
     // отрисовать диаграмму в первый раз
     draw_diagram();
-
-    // /// test canvas
-    // var myCircle = new paper.Path.Circle(new paper.Point(600, 170), 150);
-    // myCircle.fillColor = 'black';
-    // // console.log(myCircle);
   }
 
   // /paper
