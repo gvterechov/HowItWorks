@@ -56,6 +56,20 @@ ru:
     have_user: 'Задача "%{task_title}" уже прикреплена к другому пользователю'
     your_task: 'Задача "%{task_title}" уже закреплена за Вами'
     not_exists: 'Задача не существует'
+  devise:
+    login_placeholder: 'Войти в свой аккаунт'
+    email: 'E-mail адрес'
+    password: 'Пароль'
+    password_confirmation: 'Подтверждение пароля'
+    remember_me: 'Запомнить меня'
+    login: 'Войти'
+    forgot_password: 'Забыли пароль?'
+    send_reset: 'Отправить инструкцию по сбросу пароля'
+    sign_up_placeholder: 'Зарегистрироваться'
+    sign_up: 'Зарегистрироваться'
+    didnt_receive_confirmation: "Не получили инструкции по подтверждению?"
+    didnt_receive_unlock: "Не получили инструкции по разблокированию?"
+    sign_in_with: 'Войти при помощи %{provider}'
   copyright: 'Кафедра ПОАС, ВолгГТУ©'
   new: 'Новая задача'
   share: 'Сохранить задачу'

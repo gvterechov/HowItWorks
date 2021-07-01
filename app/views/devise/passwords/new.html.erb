@@ -6,7 +6,7 @@
     <h2 class="ui teal image header">
       <!--      <img src="assets/images/logo.png" class="image">-->
       <div class="content">
-        Forgot your password?
+        <%= t('devise.forgot_password') %>
       </div>
     </h2>
     <%= form_for resource, as: resource_name,
@@ -21,11 +21,11 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail address" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: t('devise.email') %>
           </div>
         </div>
 
-        <div class="ui fluid large teal submit button">Send me reset password instructions</div>
+        <div class="ui fluid large teal submit button"><%= t('devise.send_reset') %></div>
       </div>
 
 <!--      <div class="ui error message">-->

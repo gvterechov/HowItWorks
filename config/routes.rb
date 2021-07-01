@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'application#index'
   resource :teacher_feedback, only: :create
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   put '/users/claim_task', to: 'users#claim_task', format: :json
 
   scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
+    devise_for :users
     root 'application#index', as: :root_with_locale
     resource :teacher_feedback, only: :create
     resources :attempts, only: :create do

@@ -6,7 +6,7 @@
     <h2 class="ui teal image header">
       <!--      <img src="assets/images/logo.png" class="image">-->
       <div class="content">
-        Log-in to your account
+        <%= t('devise.login_placeholder') %>
       </div>
     </h2>
     <%= form_for resource, as: resource_name,
@@ -20,14 +20,14 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail address" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: t('devise.email') %>
           </div>
         </div>
 
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password" %>
+            <%= f.password_field :password, autocomplete: "current-password", placeholder: t('devise.password') %>
           </div>
         </div>
 
@@ -35,12 +35,12 @@
           <div class="field">
             <div class="ui checkbox">
               <%= f.check_box :remember_me %>
-              <%= f.label :remember_me, style: 'cursor: pointer;' %>
+              <%= f.label :remember_me, t('devise.remember_me'), style: 'cursor: pointer;' %>
             </div>
           </div>
         <% end %>
 
-        <div class="ui fluid large teal submit button">Login</div>
+        <div class="ui fluid large teal submit button"><%= t('devise.login') %></div>
       </div>
 
 <!--      <div class="ui error message">-->

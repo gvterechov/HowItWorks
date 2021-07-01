@@ -87,6 +87,20 @@ en:
     have_user: 'Task "%{task_title}" is already attached to another user'
     your_task: 'Task "%{task_title}" is already assigned to you'
     not_exists: 'Task does not exist'
+  devise:
+    login_placeholder: 'Log-in to your account'
+    email: 'E-mail address'
+    password: 'Password'
+    password_confirmation: 'Password confirmation'
+    remember_me: 'Remember me'
+    login: 'Login'
+    forgot_password: 'Forgot your password?'
+    send_reset: 'Send me reset password instructions'
+    sign_up_placeholder: 'Sign up'
+    sign_up: 'Sign up'
+    didnt_receive_confirmation: "Didn't receive confirmation instructions?"
+    didnt_receive_unlock: "Didn't receive unlock instructions?"
+    sign_in_with: 'Sign in with %{provider}'
   copyright: 'POAS department, VSTU©'
   new: 'New task'
   share: 'Save task'

@@ -6,7 +6,7 @@
     <h2 class="ui teal image header">
       <!--      <img src="assets/images/logo.png" class="image">-->
       <div class="content">
-        Sign up
+        <%= t('devise.sign_up_placeholder') %>
       </div>
     </h2>
     <%= form_for resource, as: resource_name,
@@ -20,25 +20,25 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail address" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: t('devise.email') %>
           </div>
         </div>
 
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password" %>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: t('devise.password') %>
           </div>
         </div>
 
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Password confirmation" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: t('devise.password_confirmation') %>
           </div>
         </div>
 
-        <div class="ui fluid large teal submit button">Sign up</div>
+        <div class="ui fluid large teal submit button"><%= t('devise.sign_up') %></div>
       </div>
 
 <!--      <div class="ui error message">-->
