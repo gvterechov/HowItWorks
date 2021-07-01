@@ -1,4 +1,5 @@
 class AttemptsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create]
   # POST /attempts.json
   def create
     new_attempt_params = attempt_params.slice(:student_name, :task_type)
