@@ -16,8 +16,8 @@
     $('.second.modal')
         .modal('attach events', '.first.modal .button');
 
-	function bindAlgorithmButtons() {
-	    $('.alg_button').click(algorithmClick);
+    function bindAlgorithmButtons() {
+      $('.alg_button').click(algorithmClick);
     }
 
   function initPreviewMode() {
@@ -39,11 +39,11 @@
     $('#task_lang').val(task_syntax);
 
     if (!blockly_xml) {
-          algorithm_text_field = $('#algorithm_text_field');
-          algorithm_text_field.addClass('negative');
-          // TODO: add i18n
-          algorithm_text_field.html("!<br><%= t('algorithms.empty_algorithm') %>");
-          return;
+      algorithm_text_field = $('#algorithm_text_field');
+      algorithm_text_field.addClass('negative');
+      // TODO: add i18n
+      algorithm_text_field.html("!<br><%= t('algorithms.empty_algorithm') %>");
+      return;
     }
 
     let lang = $('#lang').val();
@@ -139,13 +139,17 @@
             getAttemptData();
             $('.ui.modal.success').modal('show');
 
-          	// Задача решена - убрать все кнопки из algorithm_text_field
-          	$('.alg_button').remove();
-            if (window.on_solve_step) on_solve_step(true);
+            // Задача решена - убрать все кнопки из algorithm_text_field
+            $('.alg_button').remove();
+            if (window.on_solve_step) {
+              on_solve_step(true);
+            }
 
           } else {
             bindAlgorithmButtons();
-            if (window.on_solve_step) on_solve_step(false);
+            if (window.on_solve_step) {
+              on_solve_step(false);
+            }
           }
 
         }//,

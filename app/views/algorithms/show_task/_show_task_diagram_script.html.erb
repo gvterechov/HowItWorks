@@ -36,16 +36,17 @@
   }
 
   function paper_on_load() {
+  	// wait until all functions are available: call this function again a little later
     if (!window.globals || !window.globals.paper_init) {
       setTimeout(paper_on_load, 200);
-      console.log("Waiting for paperscript loaded ...")
+      console.debug("Waiting for paper scripts loaded ...")
       return;
     }
 
-    console.log("paper_on_load() ...")
-        window.globals.paper_init();
-        diagram_init();
-    console.log("paper_on_load() OK.")
+    console.debug("paper_on_load() ...")
+    window.globals.paper_init();
+    diagram_init();
+    console.debug("paper_on_load() OK.")
 
     // отрисовать диаграмму в первый раз
     draw_diagram();
