@@ -1,7 +1,7 @@
 en:
   expressions:
     index:
-      title: 'Expression execution order'
+      title: 'How It Works: Expression execution order'
       expression: 'Input expression, split tokens with a space'
       expr_placeholder: 'Input expresion...'
     show_task:

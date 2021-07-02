@@ -32,7 +32,7 @@
 en:
   index:
     title: "How It Works"
-    expressions_trainer: 'Expressions exerciser'
+    expressions_trainer: 'How It Works: Expressions exerciser'
     algorithms_trainer: 'How It Works: Algorithms (exerciser)'
     expressions_trainer_description: 'How It Works: Expressions is a constraint-based online tutor for developing comprehension of concepts affecting the order of execution of an expression, i.e. precedence and associativity.'
     algorithms_trainer_description: 'How It Works: Algorithms is a constraint-based online tutor for developing comprehension of basic control-flow structures like sequences, branches, and repetitions. The student is presented an algorithm and asked to build its execution trace by clicking on the icons "play" (begin or execute) and "stop" (finish executing) near its parts.'
