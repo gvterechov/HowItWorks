@@ -10,7 +10,6 @@ en:
       trace: 'Trace:'
       act_has_mistakes: 'You should pay attention'
       algorithm_error: 'Algorithm error, check the algorithm.'
-      algorithm_loading: 'Loading... Please wait...'
     run: 'Get trace'
     preview: 'Exercise preview'
     enable_diagram: 'Enable flowchart (beta)'

@@ -31,7 +31,7 @@ class Algorithms::AlgorithmsController < ApplicationController
     @result = {
       syntax_errors: [],
       algorithm_json: {},
-      algorithm_as_html: t('algorithms.index.algorithm_loading'),
+      algorithm_as_html: t('loading_please_wait'),
       trace_json: []
     }
     @task_lang = 'C++' # just avoiding invalid values
