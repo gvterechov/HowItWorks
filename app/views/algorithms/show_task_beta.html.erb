@@ -10,6 +10,9 @@
 <input type="hidden" id="task_type" value="<%= @task_type %>">
 <input type="hidden" id="preview_mode" value="<%= @preview_mode %>">
 
+<input type="hidden" id="default_syntax" value="<%= t('algorithms.default_syntax') %>">
+<input type="hidden" id="empty_algorithm" value="<%= t('algorithms.empty_algorithm') %>">
+
 <div class="ui aligned basic segment">
 
   <div class="ui mini blue button" <%= 'style="display: none;"' unless @preview_mode %> id="back_to_editor"><i class="edit icon"></i> <%= t('algorithms.back_to_editor') %></div>

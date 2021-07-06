@@ -31,7 +31,7 @@ $(function() {
     var target = document.getElementById('algorithm_trainer').parentNode;
     target.prepend(document.getElementById('back_to_editor'));
 
-    const task_syntax = localStorage.task_syntax || "<%= t('algorithms.default_syntax') %>";
+    const task_syntax = localStorage.task_syntax || $('#default_syntax').val();
     const blockly_xml = localStorage.blockly_xml_backup || null;
 
     // update text of label & hidden field
@@ -42,7 +42,7 @@ $(function() {
       algorithm_text_field = $('#algorithm_text_field');
       algorithm_text_field.addClass('negative');
       // TODO: add i18n
-      algorithm_text_field.html("!<br><%= t('algorithms.empty_algorithm') %>");
+      algorithm_text_field.html("!<br>" + $('#empty_algorithm').val());
       return;
     }
 
