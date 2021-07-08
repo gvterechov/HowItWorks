@@ -28,7 +28,7 @@ $(function() {
 
     // move the button to be outside of replaceable div
     // $("#back_to_editor").before($("#algorithm_trainer"));
-    var target = document.getElementById('algorithm_trainer').parentNode;
+    let target = document.getElementById('algorithm_trainer').parentNode;
     target.prepend(document.getElementById('back_to_editor'));
 
     const task_syntax = localStorage.task_syntax || $('#default_syntax').val();
