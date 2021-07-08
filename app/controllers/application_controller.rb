@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
   def index
   end
 
+  def publications
+  end
+
   private
     def set_locale
       locale_from_header = extract_locale_from_accept_language_header
