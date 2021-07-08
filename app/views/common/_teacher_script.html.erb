@@ -1,8 +1,26 @@
 <script>
+  // Показать анкету для преподавателя
+  function showTeacherModal() {
+    if (getCookie('teacher_modal_was_shown') == undefined) {
+      $('.ui.modal.teacher').modal('show');
+      // запомнить (на 1 год) что модальное окно уже было показано, не показывать больше
+      document.cookie = 'teacher_modal_was_shown=true; max-age=31536000';
+    }
+  }
+
+  // возвращает куки с указанным name,
+  // или undefined, если ничего не найдено
+  function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  }
+
   $(function() {
-    setTimeout(function() {
-      showTeacherModal();
-    }, 1000);
+    // setTimeout(function() {
+    //   showTeacherModal();
+    // }, 1000);
 
     $('#feedback_btn').click(function() {
       showTeacherModal();
@@ -38,24 +56,6 @@
         }
       });
     });
-
-    // Показать анкету для преподавателя
-    function showTeacherModal() {
-      if (getCookie('teacher_modal_was_shown') == undefined) {
-        $('.ui.modal.teacher').modal('show');
-        // запомнить (на 1 год) что модальное окно уже было показано, не показывать больше
-        document.cookie = 'teacher_modal_was_shown=true; max-age=31536000';
-      }
-    }
-
-    // возвращает куки с указанным name,
-    // или undefined, если ничего не найдено
-    function getCookie(name) {
-      let matches = document.cookie.match(new RegExp(
-          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-      ));
-      return matches ? decodeURIComponent(matches[1]) : undefined;
-    }
 
     // Запомнить имя преподавателя, если оно задано, использовать его при генерации ссылки на задачу
     function saveTeacherName() {

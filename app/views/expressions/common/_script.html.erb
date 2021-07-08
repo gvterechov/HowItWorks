@@ -1,5 +1,7 @@
 <!-- TODO временно вынести в отдельный партиал и подключить на странице просмотра задачи -->
 <%= render partial: 'common/attempt_script' %>
+<%= render partial: 'common/teacher_script' %>
+
 <script>
   $(function() {
     $('.ui.dropdown.task_lang').dropdown({
@@ -79,6 +81,7 @@
           $('#saved_task_name').html(data['task_title']);
 
           $('#task_info_form').hide();
+          showTeacherModal();
           $('#task_url_form').show();
         },
         complete: function() {

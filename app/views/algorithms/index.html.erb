@@ -17,6 +17,8 @@
 <!-- TODO не рендерить для залогиненных -->
 <%= render partial: 'common/teacher_modal' %>
 
+<%= render partial: 'common/teacher_script' %>
+
 <script>
   $(function() {
     $('.ui.dropdown.task_lang').toggleClass('loading');
@@ -120,6 +122,7 @@
           $('#saved_task_name').html(data['task_title']);
 
           $('#task_info_form').hide();
+          showTeacherModal();
           $('#task_url_form').show();
         },
         complete: function() {
