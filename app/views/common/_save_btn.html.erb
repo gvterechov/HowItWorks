@@ -7,13 +7,22 @@
 
 <div class="ui fluid popup bottom left transition hidden share">
   <!-- Вводим инфо о задаче сюда -->
-  <div id="task_info_form"
-       class="ui action input"
-       style="width: 530px;">
-    <input id="task_name"
-           type="text"
-           placeholder="<%= t('task_name_placeholder') %>">
-    <button class="ui teal button" id="create_task"><%= t('save') %></button>
+  <div id="task_info_form">
+    <div class="ui checkbox"
+         style="margin-bottom: 10px;">
+      <input type="checkbox"
+             id="collect_statistics"
+             checked>
+      <label><%= t('collect_statistics') %></label>
+    </div>
+
+    <div class="ui action input"
+         style="width: 530px;">
+      <input id="task_name"
+             type="text"
+             placeholder="<%= t('task_name_placeholder') %>">
+      <button class="ui teal button" id="create_task"><%= t('save') %></button>
+    </div>
   </div>
 
   <!-- Ссылка на сохраненную задачу -->

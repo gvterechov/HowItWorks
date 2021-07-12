@@ -25,7 +25,9 @@
 
 <%= render partial: 'common/success_modal' %>
 
-<%= render partial: 'common/student_modal' %>
+<% if @task.introduce_yourself? %>
+  <%= render partial: 'common/student_modal' %>
+<% end %>
 
 <%= render partial: 'algorithms/show_task/student_first_modal' %>
 <%= render partial: 'algorithms/show_task/student_second_modal' %>

@@ -123,3 +123,4 @@ en:
   task_url_placeholder: 'Input task url...'
   task_link: 'Link for task'
   publications: 'Our publications'
+  collect_statistics: 'Collect statistics?'

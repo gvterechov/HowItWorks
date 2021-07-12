@@ -63,7 +63,8 @@
           task: {
             expression: JSON.stringify(expressionTokens()),
             task_lang: taskLang(),
-            title: taskName()
+            title: taskName(),
+            introduce_yourself: collectStatistics()
           }
         },
         // data: { task: JSON.stringify(prepareExpression()) },
@@ -143,6 +144,10 @@
 
     function taskName() {
       return $('#task_name').val();
+    };
+
+    function collectStatistics() {
+      return $('#collect_statistics').prop('checked');
     };
 
     function expressionTokens(selected_index = null) {
