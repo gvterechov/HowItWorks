@@ -1,6 +1,6 @@
 class Algorithms::AlgorithmsController < ApplicationController
   before_action :authenticate_user!, only: [:tasks, :task_statistic]
-  skip_before_action :verify_authenticity_token, only: [:verify_trace_act]
+  skip_before_action :verify_authenticity_token, only: [:verify_trace_act, :create_task]
 
   def index
     render '/algorithms/index'
@@ -14,7 +14,31 @@ class Algorithms::AlgorithmsController < ApplicationController
     data = JSON.parse(@task.data)
 
     @task_lang = data['task_lang']
+    @task_token = @task.token
+    @task_type = @task.class.name
     @result = COwl.creating_task(data)
+    @preview_mode = false
+    @hide_trace = true
+
+    render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
+  end
+
+  def preview_task
+    # preview mode
+    @task = {
+      token: 'null'
+    }
+    @result = {
+      syntax_errors: [],
+      algorithm_json: {},
+      algorithm_as_html: t('loading_please_wait'),
+      trace_json: []
+    }
+    @task_lang = 'C++' # just avoiding invalid values
+    @task_token = 'null'
+    @task_type = 'null'
+
+    @preview_mode = true
     @hide_trace = true
 
     render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
@@ -38,7 +62,9 @@ class Algorithms::AlgorithmsController < ApplicationController
                                         locals: {
                                           errors: result[:syntax_errors]
                                         },
-                                        layout: false)
+                                        layout: false),
+          algorithm_json: result[:algorithm_json],
+          algorithm_as_html: result[:algorithm_as_html]
         }
       }
     end

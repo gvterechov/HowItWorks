@@ -49,6 +49,8 @@ Rails.application.routes.draw do
       get '/beta', to: 'algorithms#index', defaults: {beta: false}
 
       get :tasks, to: 'algorithms#tasks'
+      get "/tasks/preview", to: 'algorithms#preview_task'
+      get "/beta/tasks/preview", to: 'algorithms#preview_task', defaults: {beta: true}
       get "/tasks/:token", to: 'algorithms#show_task'
       get "/tasks/:token/statistic", to: 'algorithms#task_statistic'
       get "/beta/tasks/:token", to: 'algorithms#show_task', defaults: {beta: true}

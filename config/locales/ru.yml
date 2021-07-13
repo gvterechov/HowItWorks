@@ -93,3 +93,4 @@ ru:
   task_link: 'Ссылка на задачу'
   publications: 'Наши публикации'
   collect_statistics: 'Собирать статистику?'
+  loading_please_wait: 'Загрузка... Подождите...'

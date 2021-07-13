@@ -1,5 +1,10 @@
 <script>
   $(function() {
+
+    // не показывать модальное окно в режиме preview
+    if (window.location.href.includes('preview'))
+      return;
+
     $('.ui.modal.student').modal('setting', 'closable', false);
     $('.ui.modal.student').modal('show');
 

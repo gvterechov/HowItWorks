@@ -35,6 +35,10 @@
         $('.ui.dropdown.task_lang').dropdown({
           values: data['available_syntaxes']
         });
+        // set value as choosen before
+        if (localStorage.task_syntax) {
+          $('.ui.dropdown.task_lang').dropdown('set selected', localStorage.task_syntax);
+        }
       },
       complete: function() {
         $('.ui.dropdown.task_lang').toggleClass('loading');
@@ -81,11 +85,34 @@
       });
     });
 
-    // Кнокпка "запустить" по нажатию на Enter
+    // Кнопка "запустить" по нажатию на Enter
     $(document).keyup(function(event) {
       if (event.keyCode == 13) {
         $('#prepare').click();
       }
+    });
+
+    // Кнопка "Предпросмотр"
+    $('#preview').click(function() {
+      // Save syntax to be accessible from preview page
+      const task_syntax = taskLang();
+      localStorage.task_syntax = task_syntax;
+
+      window.location.href = (window.location.href.replace(/\/$/, "") + "/tasks/preview");
+    });
+
+    // Галочка "Включить активити-диаграмму"
+    let is_beta = window.location.href.includes('beta');
+    let enable_diagram_check = $('#enable_diagram_check');
+    enable_diagram_check.checkbox(is_beta? 'set checked' : 'set unchecked');
+    enable_diagram_check.checkbox("set enabled");
+    enable_diagram_check.checkbox({
+        onChecked: function() {
+          window.location.href = window.location.href.replace("/algorithms", "/algorithms/beta");
+        },
+        onUnchecked: function() {
+          window.location.href = window.location.href.replace("/algorithms/beta", "/algorithms");
+        }
     });
 
     $('#save_task').click(function() {
