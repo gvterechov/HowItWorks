@@ -79,6 +79,6 @@ class Expressions::ExpressionsController < ApplicationController
   private
     # TODO вынести в tasks_controller
     def task_params
-      params.require(:task).permit(:expression, :task_lang, :title)
+      params.require(:task).permit(:expression, :task_lang, :title, :introduce_yourself)
     end
 end
