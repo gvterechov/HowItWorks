@@ -15,7 +15,7 @@
 
 <div class="ui aligned basic segment">
 
-  <div class="ui mini blue button" <%= 'style="display: none;"' unless @preview_mode %> id="back_to_editor"><i class="edit icon"></i> <%= t('algorithms.back_to_editor') %></div>
+  <div class="ui mini blue button" <%= 'style="display: none;"'.html_safe unless @preview_mode %> id="back_to_editor"><i class="edit icon"></i> <%= t('algorithms.back_to_editor') %></div>
 
   <div class="ui form" id="algorithm_trainer">
     <!--  'algorithms/common/algorithm_text_field' -->
