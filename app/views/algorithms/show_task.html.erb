@@ -6,7 +6,7 @@
 <%= render partial: 'algorithms/common/algorithm_style' %>
 
 <input type="hidden" id="task_lang" value="<%= @task_lang %>">
-<input type="hidden" id="task_token" value="<%= @task_token %>">
+<input type="hidden" id="task_token" value="<%= @task.token %>">
 <input type="hidden" id="task_type" value="<%= @task_type %>">
 <input type="hidden" id="preview_mode" value="<%= @preview_mode %>">
 
@@ -32,7 +32,7 @@
 
 <%= render partial: 'common/success_modal' %>
 
-<% if @task.introduce_yourself? %>
+<% if @task.introduce_yourself %>
   <%= render partial: 'common/student_modal' %>
 <% end %>
 <%= render partial: 'algorithms/show_task/show_task_script' %>
