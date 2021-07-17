@@ -32,7 +32,7 @@
 
 <%= render partial: 'common/success_modal' %>
 
-<% if @task.introduce_yourself %>
+<% if @task.introduce_yourself? %>
   <%= render partial: 'common/student_modal' %>
 <% end %>
 <%= render partial: 'algorithms/show_task/show_task_script' %>
