@@ -9,25 +9,26 @@ class Algorithms::AlgorithmsController < ApplicationController
   # TODO вынести в tasks_controller
   def show_task
     @task = AlgorithmTask.find_by(token: params[:token])
-    @task.update_column(:views_count, @task.views_count + 1)
+    if @task
+      @task.update_column(:views_count, @task.views_count + 1)
 
-    data = JSON.parse(@task.data)
+      data = JSON.parse(@task.data)
 
-    @task_lang = data['task_lang']
-    @task_token = @task.token
-    @task_type = @task.class.name
-    @result = COwl.creating_task(data)
-    @preview_mode = false
-    @hide_trace = true
+      @task_lang = data['task_lang']
+      @task_type = @task.class.name
+      @result = COwl.creating_task(data)
+      @preview_mode = false
+      @hide_trace = true
 
-    render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
+      render params[:beta] ? '/algorithms/show_task_beta' : '/algorithms/show_task'
+    else
+      head :not_found  # render a specific error page / redirect ?
+    end
   end
 
   def preview_task
     # preview mode
-    @task = {
-      token: 'null'
-    }
+    @task = AlgorithmTaskNullObject.new
     @result = {
       syntax_errors: [],
       algorithm_json: {},
@@ -35,8 +36,7 @@ class Algorithms::AlgorithmsController < ApplicationController
       trace_json: []
     }
     @task_lang = 'C++' # just avoiding invalid values
-    @task_token = 'null'
-    @task_type = 'null'
+    @task_type = 'AlgorithmTask'
 
     @preview_mode = true
     @hide_trace = true
