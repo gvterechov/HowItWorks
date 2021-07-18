@@ -3,28 +3,10 @@
 <% if trace_json.present? %>
   <div class="field">
     <label><%= t('algorithms.index.trace') %></label>
-
-    <!--
-    <div class="ui error mini message">
-      <i class="close icon"></i>
-      <div class="header">
-        During execution of loop 'waiting', a new iteration must not start because condition 'not_green' is false.
-      </div>
-    </div>
-    -->
-
-    <table class="ui very compact small selectable celled definition table">
+    <table class="ui very compact small selectable celled unstackable definition table">
       <tbody>
       <% trace_json.each do |elem| %>
         <tr>
-          <!--
-          <td class="collapsing">
-            <div class="ui checkbox">
-              <input type="checkbox"> <label></label>
-            </div>
-          </td>
-          -->
-
           <td>
             <% if elem[:is_valid] == false %>
               <div class="ui red horizontal label">
@@ -55,26 +37,6 @@
         </tr>
       <% end %>
       </tbody>
-      <!-- Вспомогательные элементы управления
-      <tfoot class="full-width">
-      <tr>
-        <th colspan="2">
-          <button class="ui green mini button share">
-            <i class="save icon"></i> <%= t('share') %>
-          </button>
-          <div class="ui popup top left transition hidden">
-            <div class="ui action input">
-              <input type="text" value="http://ww.short.url/c0opq">
-              <button class="ui teal right labeled icon toggle button">
-                <i class="copy icon"></i>
-                <%= t('copy') %>
-              </button>
-            </div>
-          </div>
-        </th>
-      </tr>
-      </tfoot>
-      -->
     </table>
   </div>
 <% end %>
