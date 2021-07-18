@@ -1,19 +1,28 @@
-  <table class="table_with_diagram">
-    <colgroup>
-       <col span="1" style="width: 50%;">
-       <col span="1" style="width: 50%;">
-    </colgroup>
-    <tr>
-      <td>
-        <%= render partial: '/algorithms/show_task/algorithm_trainer',
-              locals: {
-                data: data,
-                task_lang: task_lang,
-                hide_trace: @hide_trace
-              }
-        %>
-      </td>
-      <td id="diagram_area">
-      </td>
-    </tr>
-  </table>
+<%= render partial: 'algorithms/common/student_task_description',
+           locals: { task_lang: task_lang } %>
+
+<div class="ui stackable equal width grid">
+
+  <div class="column">
+    <%= render partial: 'algorithms/common/algorithm_text_field',
+               locals: {
+                 data: data,
+                 task_lang: task_lang
+               }
+    %>
+  </div>
+
+  <% unless hide_trace %>
+    <div class="six wide column">
+      <%= render partial: 'algorithms/common/trace_field', locals: { data: data } %>
+    </div>
+  <% end %>
+
+  <div class="column">
+    <div id="diagram_area" style="min-height: 200px;">
+      <!-- canvas viewport -->
+    </div>
+  </div>
+
+</div>
+
