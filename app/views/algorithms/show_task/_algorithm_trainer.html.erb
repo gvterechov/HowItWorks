@@ -1,10 +1,21 @@
-<%= render partial: 'algorithms/common/algorithm_text_field',
-           locals: {
-             data: data,
-             task_lang: task_lang
-           }
-%>
+<%= render partial: 'algorithms/common/student_task_description',
+           locals: { task_lang: task_lang } %>
 
-<% unless hide_trace %>
-  <%= render partial: 'algorithms/common/trace_field', locals: { data: data } %>
-<% end %>
+<div class="ui stackable equal width grid">
+
+  <div class="column">
+    <%= render partial: 'algorithms/common/algorithm_text_field',
+               locals: {
+                 data: data,
+                 task_lang: task_lang
+               }
+    %>
+  </div>
+
+  <% unless hide_trace %>
+    <div class="ten wide column">
+      <%= render partial: 'algorithms/common/trace_field', locals: { data: data } %>
+    </div>
+  <% end %>
+
+</div>

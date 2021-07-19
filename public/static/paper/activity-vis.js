@@ -45,6 +45,8 @@ function redraw_activity_diagram(algorithm_json, trace_json, options) {
 	}
 
 	console.log("redraw_activity_diagram OK!")
+
+	return alg.bbox();
 }
 
 function _phase_to_role(phase, default_role) {
