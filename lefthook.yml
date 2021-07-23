@@ -37,6 +37,6 @@ pre-commit:
   commands:
     rubocop:
       files: git diff --cached --name-only --diff-filter=ACMTR
-      glob: "*.{rb}"
+      glob: "*.{rb,jbuilder,rake}"
       exclude: "application.rb|routes.rb"
       run: bundle exec rubocop --parallel {files}
