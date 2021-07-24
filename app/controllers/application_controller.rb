@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale
 
+  rescue_from BaseService::ServiceNotAvailableException, with: :render_not_available
+
   class << self
     def default_url_options
       { locale: I18n.locale }
@@ -32,5 +34,9 @@ class ApplicationController < ActionController::Base
 
     def locale_exist?(locale)
       I18n.available_locales.include?(locale)
+    end
+
+    def render_not_available
+      render 'application/not_available'
     end
 end

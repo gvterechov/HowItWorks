@@ -101,6 +101,9 @@ en:
     didnt_receive_confirmation: "Didn't receive confirmation instructions?"
     didnt_receive_unlock: "Didn't receive unlock instructions?"
     sign_in_with: 'Sign in with %{provider}'
+  maintence:
+    not_available: 'Service is temporarily unavailable'
+    hope_for_best: 'We are working to improve our service!'
   copyright: 'POAS department, VSTU©'
   new: 'New task'
   share: 'Save task'

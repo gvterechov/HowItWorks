@@ -1,5 +1,6 @@
 class Algorithms::AlgorithmsController < ApplicationController
   before_action :authenticate_user!, only: [:tasks, :task_statistic]
+  before_action :check_trainer_available!, only: [:index, :show_task, :preview_task]
   skip_before_action :verify_authenticity_token, only: [:verify_trace_act, :create_task]
 
   def index
@@ -16,7 +17,7 @@ class Algorithms::AlgorithmsController < ApplicationController
 
       @task_lang = data['task_lang']
       @task_type = @task.class.name
-      @result = COwl.creating_task(data)
+      @result = COwl.new.creating_task(data)
       @preview_mode = false
       @hide_trace = true
 
@@ -48,7 +49,7 @@ class Algorithms::AlgorithmsController < ApplicationController
   def check_expression
     data = JSON.parse(params[:data])
     data[:syntax] = data[:task_lang]
-    result = COwl.creating_task(data)
+    result = COwl.new.creating_task(data)
 
     respond_to do |format|
       format.html {
@@ -88,7 +89,7 @@ class Algorithms::AlgorithmsController < ApplicationController
   def verify_trace_act
     data = JSON.parse(params[:data])
     data[:syntax] = params[:task_lang]
-    result = COwl.verify_trace_act(data)
+    result = COwl.new.verify_trace_act(data)
 
     if params[:attempt_id].present?
       # Есть ошибка - когда статус хотя бы одного узла выражения 'wrong'
@@ -120,7 +121,7 @@ class Algorithms::AlgorithmsController < ApplicationController
   end
 
   def available_syntaxes
-    result = COwl.available_syntaxes
+    result = COwl.new.available_syntaxes
     result[:available_syntaxes].map! do |elem|
       {
         name: elem,
@@ -158,5 +159,9 @@ class Algorithms::AlgorithmsController < ApplicationController
     # TODO вынести в tasks_controller
     def task_params
       params.require(:task).permit(:data, :title, :introduce_yourself)
+    end
+
+    def check_trainer_available!
+      raise BaseService::ServiceNotAvailableException.new unless COwl.new.available?
     end
 end

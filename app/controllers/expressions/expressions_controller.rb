@@ -1,5 +1,6 @@
 class Expressions::ExpressionsController < ApplicationController
   before_action :authenticate_user!, only: [:tasks, :task_statistic]
+  before_action :check_trainer_available!, only: :index
 
   def index
     render '/expressions/index'
@@ -17,14 +18,14 @@ class Expressions::ExpressionsController < ApplicationController
 
     expression = { expression: expression_json, lang: I18n.locale.to_s }
 
-    @result_data = OwlEvaluationOrderCheck.call(expression)
+    @result_data = OwlEvaluationOrderCheck.new.call(expression)
 
     render '/expressions/show_task'
   end
 
   def check_expression
     data = JSON.parse(params[:data])
-    result = OwlEvaluationOrderCheck.call(data)
+    result = OwlEvaluationOrderCheck.new.call(data)
 
     if params[:attempt_id].present?
       # Есть ошибка - когда статус хотя бы одного узла выражения 'wrong'
@@ -80,5 +81,9 @@ class Expressions::ExpressionsController < ApplicationController
     # TODO вынести в tasks_controller
     def task_params
       params.require(:task).permit(:expression, :task_lang, :title, :introduce_yourself)
+    end
+
+    def check_trainer_available!
+      raise BaseService::ServiceNotAvailableException.new unless OwlEvaluationOrderCheck.new.available?
     end
 end

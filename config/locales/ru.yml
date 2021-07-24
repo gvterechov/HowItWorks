@@ -70,6 +70,9 @@ ru:
     didnt_receive_confirmation: "Не получили инструкции по подтверждению?"
     didnt_receive_unlock: "Не получили инструкции по разблокированию?"
     sign_in_with: 'Войти при помощи %{provider}'
+  maintence:
+    not_available: 'Сервис временно недоступен'
+    hope_for_best: 'Мы работаем над тем чтобы улучшить наш сервис!'
   copyright: 'Кафедра ПОАС, ВолгГТУ©'
   new: 'Новая задача'
   share: 'Сохранить задачу'
