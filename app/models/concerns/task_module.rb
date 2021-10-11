@@ -3,7 +3,7 @@ module TaskModule
 
   included do
     has_many :attempts, as: :task, dependent: :destroy
-    belongs_to :user
+    belongs_to :user, optional: true
 
     before_create :set_token
 
