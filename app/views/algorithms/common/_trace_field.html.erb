@@ -4,9 +4,11 @@
   <div class="field">
     <label><%= t('algorithms.index.trace') %></label>
     <table class="ui very compact small selectable celled unstackable definition table">
-      <tbody>
+      <tbody id="trace_rows"
+             class="trace_rows"
+      >
       <% trace_json.each do |elem| %>
-        <tr>
+        <tr class="trace_row">
           <td>
             <% if elem[:is_valid] == false %>
               <div class="ui red horizontal label">

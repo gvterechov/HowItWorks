@@ -131,6 +131,8 @@ $(function() {
 
         // Обновить алгоритм и трассу
         $('#algorithm_trainer').html(data);
+        let trace_rows = document.getElementById("trace_rows");
+        trace_rows.scrollBy({ top: trace_rows.scrollHeight });
 
         // Показать модальное окно об успешном завершении задачи
         // (если в full_trace_json есть акт, у которого is_final true)
