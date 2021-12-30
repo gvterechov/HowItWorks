@@ -3,7 +3,8 @@
 <%= render partial: 'algorithms/index/header' %>
 
 <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-<%= render partial: 'algorithms/common/algorithm_style' %>
+<%#= render partial: 'algorithms/common/algorithm_style' %>
+<%= stylesheet_pack_tag 'algorithms' %>
 
 <div class="ui aligned basic segment">
   <div class="ui form" id="algorithm_form">
@@ -19,6 +20,7 @@
 
 <%= render partial: 'common/teacher_script' %>
 
+<!--
 <script>
   $(function() {
     $('.ui.dropdown.task_lang').toggleClass('loading');
@@ -194,3 +196,4 @@
     };
   });
 </script>
+ -->

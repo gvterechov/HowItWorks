@@ -3,7 +3,8 @@
 <%= render partial: 'algorithms/common/header' %>
 
 <!-- <script src="https://unpkg.com/blockly/blockly.min.js"></script> -->
-<%= render partial: 'algorithms/common/algorithm_style' %>
+<%#= render partial: 'algorithms/common/algorithm_style' %>
+<%= stylesheet_pack_tag 'algorithms' %>
 
 <input type="hidden" id="task_lang" value="<%= @task_lang %>">
 <input type="hidden" id="task_token" value="<%= @task.token %>">
@@ -41,6 +42,8 @@
 <%= render partial: 'algorithms/show_task/student_first_modal' %>
 <%= render partial: 'algorithms/show_task/student_second_modal' %>
 
-<%= render partial: 'algorithms/show_task/show_task_diagram_script' %>
+<%#= render partial: 'algorithms/show_task/show_task_diagram_script' %>
+<%= javascript_pack_tag 'paper' %>
 
-<%= render partial: 'algorithms/show_task/show_task_script' %>
+<%#= render partial: 'algorithms/show_task/show_task_script' %>
+<%= javascript_pack_tag 'algorithms' %>
