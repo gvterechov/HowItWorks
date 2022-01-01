@@ -1,4 +1,5 @@
 import { on_solve_step, paper_on_load } from './show_diagram'
+import { getAttemptData } from '../application/attempt'
 
 $(function() {
   // $('.ui.dropdown').dropdown();

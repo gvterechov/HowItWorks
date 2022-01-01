@@ -8,5 +8,10 @@ import * as ActiveStorage from "@rails/activestorage"
 import "../javascripts/channels"
 import 'semantic-ui/dist/semantic.js'
 
+
+// ? Должно это быть здесь или не здесь ?
+import '../javascripts/application/attempt';
+
+
 Rails.start()
 ActiveStorage.start()
