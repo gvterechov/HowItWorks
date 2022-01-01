@@ -1,8 +1,10 @@
 // diagram.js
 
+import { draw_shape, paper } from './paper-canvas';
+
 const U = 26;  // Unit of length, in pixels (scale base)
 
-const LINE_WIDTH = U * 0.33;
+export const LINE_WIDTH = U * 0.33;
 const ANGLE_OFFSET = LINE_WIDTH * 0.95;  // sorten right angles
 
 const ARROW_WIDTH = LINE_WIDTH * 2.3;
@@ -18,21 +20,20 @@ let LBL = {
 	0: "false",
 };
 
-// get the reference later
-var draw_shape = null;
+// // get the reference later
+// var draw_shape = null;
 
-var g_allAlgAreas = {};  // {id -> object}
-var g_allLinks = [];
+export let g_allAlgAreas = {};  // {id -> object}
+export let g_allLinks = [];
 
-function clear_global_diagram_arrays(argument) {
+export function clear_global_diagram_arrays(argument) {
 	g_allAlgAreas = {};  // {id -> object}
 	g_allLinks = [];
 }
 
 
-function diagram_init() {
-	draw_shape = window.globals.draw_shape;
-	// clear_global_diagram_arrays();
+export function diagram_init() {
+	clear_global_diagram_arrays();
 }
 
 function test() {
@@ -158,7 +159,7 @@ function rebasePoint(p, old_base, new_base) {
 }
 
 
-class Link {
+export class Link {
 	constructor(slot1, slot2, config) {
 		// super();  // do not use in root classes !
 		this.from = slot1;
@@ -293,7 +294,7 @@ class Link {
 	}
 }
 
-class Location {
+export class Location {
 	constructor(corner, size) {
 		// super();
 		this.corner = new paper.Point(corner || [0,0]);
@@ -304,7 +305,7 @@ class Location {
 	}
 }
 
-class Slot extends Location {
+export class Slot extends Location {
 	constructor(corner, direction, owner, role) {
 		super(corner, [0, 0]);
 		this.direction = direction;  // 0 90 180 270
@@ -339,7 +340,7 @@ class Slot extends Location {
 	}
 }
 
-class AlgArea extends Location {
+export class AlgArea extends Location {
 	constructor(corner, config, parent) {
 		super(corner);
 		this.inner = [];
@@ -517,7 +518,7 @@ class AlgArea extends Location {
 	}
 }
 
-class TransitDiamond extends AlgArea {  // links connection
+export class TransitDiamond extends AlgArea {  // links connection
 	constructor(corner, parent, config) {
 		super(corner, config, parent);
 		this.side = LINE_WIDTH / 2;
@@ -590,7 +591,7 @@ class TransitDiamond extends AlgArea {  // links connection
 	}
 }
 
-class SequenceArea extends AlgArea {
+export class SequenceArea extends AlgArea {
 	fit(alg_node) {
 		let node = null;
 		let plug_point = this.corner;
@@ -694,7 +695,7 @@ class SequenceArea extends AlgArea {
 	}
 }
 
-class ConditionDiamond extends AlgArea {  // two slots vertically
+export class ConditionDiamond extends AlgArea {  // two slots vertically
 	constructor(corner) {
 		super(corner);
 		this.name_visible = true;
@@ -734,7 +735,7 @@ class ConditionDiamond extends AlgArea {  // two slots vertically
 	}
 }
 
-class AlternativeArea extends AlgArea {
+export class AlternativeArea extends AlgArea {
 	fit(alg_node) {
 		this.name_visible = true;
 		this.branches = []
@@ -866,7 +867,7 @@ class AlternativeArea extends AlgArea {
 	}
 }
 
-class WhileLoopArea extends AlgArea {
+export class WhileLoopArea extends AlgArea {
 	fit(alg_node) {
 		this.name_visible = true;
 		const seph = U * 1.4;
@@ -947,7 +948,7 @@ class WhileLoopArea extends AlgArea {
 	}
 }
 
-class DoLoopArea extends AlgArea {
+export class DoLoopArea extends AlgArea {
 	fit(alg_node) {
 		this.name_visible = true;
 		const seph = U * 1.1;
@@ -1020,7 +1021,7 @@ class DoLoopArea extends AlgArea {
 }
 
 
-class BoxArea extends AlgArea {
+export class BoxArea extends AlgArea {
 	fit(alg_node) {
 		// this.alg_node = alg_node;  // ???
 		this.size = new paper.Size(U * 2, U * 0.81);
@@ -1029,7 +1030,7 @@ class BoxArea extends AlgArea {
 }
 
 
-function create_alg_for(alg_node, parent) {
+export function create_alg_for(alg_node, parent) {
 	let a = null;
 	if (["sequence", "if", "else", "else-if"].includes(alg_node.type)) {
 		a = new SequenceArea();
@@ -1068,7 +1069,7 @@ function create_alg_for(alg_node, parent) {
 		// store globally
 		if (a.alg_id !== undefined) {
 			g_allAlgAreas[a.alg_id] = a;
-			console.debug(a.alg_id, '  \t- ', a.alg_name)
+			// console.debug(a.alg_id, ' \t- ', a.alg_name)
 		}
 		// create a tree for alg_node
 		a.fit(alg_node);

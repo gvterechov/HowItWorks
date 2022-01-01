@@ -1,9 +1,9 @@
 // Init blockly area over <div id="blocklyDiv">
-// var blocklyArea = document.getElementById('blocklyArea');
-var workspace = null;
+// let blocklyArea = document.getElementById('blocklyArea');
+let workspace = null;
 
 $(function() {
-  var blocklyDiv = document.getElementById('blocklyDiv');
+  let blocklyDiv = document.getElementById('blocklyDiv');
   if(blocklyDiv != null) {
     // user config
     init_blockly_environment();
@@ -11,11 +11,11 @@ $(function() {
     workspace = Blockly.inject(blocklyDiv,
         {media: 'https://github.com/google/blockly/raw/master/media/',
           toolbox: get_toolbox_json()});
-    // var onresize = function(e) {
+    // let onresize = function(e) {
     //   // Compute the absolute coordinates and dimensions of blocklyArea.
-    //   var element = blocklyArea;
-    //   var x = 0;
-    //   var y = 0;
+    //   let element = blocklyArea;
+    //   let x = 0;
+    //   let y = 0;
     //   do {
     //     x += element.offsetLeft;
     //     y += element.offsetTop;
@@ -167,7 +167,7 @@ $(function() {
     // set up block types ...
     patch_localization();
 
-    // var condition_with_values_block_Json = {
+    // let condition_with_values_block_Json = {
     //   "type": "condition_with_values_block",
     //   "message0": "%1 принимает значения %2",
     //   "args0": [
@@ -192,7 +192,7 @@ $(function() {
     //   init: function() {
     //     this.jsonInit(condition_with_values_block_Json);
     //     // Assign 'this' to a variable for use in the tooltip closure below.
-    //     var thisBlock = this;
+    //     let thisBlock = this;
 
     //     this.setTooltip(function() {
     //       const values = thisBlock.getFieldValue('VALUES')
@@ -211,8 +211,8 @@ $(function() {
     // };
 
 
-    var TRUTH_ALIASES = ["1","истина","да","true","yes"];
-    var FALSE_ALIASES = ["0","ложь", "нет","false","no"];
+    let TRUTH_ALIASES = ["1","истина","да","true","yes"];
+    let FALSE_ALIASES = ["0","ложь", "нет","false","no"];
 
 
     function clean_condition_values(values_str) {  // => Array<!String>
@@ -262,7 +262,7 @@ $(function() {
         this.setOutput(true, "Boolean");
         this.setColour(60);
 
-        var thisBlock = this;
+        let thisBlock = this;
 
         // this.setTooltip("");
         this.setTooltip(function() {
@@ -477,59 +477,56 @@ $(function() {
 
   function setup_blockly_workspace(workspace) {
 
-    // Восстановаить блоки из предыдущей сессии
-    let xml_text = load_xml()
-    if (xml_text)
-    {
-      var xml = Blockly.Xml.textToDom(xml_text);
+    function blockly_set_xml(xml_text) {
+      let xml = Blockly.Xml.textToDom(xml_text);
       Blockly.Xml.domToWorkspace(xml, workspace);
-      console.log("Blockly workspace restored.");
+      console.log("Blockly workspace restored from XML.");
     }
 
     function load_default_algorithm() {
-    // const url = '/static/default-algorithm.xml'
-    $.ajax({
-      method: "GET",
-      // исследовать: кешируется ли браузером? Если да, то прокидывать через экшн
-      cache: false,  // решение: https://stackoverflow.com/a/735084/12824563
-      url: '/static/default-algorithm.xml',
-      // dataType: "text/plain",
-      mimeType: "text/plain",
-      dataFilter: function(data, dtype) {
-        // console.log('dataFilter: ' + data);
-        // remove double quotes
-        return data.replace(/^"/, '').replace(/"$/, '');
-      },
-      error: function (jqXHR) {
-        // TODO показать сообщение об ошибке
-        console.warn('Warning: cannot fetch the algorithm by default.', jqXHR);
-      },
-      success: function (data) {
-        // console.log('loading XML: ' + data);
-        // init the workspace now!
-        blockly_set_xml(data);
-      }
-    });
+	    // const url = '/static/default-algorithm.xml'
+	    $.ajax({
+	      method: "GET",
+	      // исследовать: кешируется ли браузером? Если да, то прокидывать через экшн
+	      cache: false,  // решение: https://stackoverflow.com/a/735084/12824563
+	      url: '/static/default-algorithm.xml',
+	      // dataType: "text/plain",
+	      mimeType: "text/plain",
+	      dataFilter: function(data, dtype) {
+	        // console.log('dataFilter: ' + data);
+	        // remove double quotes
+	        return data.replace(/^"/, '').replace(/"$/, '');
+	      },
+	      error: function (jqXHR) {
+	        // TODO показать сообщение об ошибке
+	        console.warn('Warning: cannot fetch the algorithm by default.', jqXHR);
+	      },
+	      success: function (data) {
+	        // console.log('loading XML: ' + data);
+	        // init the workspace now!
+	        blockly_set_xml(data);
+	      }
+	    });
     }
 
     // Восстановить блоки из предыдущей сессии
-    xml_text = load_xml()
+    let xml_text = load_xml()
     if (xml_text) {
-    blockly_set_xml(xml_text);
+    	blockly_set_xml(xml_text);
     } else {
-    // load the algorithm by default
-    load_default_algorithm()
+	    // load the algorithm by default
+	    load_default_algorithm()
     }
 
     // сохраняем блоки в localStorage на случай внезапного закрытия страницы
-    var saveWorkspace_timer = null;
+    let saveWorkspace_timer = null;
     function saveWorkspaceOnChange(event) {
       if (event === null)  // вызов отложенный
       {
-        var xml = Blockly.Xml.workspaceToDom(workspace);
-        var xml_text = Blockly.Xml.domToText(xml);// compact form
+        let xml = Blockly.Xml.workspaceToDom(workspace);
+        let xml_text = Blockly.Xml.domToText(xml);// compact form
         save_xml(xml_text);
-        // console.log("Blockly workspace saved.");
+        console.log("Blockly workspace saved.");
         return;  // вызов не отложенный
       }
 

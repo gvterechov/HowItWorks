@@ -1,3 +1,5 @@
+import { on_solve_step, paper_on_load } from './show_diagram'
+
 $(function() {
   // $('.ui.dropdown').dropdown();
 
@@ -69,7 +71,7 @@ $(function() {
           algorithm_text_field.html(data['algorithm_as_html']);
           bindAlgorithmButtons();
           // run custom init code
-          if (window.paper_on_load)
+          if (paper_on_load)
             paper_on_load()
         }
       // },
@@ -92,8 +94,6 @@ $(function() {
     let algorithm_element_id = parseInt(elem.attr('algorithm_element_id'));
     let act_type = elem.attr('act_type'); // SOLVED: algorithm_button_tips уже не актуален
     let existing_trace_json = JSON.parse($('#existing_trace_json').val()); // SOLVED: список всех актов, т.к. фильтрация по is_valid == true производится на стороне c_owl.
-
-
 
     return {
       user_language: lang,
@@ -141,13 +141,13 @@ $(function() {
 
           // Задача решена - убрать все кнопки из algorithm_text_field
           $('.alg_button').remove();
-          if (window.on_solve_step) {
+          if (on_solve_step) {
             on_solve_step(true);
           }
 
         } else {
           bindAlgorithmButtons();
-          if (window.on_solve_step) {
+          if (on_solve_step) {
             on_solve_step(false);
           }
         }

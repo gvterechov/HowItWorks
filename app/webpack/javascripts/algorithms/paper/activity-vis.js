@@ -1,13 +1,28 @@
 // activity-vis.js
 
+import {
+	 clear_global_diagram_arrays, create_alg_for, g_allAlgAreas, g_allLinks,
+	 BoxArea,
+	 ConditionDiamond,
+	 TransitDiamond,
+	 SequenceArea,
+	 Link,
+	 LINE_WIDTH
+	} from './diagram';
+import { paper, project } from './paper-canvas';
+
 // const highlight_color = '#9fb';
 
 
-function redraw_activity_diagram(algorithm_json, trace_json, options) {
+export function redraw_activity_diagram(algorithm_json, trace_json, options) {
 
 	clear_global_diagram_arrays();
 
 	let entry_point = algorithm_json["entry_point"];
+	if (!entry_point) {
+		return null;
+	}
+
 	let alg = create_alg_for(entry_point);
 
 	if (options.viewport) {
@@ -20,8 +35,8 @@ function redraw_activity_diagram(algorithm_json, trace_json, options) {
 	}
 
 	// console.debug(" About to clear the canvas ...")
-	if (globals.project) {
-		globals.project.clear()
+	if (project) {
+		project.clear()
 	}
 
 	// else
@@ -39,7 +54,7 @@ function redraw_activity_diagram(algorithm_json, trace_json, options) {
 	alg.draw();
 
 	// bring flex arrow to front
-	for (link of g_allLinks) {
+	for (let link of g_allLinks) {
 		if (link.config.flex)
 			link.draw();
 	}
@@ -233,7 +248,7 @@ function test_curve() {
 
 	let curve = new paper.Path(path_data);
 
-	const view = globals.project.view;
+	const view = project.view;
 
 	view.onMouseMove = function(event) {
 		curve.lastSegment.point = event.point;
