@@ -1,5 +1,6 @@
-<%#= render partial: 'common/attempt_script' %>
-<!-- <script>
+import { on_solve_step, paper_on_load } from './show_diagram'
+import { getAttemptData } from '../application/attempt'
+
 $(function() {
   // $('.ui.dropdown').dropdown();
 
@@ -71,7 +72,7 @@ $(function() {
           algorithm_text_field.html(data['algorithm_as_html']);
           bindAlgorithmButtons();
           // run custom init code
-          if (window.paper_on_load)
+          if (paper_on_load)
             paper_on_load()
         }
       // },
@@ -115,6 +116,7 @@ $(function() {
       // url: '/algorithms/' + $('#lang').val() + '/verify_trace_act',
       // url: '/algorithms/verify_trace_act',
       url: '/' + $('#lang').val() + '/algorithms/verify_trace_act',
+
       data: {
         data: JSON.stringify(prepareData($(this))),
         task_lang: $('#task_lang').val(),
@@ -131,8 +133,6 @@ $(function() {
 
         // Обновить алгоритм и трассу
         $('#algorithm_trainer').html(data);
-        let trace_rows = document.getElementById("trace_rows");
-        trace_rows.scrollBy({ top: trace_rows.scrollHeight });
 
         // Показать модальное окно об успешном завершении задачи
         // (если в full_trace_json есть акт, у которого is_final true)
@@ -142,13 +142,13 @@ $(function() {
 
           // Задача решена - убрать все кнопки из algorithm_text_field
           $('.alg_button').remove();
-          if (window.on_solve_step) {
+          if (on_solve_step) {
             on_solve_step(true);
           }
 
         } else {
           bindAlgorithmButtons();
-          if (window.on_solve_step) {
+          if (on_solve_step) {
             on_solve_step(false);
           }
         }
@@ -160,5 +160,3 @@ $(function() {
     });
   }
 });
-</script>
- -->

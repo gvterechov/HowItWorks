@@ -4,6 +4,7 @@
 
 <!-- <script src="https://unpkg.com/blockly/blockly.min.js"></script> -->
 <%= render partial: 'algorithms/common/algorithm_style' %>
+<%#= stylesheet_pack_tag 'algorithms' %>
 
 <input type="hidden" id="task_lang" value="<%= @task_lang %>">
 <input type="hidden" id="task_token" value="<%= @task.token %>">
@@ -35,7 +36,9 @@
 <% if @task.introduce_yourself? %>
   <%= render partial: 'common/student_modal' %>
 <% end %>
-<%= render partial: 'algorithms/show_task/show_task_script' %>
+<%#= render partial: 'algorithms/show_task/show_task_script' %>
+<%= javascript_pack_tag 'algorithms' %>
+
 
 <%= render partial: 'algorithms/show_task/student_first_modal' %>
 <%= render partial: 'algorithms/show_task/student_second_modal' %>
