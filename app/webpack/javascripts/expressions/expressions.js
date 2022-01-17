@@ -5,18 +5,28 @@
 */
 
 $(function() {
-  $('.ui.dropdown.task_lang').dropdown({
-    values: [
-      {
-        name: 'C++',
-        value: 'cpp',
-        selected: true
-      },
-      {
-        name: 'Python',
-        value: 'python'
+  $('.ui.dropdown.task_lang').toggleClass('loading');
+  $.ajax({
+    method: "GET",
+    url: '/expressions/available_syntaxes',
+    dataType: "json",
+    error: function (jqXHR) {
+      // TODO показать сообщение об ошибке
+      alert('error: available_syntaxes');
+    },
+    success: function (data) {
+      // data = JSON.parse(data);
+      $('.ui.dropdown.task_lang').dropdown({
+        values: data['available_syntaxes']
+      });
+      // set value as choosen before
+      if (localStorage.task_syntax) {
+        $('.ui.dropdown.task_lang').dropdown('set selected', localStorage.task_syntax);
       }
-    ]
+    },
+    complete: function() {
+      $('.ui.dropdown.task_lang').toggleClass('loading');
+    }
   });
 
   $('.ui.button.share').popup({

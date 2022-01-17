@@ -18,14 +18,14 @@ class Expressions::ExpressionsController < ApplicationController
 
     expression = { expression: expression_json, lang: I18n.locale.to_s }
 
-    @result_data = OwlEvaluationOrderCheck.new.call(expression)
+    @result_data = OwlEvaluationOrderCheck.new.verify_expression(expression)
 
     render '/expressions/show_task'
   end
 
   def check_expression
     data = JSON.parse(params[:data])
-    result = OwlEvaluationOrderCheck.new.call(data)
+    result = OwlEvaluationOrderCheck.new.verify_expression(data)
 
     if params[:attempt_id].present?
       # Есть ошибка - когда статус хотя бы одного узла выражения 'wrong'
@@ -54,6 +54,24 @@ class Expressions::ExpressionsController < ApplicationController
       else
         head :bad_request
       end
+    end
+  end
+
+  def available_syntaxes
+    result = OwlEvaluationOrderCheck.new.available_syntaxes
+    available_syntaxes_names = { 'cpp' => 'C++', 'cs' => 'C#' }.freeze
+
+    result[:available_syntaxes] =
+      result[:expression].map do |elem|
+        {
+          name: available_syntaxes_names[elem[:text]] || elem[:text].camelize,
+          value: elem[:text]
+        }
+      end
+    result[:available_syntaxes].first[:selected] = true
+
+    respond_to do |format|
+      format.json { render json: result, status: :ok }
     end
   end
 
