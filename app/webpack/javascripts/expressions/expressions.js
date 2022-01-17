@@ -4,6 +4,8 @@
   <%= render partial: 'common/teacher_script' %>
 */
 
+import { getAttemptData } from '../application/attempt'
+
 $(function() {
   $('.ui.dropdown.task_lang').toggleClass('loading');
   $.ajax({
@@ -43,6 +45,7 @@ $(function() {
   // }, 1000);
 
   $('.operator').click(operatorClick);
+  $('#show_next_correct_step').click(nextCorrectStepClick);
 
   // Кнокпка "запустить"
   $('#prepare').click(function() {
@@ -110,7 +113,7 @@ $(function() {
 
 
   // Обновление тренажера (виджета с кнопками для выражения)
-  function updateExpressionTrainer(elem, index = null) {
+  function updateExpressionTrainer(elem, index = null, action = 'find_errors') {
     // TODO блокировать нажатие на элементы выражения пока не пришел ответ от сервера
     elem.toggleClass('loading');
 
@@ -119,7 +122,7 @@ $(function() {
       // url: '/check_expression.json',
       url: '/expressions/check_expression',
       data: {
-        data: JSON.stringify(prepareExpression(index)),
+        data: JSON.stringify(prepareExpression(index, action)),
         attempt_id: $('#attempt_id').val()
       },
       // dataType: "json",
@@ -133,8 +136,11 @@ $(function() {
         $('.operator').click(operatorClick);
         // Если все кнопки отключены, то задача успешно решена
         if ($('.operator').length == $('.operator.disabled').length) {
+          $('#show_next_correct_step').attr("disabled", true);
           getAttemptData();
           $('.ui.modal.success').modal('show');
+        } else {
+          $('#show_next_correct_step').click(nextCorrectStepClick);
         }
       },
       complete: function() {
@@ -145,12 +151,12 @@ $(function() {
   };
 
   // Возвращает выражение в ввиде json
-  function prepareExpression(selected_index = null) {
+  function prepareExpression(selected_index = null, action = 'find_errors') {
     let lang = $('#lang').val();
     let task_lang = taskLang();
     let tokens_json = expressionTokens(selected_index);
 
-    return { expression: tokens_json, task_lang: task_lang, lang: lang }
+    return { expression: tokens_json, task_lang: task_lang, lang: lang, action: action }
   };
 
   function taskLang() {
@@ -206,6 +212,11 @@ $(function() {
   // Нажатие на кнокпку оператора выражения
   function operatorClick() {
     let index = $(this).attr('data-index');
-    updateExpressionTrainer($(this), index);
-  };
+    updateExpressionTrainer($(this), index, 'find_errors');
+  }
+
+  // Нажатие на кнопку отображения следующего успешного шага
+  function nextCorrectStepClick() {
+    updateExpressionTrainer($(this), 1000, 'next_step');
+  }
 });
