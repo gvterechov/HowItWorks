@@ -40,4 +40,14 @@ module TaskStatisticHelper
     result += " (#{t('task_statistic.steps_from_best', steps: delta)})" if delta > 0
     result
   end
+
+  def task_hint_steps(attempt, best_attempt)
+    hint_steps = attempt.hint_steps
+    min_hint_steps = best_attempt.hint_steps
+    delta = hint_steps - min_hint_steps
+
+    result = t('task_statistic.hint_steps_count', steps: hint_steps)
+    result += " (#{t('task_statistic.steps_from_best', steps: delta)})" if delta > 0
+    result
+  end
 end

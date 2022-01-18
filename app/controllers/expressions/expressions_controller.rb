@@ -1,6 +1,7 @@
 class Expressions::ExpressionsController < ApplicationController
   before_action :authenticate_user!, only: [:tasks, :task_statistic]
   before_action :check_trainer_available!, only: :index
+  skip_before_action :verify_authenticity_token
 
   def index
     render '/expressions/index'
@@ -28,13 +29,15 @@ class Expressions::ExpressionsController < ApplicationController
     result = OwlEvaluationOrderCheck.new.verify_expression(data)
 
     if params[:attempt_id].present?
+      # Запросили подсказку - когда в параметрах присутствует соответствующий флаг
+      was_hint = data['action'] == 'next_step'
       # Есть ошибка - когда статус хотя бы одного узла выражения 'wrong'
       was_error = result[:expression].any? { |elem| elem[:status] == 'wrong' }
       # Задача решена - когда нет кликабельных узлов выражения
       done = !result[:expression].any? { |elem| elem[:enabled] }
 
       Attempt.find(params[:attempt_id])
-             &.increment_steps(was_error: was_error, done: done)
+             &.increment_steps(was_hint: was_hint, was_error: was_error, done: done)
     end
 
     respond_to do |format|
@@ -98,7 +101,8 @@ class Expressions::ExpressionsController < ApplicationController
   private
     # TODO вынести в tasks_controller
     def task_params
-      params.require(:task).permit(:expression, :task_lang, :title, :introduce_yourself)
+      params.require(:task).permit(:expression, :task_lang, :title, :introduce_yourself,
+                                   :enable_hints, :max_hints_count)
     end
 
     def check_trainer_available!

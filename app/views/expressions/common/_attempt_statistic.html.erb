@@ -7,6 +7,9 @@
   </div>
   <ul class="list">
     <li><%= task_total_steps(attempt, best_attempt) %>;</li>
+    <% if attempt.hint_steps.positive? %>
+      <li><%= task_hint_steps(attempt, best_attempt) %>;</li>
+    <% end %>
     <li><%= task_error_steps(attempt, best_attempt) %>.</li>
   </ul>
 </div>

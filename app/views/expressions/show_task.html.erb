@@ -25,6 +25,8 @@
     <div id="expression_trainer">
       <%= render partial: 'expressions/common/expression_trainer', locals: { data: @result_data } %>
     </div>
+
+    <%= show_next_correct_step_button(@task.max_hints_count) if @task.enable_hints %>
   </div>
 </div>
 

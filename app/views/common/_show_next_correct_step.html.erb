@@ -1,0 +1,14 @@
+<!-- Кнопка следующего правильного шага -->
+<br>
+<div class="row">
+  <button class="ui button compact" id="show_next_correct_step">
+    <%= t('show_next_correct_step') %>
+    <% if max_hints_count.positive? %>
+      (<%= t('left') %> <span id="available_hints_count"><%= max_hints_count %></span>)
+    <% end %>
+  </button>
+</div>
+
+<input id="max_available_hints_count"
+       type="hidden"
+       value="<%= max_hints_count %>">

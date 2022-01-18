@@ -1,3 +1,6 @@
+<%
+  enable_hints ||= false
+%>
 <div class="ui aligned basic segment">
   <div class="ui centered grid">
     <h3>
@@ -17,6 +20,9 @@
           <th><%= t('tasks.started_attempts_count') %></th>
           <th><%= t('tasks.done_attempts_count') %></th>
           <th><%= t('collect_statistics') %></th>
+          <% if enable_hints %>
+            <th><%= t('enable_hints') %></th>
+          <% end %>
         </tr>
         </thead>
         <tbody>
@@ -43,6 +49,14 @@
             </td>
             <td><%= task.attempts.was_done.count %></td>
             <td><%= book_icon(task.introduce_yourself?) %></td>
+            <% if enable_hints %>
+              <td>
+                <%= book_icon(task.enable_hints?) %>
+                <% if task.enable_hints? %>
+                  (<%= task.max_hints_count %>)
+                <% end %>
+              </td>
+            <% end %>
           </tr>
         <% end %>
         </tbody>

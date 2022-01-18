@@ -12,6 +12,8 @@
 #  title              :string           default("")
 #  user_id            :bigint
 #  introduce_yourself :boolean          default(TRUE)
+#  enable_hints       :boolean          default(FALSE)
+#  max_hints_count    :integer          default(0)
 #
 class ExpressionTask < ApplicationRecord
   include TaskModule

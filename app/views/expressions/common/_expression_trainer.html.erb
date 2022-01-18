@@ -4,7 +4,7 @@
       <%
         order = elem[:check_order] if elem[:check_order].present? && elem[:check_order] < 1000
       %>
-      <button class="operator ui button compact <%= 'disabled' if !elem[:enabled] || (elem[:check_order].present? && elem[:check_order] < 1000) %>
+      <button class="operator ui button compact <%= 'disabled' unless elem[:enabled] %>
                                        <%= 'basic' if elem[:status] == 'suggested' %>
                                        <%= 'green' if elem[:status] == 'correct' || (order && elem[:status] != 'wrong') %>
                                        <%= 'red' if elem[:status] == 'wrong' %>"
@@ -20,16 +20,6 @@
     <% end %>
   </div>
 </div>
-
-<!-- Кнопка следующего правильного шага -->
-<% if true # TODO проверить настройки задачи %>
-  <br>
-  <div class="row">
-    <button class="ui button compact" id="show_next_correct_step">
-      <%= t('show_next_correct_step') %>
-    </button>
-  </div>
-<% end %>
 
 <% if data[:errors].present? %>
   <br>

@@ -1,10 +1,5 @@
-/* ???
-  <!-- TODO временно вынести в отдельный партиал и подключить на странице просмотра задачи -->
-  <%= render partial: 'common/attempt_script' %>
-  <%= render partial: 'common/teacher_script' %>
-*/
-
 import { getAttemptData } from '../application/attempt'
+import { showTeacherModal } from '../application/teacher'
 
 $(function() {
   $('.ui.dropdown.task_lang').toggleClass('loading');
@@ -30,6 +25,8 @@ $(function() {
       $('.ui.dropdown.task_lang').toggleClass('loading');
     }
   });
+
+  let available_hints_count = parseInt($('#max_available_hints_count').val()) || 0;
 
   $('.ui.button.share').popup({
     popup : $('.popup.share'),
@@ -59,6 +56,10 @@ $(function() {
     }
   });
 
+  $('#enable_hints').click(function() {
+    $('#max_hints_count').toggle(enableHints());
+  });
+
   $('#save_task').click(function() {
     $('#task_info_form').show();
     $('#task_url_form').hide();
@@ -82,7 +83,9 @@ $(function() {
           expression: JSON.stringify(expressionTokens()),
           task_lang: taskLang(),
           title: taskName(),
-          introduce_yourself: collectStatistics()
+          introduce_yourself: collectStatistics(),
+          enable_hints: enableHints(),
+          max_hints_count: maxHintsCount()
         }
       },
       // data: { task: JSON.stringify(prepareExpression()) },
@@ -133,14 +136,18 @@ $(function() {
       success: function (data) {
         // alert('success');
         $('#expression_trainer').html(data);
+        $('#show_next_correct_step').show();
+
+        if (available_hints_count == 0) {
+          disableNextCorrectStepBtn();
+        }
+
         $('.operator').click(operatorClick);
         // Если все кнопки отключены, то задача успешно решена
         if ($('.operator').length == $('.operator.disabled').length) {
-          $('#show_next_correct_step').attr("disabled", true);
+          disableNextCorrectStepBtn();
           getAttemptData();
           $('.ui.modal.success').modal('show');
-        } else {
-          $('#show_next_correct_step').click(nextCorrectStepClick);
         }
       },
       complete: function() {
@@ -172,6 +179,14 @@ $(function() {
 
   function collectStatistics() {
     return $('#collect_statistics').prop('checked');
+  };
+
+  function enableHints() {
+    return $('#enable_hints').prop('checked');
+  };
+
+  function maxHintsCount() {
+    return enableHints() ? $('#max_hints_count').val() : 0;
   };
 
   function expressionTokens(selected_index = null) {
@@ -217,6 +232,14 @@ $(function() {
 
   // Нажатие на кнопку отображения следующего успешного шага
   function nextCorrectStepClick() {
+    --available_hints_count;
+    if (available_hints_count >= 0) { // && $('#available_hints_count').length > 0) {
+      $('#available_hints_count').text(available_hints_count);
+    }
     updateExpressionTrainer($(this), 1000, 'next_step');
+  }
+
+  function disableNextCorrectStepBtn() {
+    $('#show_next_correct_step').attr("disabled", true);
   }
 });

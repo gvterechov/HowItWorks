@@ -29,8 +29,13 @@ module ApplicationHelper
                'data-position': "bottom center")
   end
 
-  def save_button
-    render partial: 'common/save_btn'
+  def save_button(**options)
+    enable_hints = options.fetch(:enable_hints, false)
+    render partial: 'common/save_btn', locals: { enable_hints: enable_hints }
+  end
+
+  def show_next_correct_step_button(max_hints_count = 0)
+    render partial: 'common/show_next_correct_step', locals: { max_hints_count: max_hints_count }
   end
 
   def tasks_button(href)

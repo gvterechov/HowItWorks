@@ -1,3 +1,7 @@
+<%
+  enable_hints ||= false
+%>
+
 <script src="https://semantic-ui.com/javascript/library/tablesort.js"></script>
 <script>
   $(function(){
@@ -23,6 +27,9 @@
           <th><%= t('task_statistic.student') %></th>
           <th><%= t('task_statistic.steps') %></th>
           <th><%= t('task_statistic.errors') %></th>
+          <% if enable_hints && task&.enable_hints? %>
+            <th><%= t('task_statistic.hints') %></th>
+          <% end %>
           <th><%= t('task_statistic.duration') %></th>
           <th><%= t('task_statistic.completed_successfully') %></th>
         </tr>
@@ -37,6 +44,9 @@
             <td><%= attempt.student_name %></td>
             <td><%= attempt.total_steps %></td>
             <td><%= attempt.error_steps %></td>
+            <% if enable_hints && task&.enable_hints? %>
+              <td><%= attempt.hint_steps %></td>
+            <% end %>
             <td><%= full_time(attempt.duration) %></td>
             <td><%= book_icon(attempt.done?) %></td>
           </tr>
