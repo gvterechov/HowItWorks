@@ -26,7 +26,7 @@ $(function() {
     }
   });
 
-  let available_hints_count = parseInt($('#max_available_hints_count').val()) || 0;
+  let available_hints_count = parseInt($('#max_available_hints_count').val()) || 1000;
 
   $('.ui.button.share').popup({
     popup : $('.popup.share'),
