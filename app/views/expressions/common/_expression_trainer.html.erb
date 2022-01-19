@@ -25,9 +25,9 @@
   <br>
   <div class="row">
     <% data[:errors].each do |error| %>
-      <% error_text = error[:parts].map { |el| el[:text] }.join(' ') %>
+      <% error_text = error[:parts].map { |el| el[:text] }.join(' ').gsub(/\n/, '<br>') %>
       <div class="ui message">
-        <p><%= error_text %></p>
+        <p><%= error_text.html_safe %></p>
       </div>
     <% end %>
   </div>
