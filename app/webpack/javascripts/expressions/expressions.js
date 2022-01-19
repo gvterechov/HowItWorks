@@ -26,6 +26,7 @@ $(function() {
     }
   });
 
+  enableNextCorrectStepBtn($('.operator').length > 0);
   let available_hints_count = parseInt($('#max_available_hints_count').val()) || 1000;
 
   $('.ui.button.share').popup({
@@ -138,14 +139,12 @@ $(function() {
         $('#expression_trainer').html(data);
         $('#show_next_correct_step').show();
 
-        if (available_hints_count == 0) {
-          disableNextCorrectStepBtn();
-        }
+        enableNextCorrectStepBtn(available_hints_count != 0);
 
         $('.operator').click(operatorClick);
         // Если все кнопки отключены, то задача успешно решена
         if ($('.operator').length == $('.operator.disabled').length) {
-          disableNextCorrectStepBtn();
+          enableNextCorrectStepBtn(false);
           getAttemptData();
           $('.ui.modal.success').modal('show');
         }
@@ -239,7 +238,7 @@ $(function() {
     updateExpressionTrainer($(this), 1000, 'next_step');
   }
 
-  function disableNextCorrectStepBtn() {
-    $('#show_next_correct_step').attr("disabled", true);
+  function enableNextCorrectStepBtn(enabled = true) {
+    $('#show_next_correct_step').attr("disabled", !enabled);
   }
 });
