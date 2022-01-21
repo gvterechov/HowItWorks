@@ -11,6 +11,7 @@
       $('.ui.modal.student').modal('show');
     } else {
       createAttempt();
+      showUserName();
     }
 
     // Создаем попытку, когда студент ввел имя
@@ -23,6 +24,7 @@
       createAttempt({
         success: function () {
           $('.ui.modal.student').modal('hide');
+          showUserName();
         },
         complete: function () {
           // TODO разблокировать нажатие на элементы алгоритма
@@ -55,6 +57,12 @@
         },
         complete: callbacks['complete']
       });
+    }
+
+    function showUserName() {
+      let $user_name = $('#user_name');
+      $user_name.text(localStorage.student_name);
+      $user_name.show();
     }
   });
 </script>

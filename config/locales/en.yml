@@ -129,6 +129,7 @@ en:
   task_name_placeholder: 'Input task name...'
   task_url_placeholder: 'Input task url...'
   task_link: 'Link for task'
+  input_user_name: 'Input your name...'
   publications: 'Our publications'
   collect_statistics: 'Collect statistics?'
   enable_hints: 'Enable hints?'

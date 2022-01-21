@@ -98,6 +98,7 @@ ru:
   task_name_placeholder: 'Введите имя задачи...'
   task_url_placeholder: 'Ссылка на задачу...'
   task_link: 'Ссылка на задачу'
+  input_user_name: 'Введите имя...'
   publications: 'Наши публикации'
   collect_statistics: 'Собирать статистику?'
   enable_hints: 'Включить подсказки?'

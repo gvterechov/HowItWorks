@@ -69,6 +69,10 @@ module ApplicationHelper
     render partial: 'common/claim_btn' if current_user.present?
   end
 
+  def user_name
+    render partial: 'common/user_name'
+  end
+
   # Генерирует альтернативный url для заданной локали на основе заданного url
   # @param original_url [String] исходная ссылка
   # @param locale [Symbol] локаль, для которой сгенерировать ссылку

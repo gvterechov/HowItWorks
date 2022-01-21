@@ -1,0 +1,18 @@
+<div class="ui button user_name"
+     id="user_name"
+     style="margin-right: 10px; display: none;"
+>
+</div>
+
+<div class="ui fluid popup bottom left transition hidden user_name">
+  <div id="user_name_form"
+       class="ui action input"
+       style="width: 530px;">
+    <input id="new_user_name"
+           type="text"
+           placeholder="<%= t('input_user_name') %>">
+    <button class="ui teal button" id="change_user_name_btn"><%= t('save') %></button>
+  </div>
+</div>
+
+<%= render partial: 'common/user_name_script' %>
