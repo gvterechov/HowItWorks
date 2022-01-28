@@ -103,8 +103,11 @@ class Algorithms::AlgorithmsController < ApplicationController
         done = trace_json.any? { |elem| elem[:is_final] }
       end
 
-      Attempt.find(params[:attempt_id])
-        &.increment_steps(was_error: was_error, done: done)
+      attempt = Attempt.find(params[:attempt_id])
+      if attempt.present?
+        attempt.increment_steps(was_error: was_error, done: done)
+        attempt.update(student_name: params[:student_name]) if attempt.student_name != params[:student_name].present?
+      end
     end
 
     respond_to do |format|

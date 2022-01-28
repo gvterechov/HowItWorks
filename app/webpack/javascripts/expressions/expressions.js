@@ -127,7 +127,8 @@ $(function() {
       url: '/expressions/check_expression',
       data: {
         data: JSON.stringify(prepareExpression(index, action)),
-        attempt_id: $('#attempt_id').val()
+        attempt_id: $('#attempt_id').val(),
+        student_name: localStorage.student_name
       },
       // dataType: "json",
       error: function (jqXHR) {

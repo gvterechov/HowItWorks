@@ -36,8 +36,11 @@ class Expressions::ExpressionsController < ApplicationController
       # Задача решена - когда нет кликабельных узлов выражения
       done = !result[:expression].any? { |elem| elem[:enabled] }
 
-      Attempt.find(params[:attempt_id])
-             &.increment_steps(was_hint: was_hint, was_error: was_error, done: done)
+      attempt = Attempt.find(params[:attempt_id])
+      if attempt.present?
+        attempt.increment_steps(was_hint: was_hint, was_error: was_error, done: done)
+        attempt.update(student_name: params[:student_name]) if attempt.student_name != params[:student_name].present?
+      end
     end
 
     respond_to do |format|

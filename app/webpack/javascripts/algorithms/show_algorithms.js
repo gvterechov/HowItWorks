@@ -120,7 +120,8 @@ $(function() {
       data: {
         data: JSON.stringify(prepareData($(this))),
         task_lang: $('#task_lang').val(),
-        attempt_id: $('#attempt_id').val()
+        attempt_id: $('#attempt_id').val(),
+        student_name: localStorage.student_name
       },
       // dataType: "json",
       error: function (jqXHR) {
