@@ -1,3 +1,4 @@
+<!-- Выражение -->
 <div class="row">
   <div class="ui buttons large">
     <% data[:expression].each_with_index do |elem, index| %>
@@ -23,12 +24,31 @@
 
 <% if data[:errors].present? %>
   <br>
-  <div class="row">
+  <!-- Ошибки -->
+  <div class="row" id="error_messages">
     <% data[:errors].each do |error| %>
       <% error_text = error[:parts].map { |el| el[:text] }.join(' ').gsub(/\n/, '<br>') %>
       <div class="ui message">
         <p><%= error_text.html_safe %></p>
       </div>
+    <% end %>
+
+    <!-- Кнопки "разобраться подробнее" -->
+    <% if true # TODO учесть что не всегда есть готовый опросник для студента %>
+      <div id="error_buttons">
+        <button class="ui primary button"
+                id="error_learn_more_btn"
+        >
+          <%= t('learn_more') %>
+        </button>
+        <button class="ui button"
+                id="error_understand_btn"
+        >
+          <%= t('understand') %>
+        </button>
+      </div>
+
+      <div id="learn_more_quiz"></div>
     <% end %>
   </div>
 <% end %>

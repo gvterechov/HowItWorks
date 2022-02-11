@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       get "/tasks/:token", to: 'expressions#show_task'
       get "/tasks/:token/statistic", to: 'expressions#task_statistic'
       get :check_expression, to: 'expressions#check_expression', format: :json
+      get :learn_more, to: 'expressions#learn_more', format: :json
+      get :learn_more_next, to: 'expressions#learn_more_next', format: :json
       post :create_task, to: 'expressions#create_task', format: :json
       get :available_syntaxes, to: 'expressions#available_syntaxes', format: :json
     end

@@ -48,6 +48,26 @@ class Expressions::ExpressionsController < ApplicationController
     end
   end
 
+  def learn_more
+    data = JSON.parse(params[:data])
+    result = OwlEvaluationOrderCheck.new.verify_expression(data)
+    result[:action] = :get_supplement
+    result = OwlEvaluationOrderCheck.new.get_supplement(result)
+
+    respond_to do |format|
+      format.html { render partial: '/expressions/common/expression_quiz', locals: { data: result } }
+    end
+  end
+
+  def learn_more_next
+    data = JSON.parse(params[:data])
+    result = OwlEvaluationOrderCheck.new.get_supplement(data)
+
+    respond_to do |format|
+      format.html { render partial: '/expressions/common/expression_quiz', locals: { data: result } }
+    end
+  end
+
   # TODO вынести в tasks_controller
   def create_task
     task = ExpressionTask.new(task_params)
