@@ -1,3 +1,4 @@
+<!-- Выражение -->
 <div class="row">
   <div class="ui buttons large">
     <% data[:expression].each_with_index do |elem, index| %>
@@ -21,13 +22,94 @@
   </div>
 </div>
 
+<!-- Ошибки -->
 <% if data[:errors].present? %>
   <br>
   <div class="row">
-    <% data[:errors].each do |error| %>
+    <% data[:errors].each_with_index do |error, index| %>
       <% error_text = error[:parts].map { |el| el[:text] }.join(' ').gsub(/\n/, '<br>') %>
-      <div class="ui message">
+      <div class="ui message" id="error_message_<%= index %>">
         <p><%= error_text.html_safe %></p>
+
+        <!-- Кнопки "разобраться подробнее" -->
+        <% if true %>
+          <div id="error_buttons">
+            <button class="ui primary button"
+                    id="error_learn_more_btn"
+            >
+              <%= t('learn_more') %>
+            </button>
+            <button class="ui button"
+                    id="error_understand_btn"
+                    data-message-id="<%= index %>"
+            >
+              <%= t('understand') %>
+            </button>
+          </div>
+
+          <!-- Анкета для студента -->
+          <div class="ui segment hidden"
+               id="learn_more_question"
+               style="display: none;"
+          >
+            <!-- Вопрос с вариантами ответа -->
+            <div class="ui form">
+              <p>Что мешает выполниться оператору + на позиции 5?</p>
+
+              <div class="ui negative message hidden"
+                   id="learn_more_error_message"
+              >
+                <p>Неверно, выберите другой ответ.</p>
+              </div>
+
+              <div class="grouped fields">
+                <div class="field">
+                  <div class="ui radio checkbox answer"
+                       data-id="1"
+                  >
+                    <input type="radio" name="radio">
+                    <label>приоритет оператора - на позиции 3</label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <div class="ui radio checkbox answer"
+                       data-id="2"
+                  >
+                    <input type="radio" name="radio">
+                    <label>ассоциативность оператора - на позиции 3</label>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <button class="ui green disabled button"
+                        id="learn_more_submit_btn">
+                  <%= t('next') %>
+                </button>
+              </div>
+            </div>
+          </div>
+
+            <!--
+            <div class="ui segment"
+                 id="learn_more_loading"
+                 style="display: none;"
+            >
+              <div class="ui active loader"></div>
+              <div class="ui placeholder">
+                <div class="header">
+                  <div class="line"></div>
+                </div>
+                <div class="paragraph">
+                  <div class="line"></div>
+                  <div class="line"></div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+            -->
+        <% end %>
       </div>
     <% end %>
   </div>

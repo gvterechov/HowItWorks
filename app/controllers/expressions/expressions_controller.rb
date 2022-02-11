@@ -48,6 +48,39 @@ class Expressions::ExpressionsController < ApplicationController
     end
   end
 
+  # TODO возможно будет достаточно одного экшена
+  def learn_more
+    # result = OwlEvaluationOrderCheck.new.get_supplement(params)
+    # TODO получаем данные, генерируем модальное окно с анкетой
+    result = {
+      description: 'Что мешает выполниться оператору + на позиции 5?',
+      expression: [
+        {
+          id: 1,
+          text: 'приоритет оператора - на позиции 3'
+        },
+        {
+          id: 2,
+          text: 'ассоциативность оператора - на позиции 3'
+        }
+      ]
+    }
+    respond_to do |format|
+      format.json { render json: result, status: :ok }
+    end
+  end
+
+  def learn_more_next
+    # result = OwlEvaluationOrderCheck.new.get_supplement(params)
+    # TODO получаем данные, генерируем новую анкету
+    # или сообщение об ошибке
+    # или инфо об успешном завершении?
+    result = {}
+    respond_to do |format|
+      format.json { render json: result, status: :ok }
+    end
+  end
+
   # TODO вынести в tasks_controller
   def create_task
     task = ExpressionTask.new(task_params)

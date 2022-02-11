@@ -13,6 +13,10 @@ class OwlEvaluationOrderCheck < BaseService
     JSON.load(response.body)&.with_indifferent_access
   end
 
+  def get_supplement
+    # TODO
+  end
+
   def available_syntaxes
     raise ServiceNotAvailableException.new unless available?
 

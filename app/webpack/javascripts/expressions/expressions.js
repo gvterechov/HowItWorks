@@ -3,28 +3,8 @@ import { showTeacherModal } from '../application/teacher'
 
 $(function() {
   $('.ui.dropdown.task_lang').toggleClass('loading');
-  $.ajax({
-    method: "GET",
-    url: '/expressions/available_syntaxes',
-    dataType: "json",
-    error: function (jqXHR) {
-      // TODO показать сообщение об ошибке
-      alert('error: available_syntaxes');
-    },
-    success: function (data) {
-      // data = JSON.parse(data);
-      $('.ui.dropdown.task_lang').dropdown({
-        values: data['available_syntaxes']
-      });
-      // set value as choosen before
-      if (localStorage.task_syntax) {
-        $('.ui.dropdown.task_lang').dropdown('set selected', localStorage.task_syntax);
-      }
-    },
-    complete: function() {
-      $('.ui.dropdown.task_lang').toggleClass('loading');
-    }
-  });
+
+  loadAvailableSyntaxes();
 
   enableNextCorrectStepBtn($('.operator').length > 0);
   let available_hints_count = parseInt($('#max_available_hints_count').val()) || 1000;
@@ -138,6 +118,15 @@ $(function() {
       success: function (data) {
         // alert('success');
         $('#expression_trainer').html(data);
+
+        $('#error_learn_more_btn').click(function() {
+          learnMoreClick($(this));
+        });
+
+        $('#error_understand_btn').click(function() {
+          $('#error_message_' + $(this).attr('data-message-id')).hide('slow');
+        });
+
         $('#show_next_correct_step').show();
 
         enableNextCorrectStepBtn(available_hints_count != 0);
@@ -155,7 +144,7 @@ $(function() {
         elem.toggleClass('loading');
       }
     });
-  };
+  }
 
   // Возвращает выражение в ввиде json
   function prepareExpression(selected_index = null, action = 'find_errors') {
@@ -164,30 +153,30 @@ $(function() {
     let tokens_json = expressionTokens(selected_index);
 
     return { expression: tokens_json, task_lang: task_lang, lang: lang, action: action }
-  };
+  }
 
   function taskLang() {
     if ($('.ui.dropdown.task_lang').length > 0) {
       return $('.ui.dropdown.task_lang').dropdown('get value');
     }
     return $('#task_lang').val();
-  };
+  }
 
   function taskName() {
     return $('#task_name').val();
-  };
+  }
 
   function collectStatistics() {
     return $('#collect_statistics').prop('checked');
-  };
+  }
 
   function enableHints() {
     return $('#enable_hints').prop('checked');
-  };
+  }
 
   function maxHintsCount() {
     return enableHints() ? $('#max_hints_count').val() : 0;
-  };
+  }
 
   function expressionTokens(selected_index = null) {
     let expr_str = $('#expression').val();
@@ -241,5 +230,94 @@ $(function() {
 
   function enableNextCorrectStepBtn(enabled = true) {
     $('#show_next_correct_step').attr("disabled", !enabled);
+  }
+
+  function learnMoreClick(elem) {
+    elem.toggleClass('loading');
+    // TODO отправить на сервер инфо о том, что пора показать анкету
+    $.ajax({
+      method: "GET",
+      url: '/expressions/learn_more',
+      data: {},
+      error: function (jqXHR) {
+        // TODO показать сообщение об ошибке
+        alert('error');
+      },
+      success: function (data) {
+        $('#error_buttons').hide();
+
+        // TODO Вставить анкету в алерт
+        $('#learn_more_question').show();
+        $('.ui.radio.checkbox').checkbox();
+
+        // TODO обработчик нажатия на элемент анкеты
+        $('.answer').click(function() {
+          $('#learn_more_submit_btn').removeClass('disabled');
+          $('#learn_more_error_message').hide();
+        });
+
+        $('#learn_more_submit_btn').click(function() {
+          learnMoreSubmitClick($(this));
+        });
+      },
+      complete: function () {
+        // TODO разблокировать нажатие на элементы алгоритма
+        elem.toggleClass('loading');
+      }
+    });
+  }
+
+  function learnMoreSubmitClick(elem) {
+    elem.toggleClass('loading');
+    $('#learn_more_question').addClass('loading');
+
+    $('#learn_more_error_message').hide();
+    $.ajax({
+      method: "GET",
+      url: '/expressions/learn_more_next',
+      data: {},
+      error: function (jqXHR) {
+        // TODO показать сообщение об ошибке
+        alert('error');
+      },
+      success: function (data) {
+        // TODO вставить инфо об ошибке
+        // или вставить новый вопрос
+        // или показать инфо об успешном завершении?
+        if (true) {
+          $('#learn_more_error_message').show();
+        }
+      },
+      complete: function () {
+        // TODO разблокировать нажатие на элементы алгоритма
+        elem.toggleClass('loading');
+
+        $('#learn_more_question').removeClass('loading');
+      }
+    });
+  }
+
+  function loadAvailableSyntaxes() {
+    $.ajax({
+      method: "GET",
+      url: '/expressions/available_syntaxes',
+      dataType: "json",
+      error: function (jqXHR) {
+        // TODO показать сообщение об ошибке
+        alert('error: available_syntaxes');
+      },
+      success: function (data) {
+        $('.ui.dropdown.task_lang').dropdown({
+          values: data['available_syntaxes']
+        });
+        // set value as choosen before
+        if (localStorage.task_syntax) {
+          $('.ui.dropdown.task_lang').dropdown('set selected', localStorage.task_syntax);
+        }
+      },
+      complete: function() {
+        $('.ui.dropdown.task_lang').toggleClass('loading');
+      }
+    });
   }
 });
