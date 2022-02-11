@@ -51,7 +51,18 @@
        style="width: 530px;">
     <div class="field">
       <label><%= t('task_link') %> "<span id="saved_task_name"></span>"</label>
-      <input type="text" value="" id="task_url" readonly>
+      <div class="ui action input">
+        <input type="text"
+               value=""
+               id="task_url"
+               readonly>
+        <button class="ui teal button"
+                id="copy_task_url"
+                data-content="<%= t('copied') %>"
+        >
+          <i class="copy icon"></i><%= t('copy') %>
+        </button>
+      </div>
     </div>
   </div>
 </div>

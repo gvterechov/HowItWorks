@@ -116,6 +116,7 @@ en:
   syntax: 'Syntax'
   save: 'Save'
   copy: 'Copy'
+  copied: 'Copied!'
   submit: 'Submit'
   name_not_set: 'Name not set'
   examples: 'Examples'

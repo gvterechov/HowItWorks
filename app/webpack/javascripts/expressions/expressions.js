@@ -66,6 +66,10 @@ $(function() {
     $('#task_url_form').hide();
   });
 
+  $('#copy_task_url').click(function() {
+    navigator.clipboard.writeText($("#task_url").val());
+  });
+
   // Сохранение выражения
   $('#create_task').click(function() {
     // TODO заблокировать кнопку сохранения задачи, когда пустое имя задачи, если имя задано - разблокировать
@@ -106,6 +110,9 @@ $(function() {
         $('#task_info_form').hide();
         showTeacherModal();
         $('#task_url_form').show();
+        $('#copy_task_url').popup({
+          on: 'click'
+        });
       },
       complete: function() {
         elem.toggleClass('loading');

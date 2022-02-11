@@ -85,6 +85,7 @@ ru:
   syntax: 'Синтаксис'
   save: 'Сохранить'
   copy: 'Копировать'
+  copied: 'Скопировано!'
   submit: 'Отправить'
   name_not_set: 'Имя не задано'
   examples: 'Примеры'
