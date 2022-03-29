@@ -300,6 +300,9 @@ export class Location {
 		this.corner = new paper.Point(corner || [0,0]);
 		this.size   = new paper.Size (size   || [U,U]);
 	}
+	type_name() {  // get name of class (a constant): keep valid names if code was obfuscated
+		return 'Location';
+	}
 	rebase(...bases) {
 		return rebasePoint(this.corner, ...bases);
 	}
@@ -318,6 +321,9 @@ export class Slot extends Location {
 		///
 		console.assert(direction !== undefined, this)
 	}
+	type_name() {
+		return 'Slot';
+	}
 	highlight(propagate_through) {
 		if (propagate_through !== false && this.role == 'in' && this.links_out.length > 0) {
 			// connection "through" - in & out are the same this slot
@@ -332,7 +338,7 @@ export class Slot extends Location {
 		return;
 	}
 	draw() {
-		draw_shape(this.constructor.name, this.corner);
+		draw_shape(this.type_name(), this.corner);
 	}
 	clone() {
 		// do not copy owner and links !
@@ -350,6 +356,9 @@ export class AlgArea extends Location {
 		this.config = config || {};
 		this.alg_id = false;    // assigned in create_alg_for()
 		this.alg_name = false;  // assigned in create_alg_for()
+	}
+	type_name() {  // get name of class (a constant): keep valid names if code was obfuscated
+		return 'AlgArea';
 	}
 	slot(direction, role) {  // getter & default creator
 		if (!this.slots[direction])
@@ -474,7 +483,7 @@ export class AlgArea extends Location {
 		this.draw_children();
 	}
 	draw_self() {
-		draw_shape(this.constructor.name, {
+		draw_shape(this.type_name(), {
 			...this.config,
 			rectangle: this.position_self(),
 		});
@@ -526,6 +535,9 @@ export class TransitDiamond extends AlgArea {  // links connection
 		this.size = new paper.Size(0, 0);
 		// this.config.hidden = true;
 		// this.config.color = 'red';
+	}
+	type_name() {
+		return 'TransitDiamond';
 	}
 	_create_side_slot(direction, role) {  // creator
 		let point = null;
@@ -664,6 +676,9 @@ export class SequenceArea extends AlgArea {
 
 		this.actualize_rect();
 	}
+	type_name() {
+		return 'SequenceArea';
+	}
 	draw() {
 		super.draw();
 		if (! this.parent) {
@@ -699,6 +714,9 @@ export class ConditionDiamond extends AlgArea {  // two slots vertically
 	constructor(corner) {
 		super(corner);
 		this.name_visible = true;
+	}
+	type_name() {
+		return 'ConditionDiamond';
 	}
 	fit(alg_node) {
 		// this.alg_node = alg_node;  // ???
@@ -865,6 +883,9 @@ export class AlternativeArea extends AlgArea {
 
 		this.actualize_rect();
 	}
+	type_name() {
+		return 'AlternativeArea';
+	}
 }
 
 export class WhileLoopArea extends AlgArea {
@@ -946,6 +967,9 @@ export class WhileLoopArea extends AlgArea {
 
 		this.actualize_rect();
 	}
+	type_name() {
+		return 'WhileLoopArea';
+	}
 }
 
 export class DoLoopArea extends AlgArea {
@@ -1018,6 +1042,9 @@ export class DoLoopArea extends AlgArea {
 
 		this.actualize_rect();
 	}
+	type_name() {
+		return 'DoLoopArea';
+	}
 }
 
 
@@ -1026,6 +1053,9 @@ export class BoxArea extends AlgArea {
 		// this.alg_node = alg_node;  // ???
 		this.size = new paper.Size(U * 2, U * 0.81);
 		// this.name_visible = true;
+	}
+	type_name() {
+		return 'BoxArea';
 	}
 }
 
