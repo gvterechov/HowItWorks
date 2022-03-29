@@ -2,6 +2,8 @@ import { workspace } from './init_blockly'
 
 $(function() {
   $('.ui.dropdown.task_lang').toggleClass('loading');
+
+  // TODO вынести в отдельную функцию
   $.ajax({
     method: "GET",
     url: '/algorithms/available_syntaxes',

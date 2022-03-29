@@ -1,0 +1,49 @@
+<!-- learn more modal -->
+<div class="ui learn_more tiny modal">
+  <i class="close icon"></i>
+  <div class="header">
+    <%#= t('teacher_modal.header') %>
+    Попробуем разобраться подробнее
+  </div>
+  <div class="scrolling content">
+    <form class="ui form"
+          id="learn_more">
+      <div class="description">
+        <p>Что мешает выполниться оператору + на позиции 5?</p>
+
+        <div class="ui negative message hidden"
+             id="learn_more_error_message"
+        >
+          <p>Неверно, выберите другой ответ.</p>
+        </div>
+
+        <div class="grouped fields">
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="radio" class="answer" data-id="1">
+              <label>приоритет оператора - на позиции 3</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="radio" class="answer" data-id="2">
+              <label>ассоциативность оператора - на позиции 3</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div class="ui green disabled button"
+         id="learn_more_submit_btn">
+      <%#= t('submit') %>
+      Дальше
+    </div>
+    <div class="ui right deny button">
+      <%#= t('teacher_modal.cancel') %>
+      Я разобрался
+    </div>
+  </div>
+</div>

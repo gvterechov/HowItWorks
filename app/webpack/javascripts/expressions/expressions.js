@@ -1,6 +1,11 @@
 import { getAttemptData } from '../application/attempt'
 import { showTeacherModal } from '../application/teacher'
 
+// TODO разбить на компоненты
+// - главное окно
+// - виджет с выражением
+// - виджет с подской
+// - показать следующий успешный шаг
 $(function() {
   $('.ui.dropdown.task_lang').toggleClass('loading');
   $.ajax({
@@ -70,6 +75,7 @@ $(function() {
     navigator.clipboard.writeText($("#task_url").val());
   });
 
+  // TODO вынести в отдельную функцию
   // Сохранение выражения
   $('#create_task').click(function() {
     // TODO заблокировать кнопку сохранения задачи, когда пустое имя задачи, если имя задано - разблокировать
@@ -248,5 +254,95 @@ $(function() {
 
   function enableNextCorrectStepBtn(enabled = true) {
     $('#show_next_correct_step').attr("disabled", !enabled);
+  }
+
+  // TODO возможно будет достаточно одного экшена
+  function learnMoreClick(elem) {
+    elem.toggleClass('loading');
+    // TODO отправить на сервер инфо о том, что пора показать анкету
+    $.ajax({
+      method: "GET",
+      url: '/expressions/learn_more',
+      data: {},
+      error: function (jqXHR) {
+        // TODO показать сообщение об ошибке
+        alert('error');
+      },
+      success: function (data) {
+        $('#error_buttons').hide();
+
+        // TODO Вставить анкету в алерт
+        $('#learn_more_question').show();
+        $('.ui.radio.checkbox').checkbox();
+
+        // TODO обработчик нажатия на элемент анкеты
+        $('.answer').click(function() {
+          $('#learn_more_submit_btn').removeClass('disabled');
+          $('#learn_more_error_message').hide();
+        });
+
+        $('#learn_more_submit_btn').click(function() {
+          learnMoreSubmitClick($(this));
+        });
+      },
+      complete: function () {
+        // TODO разблокировать нажатие на элементы алгоритма
+        elem.toggleClass('loading');
+      }
+    });
+  }
+
+  function learnMoreSubmitClick(elem) {
+    elem.toggleClass('loading');
+    $('#learn_more_question').addClass('loading');
+
+    $('#learn_more_error_message').hide();
+    $.ajax({
+      method: "GET",
+      url: '/expressions/learn_more_next',
+      data: {},
+      error: function (jqXHR) {
+        // TODO показать сообщение об ошибке
+        alert('error');
+      },
+      success: function (data) {
+        // TODO вставить инфо об ошибке
+        // или вставить новый вопрос
+        // или показать инфо об успешном завершении?
+        if (true) {
+          $('#learn_more_error_message').show();
+        }
+      },
+      complete: function () {
+        // TODO разблокировать нажатие на элементы алгоритма
+        elem.toggleClass('loading');
+
+        $('#learn_more_question').removeClass('loading');
+      }
+    });
+  }
+
+  function loadAvailableSyntaxes() {
+    $.ajax({
+      method: "GET",
+      url: '/expressions/available_syntaxes',
+      dataType: "json",
+      error: function (jqXHR) {
+        // TODO показать сообщение об ошибке
+        alert('error: available_syntaxes');
+      },
+      success: function (data) {
+        $('.ui.dropdown.task_lang').dropdown({
+          values: data['available_syntaxes']
+        });
+        // set value as choosen before
+        if (localStorage.task_syntax) {
+          $('.ui.dropdown.task_lang').dropdown('set selected', localStorage.task_syntax);
+        }
+      },
+      complete: function() {
+        $('.ui.dropdown.task_lang').toggleClass('loading');
+      }
+    });
   }
 });
