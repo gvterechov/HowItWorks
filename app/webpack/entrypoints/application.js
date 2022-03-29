@@ -8,7 +8,8 @@ import * as ActiveStorage from "@rails/activestorage"
 import "../javascripts/channels"
 import 'semantic-ui/dist/semantic.js'
 
-
+import '../javascripts/application/claim';
+import '../javascripts/application/user_name';
 // ? Должно это быть здесь или не здесь ?
 import '../javascripts/application/attempt';
 

@@ -1,4 +1,6 @@
 class TeacherFeedbacksController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   # POST /feedback.json
   def create
     @feedback = TeacherFeedback.new(teacher_feedback_params)

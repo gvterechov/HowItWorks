@@ -1,9 +1,7 @@
 // Показать анкету для преподавателя
 export function showTeacherModal() {
   if (getCookie('teacher_modal_was_shown') == undefined) {
-    $('.ui.modal.teacher').modal('show');
-    // запомнить (на 1 год) что модальное окно уже было показано, не показывать больше
-    document.cookie = 'teacher_modal_was_shown=true; max-age=31536000';
+    renderTeacherModal();
   }
 }
 
@@ -16,13 +14,15 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-$(function() {
-  // setTimeout(function() {
-  //   showTeacherModal();
-  // }, 1000);
+function renderTeacherModal() {
+  $('.ui.modal.teacher').modal('show');
+  // запомнить (на 1 год) что модальное окно уже было показано, не показывать больше
+  document.cookie = 'teacher_modal_was_shown=true; max-age=31536000';
+}
 
+$(function() {
   $('#feedback_btn').click(function() {
-    showTeacherModal();
+    renderTeacherModal();
   });
 
   $('#teacher_modal_submit_btn').click(function() {
