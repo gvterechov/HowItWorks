@@ -1,4 +1,5 @@
 import { workspace } from './init_blockly'
+import { showTeacherModal } from '../application/teacher'
 
 $(function() {
   $('.ui.dropdown.task_lang').toggleClass('loading');
