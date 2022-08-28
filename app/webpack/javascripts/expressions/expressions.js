@@ -306,8 +306,9 @@ $(function() {
   }
 
   function loadNextChatQuestion() {
+    let $elem = $(this);
     // Добавляем выбранный студентом ответ в чат
-    addChatText($(this).text(), 'right');
+    addChatText($elem.text(), 'right');
 
     let error_index = errorOperatorIndex();
     let type = $(this).data('additional-info');
@@ -324,7 +325,7 @@ $(function() {
       success: function (data) {
         if (data['answers'].length > 0) {
           // Добавляем в чат, правильно ли ответил студент
-          addStudentAnswerReaction($(this));
+          addStudentAnswerReaction($elem);
         }
 
         updateChat(data);
