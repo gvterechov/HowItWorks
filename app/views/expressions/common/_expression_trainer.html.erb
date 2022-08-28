@@ -4,6 +4,7 @@
     <% data[:expression].each_with_index do |elem, index| %>
       <%
         order = elem[:check_order] if elem[:check_order].present? && elem[:check_order] < 1000
+        elem[:text] = '&minus;'.html_safe if elem[:text] == '-' # Замена дефис на минус
       %>
       <button class="operator ui button compact <%= 'disabled' unless elem[:enabled] %>
                                        <%= 'basic' if elem[:status] == 'suggested' %>
