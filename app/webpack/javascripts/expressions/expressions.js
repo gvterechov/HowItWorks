@@ -143,7 +143,7 @@ $(function() {
         let error_index = errorOperatorIndex();
         if (error_index !== null && error_index !== undefined) {
           // TODO заблокировать выражение
-          openChat();
+          collapseChat();
           loadChatQuestion();
         }
       },
