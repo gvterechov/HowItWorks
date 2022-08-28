@@ -48,23 +48,23 @@ class Expressions::ExpressionsController < ApplicationController
     end
   end
 
-  def learn_more
+  def get_supplement
     data = JSON.parse(params[:data])
     result = OwlEvaluationOrderCheck.new.verify_expression(data)
     result[:action] = :get_supplement
     result = OwlEvaluationOrderCheck.new.get_supplement(result)
 
     respond_to do |format|
-      format.html { render partial: '/expressions/common/expression_quiz', locals: { data: result } }
+      format.json { render json: result, status: :ok }
     end
   end
 
-  def learn_more_next
+  def get_next_supplement
     data = JSON.parse(params[:data])
     result = OwlEvaluationOrderCheck.new.get_supplement(data)
 
     respond_to do |format|
-      format.html { render partial: '/expressions/common/expression_quiz', locals: { data: result } }
+      format.json { render json: result, status: :ok }
     end
   end
 

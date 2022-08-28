@@ -1,0 +1,103 @@
+<!-- Миниатюра для скрытия чата -->
+<button class="circular ui icon green button"
+        id="chat_btn"
+        data-tooltip="<%= t('help_explain') %>"
+        data-position="top right"
+        style="display: none;
+          position: fixed;
+          right: 15px;
+          bottom: 55px;
+          z-index: 1000;"
+>
+  <i class="icon question"></i>
+</button>
+
+<div id="chat" style="display: none;">
+  <div class="ui card"
+       style="min-width: 315px;
+         position: fixed;
+         right: 15px;
+         bottom: 55px;
+         z-index: 1000;"
+  >
+    <div class="content">
+      <h4 style="width: 90%; display: inline-block; margin: 0;">
+        <%= t('help_explain') %>
+      </h4>
+      <i class="close icon"
+         id="chat_close_btn"
+         style="float: right;
+           cursor: pointer;"
+      ></i>
+    </div>
+    <div class="content"
+         id="chat_content"
+         style="max-height: 240px;
+           overflow: scroll;
+           overflow-x: hidden;"
+    >
+
+      <!-- Шаблоны элементов чата -->
+      <div class="event" id="left_event" style="display: none;">
+        <div class="content" style="margin-right: 50px;">
+          <div class="ui violet label" id="left_event_text">
+          </div>
+        </div>
+      </div>
+
+      <div class="event" id="right_event" style="display: none;">
+        <div class="content" style="margin-left: 50px;">
+          <div class="right aligned">
+            <div class="ui purple label" id="right_event_text">>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Шаблоны элементов чата -->
+
+      <div class="ui small feed"
+           id="chat_feed"
+      >
+      </div>
+    </div>
+    <div class="extra content" id="chat_answers_block">
+      <!-- Шаблон кнопки с ответом -->
+      <button class="ui basic button tiny"
+              id="answer"
+              style="margin-bottom: 5px; display: none;">
+      </button>
+      <!-- /Шаблон кнопки с ответом -->
+
+      <div id="chat_answers"></div>
+
+      <button class="ui button tiny"
+              id="chat_understand_btn"
+      >
+        <%= t('understand') %>
+      </button>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="chat_correct" value="<%= t('corrects').join(', ') %>" />
+<input type="hidden" id="chat_incorrect" value="<%= t('incorrects').join(', ') %>"/>
+
+<div class="ui basic modal" id="chat_close_alert">
+  <div class="content">
+    <p><%= t('chat_close') %></p>
+  </div>
+  <div class="actions">
+    <div class="ui green ok inverted button"
+         id="chat_close_yes"
+    >
+      <i class="checkmark icon"></i>
+      <%= t('chat_close_yes') %>
+    </div>
+    <div class="ui red basic cancel inverted button"
+         id="chat_close_no"
+    >
+      <i class="remove icon"></i>
+      <%= t('chat_close_no') %>
+    </div>
+  </div>
+</div>

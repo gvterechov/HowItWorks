@@ -28,6 +28,7 @@
 
     <% if @task.enable_hints %>
       <%= show_next_correct_step_button(@task.max_hints_count || 0) %>
+      <%= render partial: 'expressions/common/expression_quiz_mk2' %>
     <% end %>
   </div>
 </div>

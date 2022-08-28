@@ -27,13 +27,18 @@ $(function() {
 
   // Кнокпка "запустить"
   $('#prepare').click(function() {
+    renewChat();
     updateExpressionTrainer($(this));
   });
 
   // Кнокпка "запустить" по нажатию на Enter
   $(document).keyup(function(event) {
-    if (event.keyCode == 13) {
+    if (event.key === "Enter") {
       $('#prepare').click();
+    }
+
+    if (event.key === "Escape") {
+      collapseChat();
     }
   });
 
@@ -122,19 +127,9 @@ $(function() {
         alert('error');
       },
       success: function (data) {
-        // alert('success');
         $('#expression_trainer').html(data);
 
-        $('#error_learn_more_btn').click(function() {
-          learnMoreClick($(this));
-        });
-
-        $('#error_understand_btn').click(function() {
-          $('#error_messages').hide(400);
-        });
-
         $('#show_next_correct_step').show();
-
         enableNextCorrectStepBtn(available_hints_count != 0);
 
         $('.operator').click(operatorClick);
@@ -143,6 +138,13 @@ $(function() {
           enableNextCorrectStepBtn(false);
           getAttemptData();
           $('.ui.modal.success').modal('show');
+        }
+        // Если есть кнопка с красным лейблом, то была совершена ошибка
+        let error_index = errorOperatorIndex();
+        if (error_index !== null && error_index !== undefined) {
+          // TODO заблокировать выражение
+          openChat();
+          loadChatQuestion();
         }
       },
       complete: function() {
@@ -227,12 +229,16 @@ $(function() {
 
   // Нажатие на кнокпку оператора выражения
   function operatorClick() {
+    renewChat();
+
     let index = $(this).data('index');
     updateExpressionTrainer($(this), index, 'find_errors');
   }
 
   // Нажатие на кнопку отображения следующего успешного шага
   function nextCorrectStepClick() {
+    renewChat();
+
     --available_hints_count;
     if (available_hints_count >= 0) { // && $('#available_hints_count').length > 0) {
       $('#available_hints_count').text(available_hints_count);
@@ -244,13 +250,45 @@ $(function() {
     $('#show_next_correct_step').attr("disabled", !enabled);
   }
 
-  function learnMoreClick(elem) {
-    elem.toggleClass('loading');
+  // Интекс опратора, который был ошибочно выбран
+  function errorOperatorIndex() {
+    return $('.operator.red').data('index');
+  }
 
+
+  // --- Чат с подсказками
+  $('#chat_understand_btn').click(function () {
+    chatUnderstandClick($(this));
+  });
+
+  $('#chat_btn').click(function () {
+    chatBtnClick($(this));
+  });
+
+  $('#chat_close_btn').click(function () {
+    // Показываем дополнительный вопрос студенту,
+    // если он хочет закрыть чат, в котором еще есть активный диалог
+    // (есть кнопки с ответами)
+    if ($('button[data-additional-info]').length > 0) {
+      hideChat(); // TODO баг - чат прыгает, теперь хотя бы скрываем
+      $('#chat_close_alert').modal('show');
+    } else {
+      collapseChat();
+    }
+  });
+
+  $('#chat_close_yes').click(function () {
+    collapseChat();
+    clearChatAnswers();
+  });
+
+  $('#chat_close_no').click(openChat);
+
+  function loadChatQuestion() {
     let error_index = errorOperatorIndex();
     $.ajax({
       method: "GET",
-      url: '/expressions/learn_more',
+      url: '/expressions/get_supplement',
       data: {
         data: JSON.stringify(prepareExpression(error_index, 'find_errors')),
       },
@@ -259,28 +297,23 @@ $(function() {
         alert('error');
       },
       success: function (data) {
-        $('#error_buttons').hide();
-
-        updateLearnMoreQuiz(data);
+        updateChat(data);
       },
       complete: function () {
         // TODO разблокировать нажатие на элементы алгоритма
-        elem.toggleClass('loading');
       }
     });
   }
 
-  function learnMoreSubmitClick(elem) {
-    elem.toggleClass('loading');
-    $('#learn_more_question').addClass('loading');
-
-    // $('#learn_more_error_message').hide();
+  function loadNextChatQuestion() {
+    // Добавляем выбранный студентом ответ в чат
+    addChatText($(this).text(), 'right');
 
     let error_index = errorOperatorIndex();
-    let type = quizSelectAnswerAdditionalInfo();
+    let type = $(this).data('additional-info');
     $.ajax({
       method: "GET",
-      url: '/expressions/learn_more_next',
+      url: '/expressions/get_next_supplement',
       data: {
         data: JSON.stringify(prepareExpression(error_index, 'get_supplement', type)),
       },
@@ -289,52 +322,144 @@ $(function() {
         alert('error');
       },
       success: function (data) {
-        updateLearnMoreQuiz(data);
+        if (data['answers'].length > 0) {
+          // Добавляем в чат, правильно ли ответил студент
+          addStudentAnswerReaction($(this));
+        }
+
+        updateChat(data);
       },
       complete: function () {
         // TODO разблокировать нажатие на элементы алгоритма
-        elem.toggleClass('loading');
-
-        $('#learn_more_question').removeClass('loading');
       }
     });
   }
 
-  // Интекс опратора, который был ошибочно выбран
-  function errorOperatorIndex() {
-    return $('.operator.red').data('index');
+  function updateChat(data) {
+    // Добавляем вопрос в нужное место
+    addChatText(data['text'], 'left');
+
+    clearChatAnswers();
+    // Добавляем кнопки с ответами
+    if (data['answers'].length > 0) {
+      $('#chat_answers_block').show();
+      data['answers'].forEach(function(answer) {
+        addChatAnswer(answer);
+      });
+    } else {
+      $('#chat_answers_block').hide();
+    }
   }
 
-  // Выбранный студентом ответ в анкете
-  function quizSelectAnswer() {
-    return $('.answer.checked');
+  // Скроллим чат до последнего сообщения
+  function scrollCharDown() {
+    let $chat_content = $('#chat_content');
+    $chat_content.scrollTop($chat_content.prop("scrollHeight"));
   }
 
-  // Информация о выбранном студентом ответе в анкете
-  function quizSelectAnswerAdditionalInfo() {
-    return quizSelectAnswer().data('additional-info');
+  // Оценивает ответ студентв в словестной форме,
+  // одним из вариантов слов "верно" или "неверно"
+  function rateStudentChatAnswer(elem) {
+    let answers_selector = elem.data('status') === 'correct' ? '#chat_correct' : '#chat_incorrect';
+    let answers = $(answers_selector).val().split(', ');
+    return answers[Math.floor(Math.random() * answers.length)];
   }
 
-  // Статус выбранного студентом ответа в анкете (правильный ответ или нет)
-  function quizSelectAnswerStatus() {
-    return quizSelectAnswer().data('status');
+  // Добавить фразу в чат
+  function addChatText(text, direction) {
+    let $message = $(`#${direction}_event`).clone();
+    $message.removeAttr('id');
+    $(`#${direction}_event_text`, $message).text(text);
+    $(`#${direction}_event_text`, $message).removeAttr('id');
+    $('#chat_feed').append($message);
+    $message.show();
+
+    scrollCharDown();
+
+    return $message;
   }
 
-  function updateLearnMoreQuiz(data) {
-    $('#learn_more_quiz').html(data);
-
-    $('#learn_more_question').show();
-    $('.ui.radio.checkbox').checkbox();
-
-    $('.answer').click(function() {
-      $('#learn_more_submit_btn').removeClass('disabled');
-      // $('#learn_more_error_message').hide(); // TODO подумать, нужен ли этот блок?
-    });
-
-    $('#learn_more_submit_btn').click(function() {
-      learnMoreSubmitClick($(this));
-    });
+  // Добавить в чат слева реакцию на ответ студент
+  // (корректный или некорректный у студента был ответ)
+  function addStudentAnswerReaction(elem) {
+    let rate_answer = rateStudentChatAnswer(elem);
+    return addChatText(rate_answer, 'left');
   }
+
+  // Добавить вариант ответа в чат
+  // options
+  //  text - текст варианта ответа
+  //  enabled - доступен ли для выбора вариант ответа
+  //  status - правильный или нет ответ
+  //  additional_info - доп. инфо
+  function addChatAnswer(options) {
+    let $answer = $('#answer').clone();
+    $answer.text(options['text']);
+    if (options['enabled'] === false) {
+      $answer.addClass('disabled');
+    }
+    $answer.attr('data-status', options['status']);
+    $answer.attr('data-additional-info', options['additional_info']);
+    $answer.removeAttr('id');
+    $('#chat_answers').append($answer);
+    $answer.click(loadNextChatQuestion);
+    $answer.show();
+    return $answer;
+  }
+
+  // Очистить чат
+  function clearChat() {
+    $('#chat_feed').empty();
+    clearChatAnswers();
+  }
+
+  // Очистить предоставленные студенту ответы
+  function clearChatAnswers() {
+    $('#chat_answers').empty();
+  }
+
+  // Свернуть чат
+  function collapseChat() {
+    $('#chat').hide();
+    $('#chat_btn').show();
+  }
+
+  // Развернуть чат
+  function openChat() {
+    $('#chat').show();
+    $('#chat_btn').hide();
+  }
+
+  // Скрыть чат вместе с миниатюрой
+  function hideChat() {
+    $('#chat').hide();
+    $('#chat_btn').hide();
+  }
+
+  // Пересоздать чат, чтобы он был как новый
+  function renewChat() {
+    hideChat();
+    clearChat();
+  }
+
+  function chatUnderstandClick(elem) {
+    elem.toggleClass('loading');
+    // Добавить ответ студента в чат
+    addChatText(elem.text(), 'right');
+    collapseChat();
+
+    // TODO разблокировать выражение
+    elem.toggleClass('loading');
+  }
+
+  function chatBtnClick(elem) {
+    elem.toggleClass('loading');
+    // TODO заблокировать выражение
+    openChat();
+    elem.toggleClass('loading');
+  }
+  // ---/Чат с подсказками
+
 
   function loadAvailableSyntaxes() {
     $.ajax({
