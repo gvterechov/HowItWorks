@@ -11,14 +11,6 @@
       <p><%= data[:text] %></p>
 
       <% if data[:answers].present? %>
-        <!-- TODO удалить
-        <div class="ui negative message hidden"
-             id="learn_more_error_message"
-        >
-          <p><%= t('choose_another_answer') %></p>
-        </div>
-        -->
-
         <div class="grouped fields">
           <% data[:answers].each do |answer| %>
             <div class="field">
@@ -26,6 +18,11 @@
                    data-additional-info="<%= answer[:additional_info] %>"
                    data-status="<%= answer[:status] %>"
               >
+                <% if answer[:status] == 'correct' %>
+                  <i class="check green icon" style="display: none;"></i>
+                <% else %>
+                  <i class="x red icon" style="display: none;"></i>
+                <% end %>
                 <input type="radio" name="radio" <%= 'disabled' unless answer[:enabled] %>>
                 <label style="display: inline-block;">
                   <%= answer[:text] %>
@@ -33,13 +30,6 @@
               </div>
             </div>
           <% end %>
-        </div>
-
-        <div>
-          <button class="ui green disabled button"
-                  id="learn_more_submit_btn">
-            <%= t('next') %>
-          </button>
         </div>
       <% end %>
     </div>

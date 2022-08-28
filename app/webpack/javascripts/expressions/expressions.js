@@ -270,8 +270,7 @@ $(function() {
     });
   }
 
-  function learnMoreSubmitClick(elem) {
-    elem.toggleClass('loading');
+  function learnMoreSubmitClick() {
     $('#learn_more_question').addClass('loading');
 
     // $('#learn_more_error_message').hide();
@@ -293,7 +292,6 @@ $(function() {
       },
       complete: function () {
         // TODO разблокировать нажатие на элементы алгоритма
-        elem.toggleClass('loading');
 
         $('#learn_more_question').removeClass('loading');
       }
@@ -327,12 +325,8 @@ $(function() {
     $('.ui.radio.checkbox').checkbox();
 
     $('.answer').click(function() {
-      $('#learn_more_submit_btn').removeClass('disabled');
-      // $('#learn_more_error_message').hide(); // TODO подумать, нужен ли этот блок?
-    });
-
-    $('#learn_more_submit_btn').click(function() {
-      learnMoreSubmitClick($(this));
+      $(this).find(">:first-child").show();
+      setTimeout(learnMoreSubmitClick, 1000);
     });
   }
 
