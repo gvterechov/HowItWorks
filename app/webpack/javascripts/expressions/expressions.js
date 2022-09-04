@@ -25,6 +25,10 @@ $(function() {
   $('.operator').click(operatorClick);
   $('#show_next_correct_step').click(nextCorrectStepClick);
 
+  $('#expression').on('input', function () {
+    $('#prepare').prop('disabled', $(this).val().length === 0);
+  });
+
   // Кнокпка "запустить"
   $('#prepare').click(function() {
     renewChat();
