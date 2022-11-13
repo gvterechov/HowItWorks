@@ -17,6 +17,12 @@ $(function() {
   $('.second.modal')
       .modal('attach events', '.first.modal .button');
 
+
+  // enableNextCorrectStepBtn($('.alg_button').length > 0);
+  enableNextCorrectStepBtn(true);
+  let available_hints_count = parseInt($('#max_available_hints_count').val()) || 1000;
+
+
   function bindAlgorithmButtons() {
     $('.alg_button').click(algorithmClick);
   }
@@ -40,7 +46,7 @@ $(function() {
     $('#task_lang').val(task_syntax);
 
     if (!blockly_xml) {
-      algorithm_text_field = $('#algorithm_text_field');
+      let algorithm_text_field = $('#algorithm_text_field');
       algorithm_text_field.addClass('negative');
       // TODO: add i18n
       algorithm_text_field.html("!<br>" + $('#empty_algorithm').val());
@@ -129,34 +135,80 @@ $(function() {
         alert('error: verify_trace_act');
       },
       success: function (data) {
-        // alert('success');
-        // TODO после ответа от сервера обновлять следующие элементы: json трассы
-
-        // Обновить алгоритм и трассу
-        $('#algorithm_trainer').html(data);
-
-        // Показать модальное окно об успешном завершении задачи
-        // (если в full_trace_json есть акт, у которого is_final true)
-        if ($('#is_final').length > 0) {
-          getAttemptData();
-          $('.ui.modal.success').modal('show');
-
-          // Задача решена - убрать все кнопки из algorithm_text_field
-          $('.alg_button').remove();
-          if (on_solve_step) {
-            on_solve_step(true);
-          }
-
-        } else {
-          bindAlgorithmButtons();
-          if (on_solve_step) {
-            on_solve_step(false);
-          }
-        }
-
+        updateAlgorithmTrainer(data);
       }//,
       // complete: function() {
         // TODO разблокировать нажатие на элементы алгоритма
+      // }
+    });
+  }
+
+  function updateAlgorithmTrainer(data) {
+    // TODO после ответа от сервера обновлять следующие элементы: json трассы
+
+    // Обновить алгоритм и трассу
+    $('#algorithm_trainer').html(data);
+
+    // Показать модальное окно об успешном завершении задачи
+    // (если в full_trace_json есть акт, у которого is_final true)
+    if ($('#is_final').length > 0) {
+      enableNextCorrectStepBtn(false);
+      getAttemptData();
+      $('.ui.modal.success').modal('show');
+
+      // Задача решена - убрать все кнопки из algorithm_text_field
+      $('.alg_button').remove();
+      if (on_solve_step) {
+        on_solve_step(true);
+      }
+
+    } else {
+
+      $('#show_next_correct_step').show();
+      enableNextCorrectStepBtn(available_hints_count != 0);
+
+      bindAlgorithmButtons();
+      if (on_solve_step) {
+        on_solve_step(false);
+      }
+    }
+  }
+
+
+  $('#show_next_correct_step').click(nextCorrectStepClick);
+
+  function enableNextCorrectStepBtn(enabled = true) {
+    $('#show_next_correct_step').attr("disabled", !enabled);
+  }
+
+  function nextCorrectStepClick() {
+    --available_hints_count;
+    if (available_hints_count >= 0) { // && $('#available_hints_count').length > 0) {
+      $('#available_hints_count').text(available_hints_count);
+    }
+    // updateExpressionTrainer($(this), 1000, 'next_step'); TODO
+    hintNextStep();
+  }
+
+  function hintNextStep() {
+    $.ajax({
+      method: "POST",
+      url: '/' + $('#lang').val() + '/algorithms/hint_next_step',
+      data: {
+        data: JSON.stringify(prepareData($(this))),
+        task_lang: $('#task_lang').val(),
+        attempt_id: $('#attempt_id').val(),
+        student_name: localStorage.student_name
+      },
+      error: function (jqXHR) {
+        // TODO показать сообщение об ошибке
+        alert('error: hint_next_step');
+      },
+      success: function (data) {
+        updateAlgorithmTrainer(data);
+      }//,
+      // complete: function() {
+      // TODO разблокировать нажатие на элементы алгоритма
       // }
     });
   }

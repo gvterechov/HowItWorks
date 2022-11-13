@@ -37,6 +37,11 @@
             <% end %>
           </td>
         </tr>
+
+        <% if elem[:explanation].present? %>
+          <%= elem[:explanation] %>
+        <% end %>
+
       <% end %>
       </tbody>
     </table>

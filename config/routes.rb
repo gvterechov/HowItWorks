@@ -60,6 +60,7 @@ Rails.application.routes.draw do
       get :check_expression, to: 'algorithms#check_expression', format: :json
       post :create_task, to: 'algorithms#create_task', format: :json
       post :verify_trace_act, to: 'algorithms#verify_trace_act', format: :json
+      post :hint_next_step, to: 'algorithms#hint_next_step', format: :json
       get :available_syntaxes, to: 'algorithms#available_syntaxes', format: :json
     end
   end

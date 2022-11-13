@@ -26,6 +26,10 @@
                  hide_trace: true
                }
     %>
+    <%# if @task.enable_hints %>
+      <%#= show_next_correct_step_button(@task.max_hints_count || 0) %>
+    <%# end %>
+    <%= show_next_correct_step_button %>
     <%#= render partial: 'algorithms/common/trace_field', locals: { data: @result } %>
   </div>
 </div>

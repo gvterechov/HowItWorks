@@ -1,0 +1,7 @@
+<% if data[:processing_errors].present? %>
+  <div class="row">
+    <% data[:processing_errors].each do |error| %>
+      <div class="ui message"><%= error %></div>
+    <% end %>
+  </div>
+<% end %>

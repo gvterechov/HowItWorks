@@ -1,7 +1,7 @@
 class Algorithms::AlgorithmsController < ApplicationController
   before_action :authenticate_user!, only: [:tasks, :task_statistic]
   before_action :check_trainer_available!, only: [:index, :show_task, :preview_task]
-  skip_before_action :verify_authenticity_token, only: [:verify_trace_act, :create_task]
+  skip_before_action :verify_authenticity_token, only: [:verify_trace_act, :hint_next_step, :create_task]
 
   def index
     render '/algorithms/index'
@@ -109,6 +109,25 @@ class Algorithms::AlgorithmsController < ApplicationController
         attempt.update(student_name: params[:student_name]) if attempt.student_name != params[:student_name].present?
       end
     end
+
+    respond_to do |format|
+      format.html {
+        # render partial: '/algorithms/show_task/algorithm_trainer',
+        render partial: (true ? '/algorithms/show_task/algorithm_trainer_beta' : '/algorithms/show_task/algorithm_trainer'),
+               locals: {
+                 data: result,
+                 task_lang: params[:task_lang],
+                 hide_trace: false
+               }
+      }
+    end
+  end
+
+  def hint_next_step
+    data = JSON.parse(params[:data])
+    data[:syntax] = params[:task_lang]
+
+    result = COwl.new.hint_next_step(data)
 
     respond_to do |format|
       format.html {

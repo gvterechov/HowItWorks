@@ -23,6 +23,15 @@ class COwl < BaseService
     JSON.load(response.body)&.with_indifferent_access
   end
 
+  def hint_next_step(expression = nil)
+    raise ServiceNotAvailableException.new unless available?
+
+    uri = URI.parse("http://#{@host}:#{@port}/hint_next_step")
+    http = Net::HTTP.new(uri.host, uri.port)
+    response = http.post(uri, expression.to_json, 'Content-Type': 'application/json')
+    JSON.load(response.body)&.with_indifferent_access
+  end
+
   def available_syntaxes
     raise ServiceNotAvailableException.new unless available?
 
