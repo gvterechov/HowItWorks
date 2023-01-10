@@ -28,7 +28,16 @@
   <!-- Ошибки -->
   <div class="row" id="error_messages">
     <% data[:errors].each do |error| %>
-      <% error_text = error[:parts].map { |el| el[:text] }.join(' ').gsub(/\n/, '<br>') %>
+      <%
+        error_text =
+          error[:parts].map do |el|
+            if el[:type] == 'operator'
+              link_to(el[:text], '#', class: 'error-operator', data: { index: el[:index] })
+            else
+              el[:text]
+            end
+          end.join(' ').gsub(/\n/, '<br>')
+      %>
       <div class="ui message">
         <p><%= error_text.html_safe %></p>
       </div>

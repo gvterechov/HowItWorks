@@ -147,6 +147,9 @@ $(function() {
         let error_index = errorOperatorIndex();
         if (error_index !== null && error_index !== undefined) {
           // TODO заблокировать выражение
+          $('.error-operator').mouseenter(highlightOperator);
+          $('.error-operator').mouseleave(removeHighlightOperator);
+
           collapseChat();
           loadChatQuestion();
         }
@@ -257,6 +260,18 @@ $(function() {
   // Интекс опратора, который был ошибочно выбран
   function errorOperatorIndex() {
     return $('.operator.red').data('index');
+  }
+
+  function operatorByIndex(index) {
+    return $(`.operator[data-index=${index}]`)
+  }
+
+  function highlightOperator() {
+    operatorByIndex($(this).data('index') - 1).addClass('basic violet');
+  }
+
+  function removeHighlightOperator() {
+    operatorByIndex($(this).data('index') - 1).removeClass('basic violet');
   }
 
 
