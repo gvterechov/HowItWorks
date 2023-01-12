@@ -1,5 +1,5 @@
 import { on_solve_step, paper_on_load } from './show_diagram'
-import { getAttemptData } from '../application/attempt'
+import { Attempt } from '../application/attempt'
 
 $(function() {
   // $('.ui.dropdown').dropdown();
@@ -16,6 +16,8 @@ $(function() {
   // attach events to buttons
   $('.second.modal')
       .modal('attach events', '.first.modal .button');
+
+  let attempt = new Attempt();
 
   function bindAlgorithmButtons() {
     $('.alg_button').click(algorithmClick);
@@ -120,7 +122,7 @@ $(function() {
       data: {
         data: JSON.stringify(prepareData($(this))),
         task_lang: $('#task_lang').val(),
-        attempt_id: $('#attempt_id').val(),
+        attempt_id: attempt.getId(),
         student_name: localStorage.student_name
       },
       // dataType: "json",
@@ -138,7 +140,7 @@ $(function() {
         // Показать модальное окно об успешном завершении задачи
         // (если в full_trace_json есть акт, у которого is_final true)
         if ($('#is_final').length > 0) {
-          getAttemptData();
+          attempt.fetchData();
           $('.ui.modal.success').modal('show');
 
           // Задача решена - убрать все кнопки из algorithm_text_field

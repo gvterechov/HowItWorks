@@ -26,7 +26,7 @@
       <%= render partial: 'expressions/common/expression_trainer', locals: { data: @result_data } %>
     </div>
 
-    <% if @task.enable_hints %>
+    <% if @task.enable_hints? %>
       <%= show_next_correct_step_button(@task.max_hints_count || 0) %>
       <%= render partial: 'expressions/common/expression_quiz_mk2' %>
     <% end %>
@@ -41,5 +41,4 @@
   <%= render partial: 'common/student_modal' %>
 <% end %>
 
-<%#= render partial: 'expressions/common/script' %>
 <%= javascript_pack_tag 'expressions' %>
