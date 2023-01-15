@@ -14,12 +14,7 @@
 #
 class AlgorithmTask < ApplicationRecord
   include TaskModule
+  include Tokenable
 
-  private
-    def generate_token
-      loop do
-        random_token = SecureRandom.hex
-        break random_token unless AlgorithmTask.where(token: random_token).exists?
-      end
-    end
+  token_for_model :algorithm_task
 end

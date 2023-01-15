@@ -5,8 +5,6 @@ module TaskModule
     has_many :attempts, as: :task, dependent: :destroy
     belongs_to :user, optional: true
 
-    before_create :set_token
-
     validates :title, presence: true
   end
 
@@ -22,10 +20,4 @@ module TaskModule
     return if linked_to_user?
     update(user_id: user.id)
   end
-
-  protected
-
-    def set_token
-      self.token = generate_token
-    end
 end
