@@ -1,5 +1,5 @@
 class BaseService
-  attr_accessor :host, :port
+  attr_reader :host, :port
 
   class ServiceNotAvailableException < StandardError
   end
