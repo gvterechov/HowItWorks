@@ -1,0 +1,70 @@
+<!-- Само предложение, которое нужно составить -->
+<div class="row">
+  <div class="ui segment" id="sentence">
+
+    <% prev_lexeme = nil %>
+    <% task.data[:studentAnswer].each do |lexeme| %>
+      <%
+        between_words =
+          WordsOrderTask::INFINITE_LEXEMES.exclude?(lexeme[:name]) &&
+            prev_lexeme.present? && WordsOrderTask::INFINITE_LEXEMES.exclude?(prev_lexeme)
+        klass = 'between-words' if between_words
+      %>
+      <%= placeholder(klass: klass) %>
+
+      <%= placeholder(label: lexeme[:name], attributes: { 'data-id': lexeme[:id] }) %>
+
+      <% prev_lexeme = lexeme[:name] %>
+    <% end %>
+
+    <%= placeholder %>
+  </div>
+</div>
+
+<div class="row">
+  <br>
+  <!-- Слова, доступные для составления предложения -->
+  <% task.data[:availableLexemes].each do |lexeme, count| %>
+    <div class="ui large label word" style="cursor: pointer;">
+      <span class="lexeme-text"><%= lexeme %></span>
+      <% if count > 1 %>
+        <div class="detail">x<%= count_sign(count) %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <input type="hidden" id="words_to_select" value="<%= task.data[:wordsToSelect] %>">
+</div>
+
+<% if task.data[:errors].present? %>
+  <br>
+  <!-- Ошибки -->
+  <div class="row" id="error_messages">
+    <% task.data[:errors].each do |error| %>
+      <%
+        error_text =
+          error.map do |el|
+            if el[:type] == 'lexeme'
+              link_to(el[:text], '#', class: 'error-operator')
+              # "<span style='color: blue;'>#{el[:text]}</span>"
+            else
+              el[:text]
+            end
+          end.join(' ').gsub(/\n/, '<br>')
+      %>
+      <div class="ui message">
+        <p><%= error_text.html_safe %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if task.data[:availableLexemes].include?('-') && task.data[:availableLexemes].count == 1 %>
+  <div class="row" id="complete_task_row">
+    <br>
+    <button class="ui animated button green compact" id="complete_task" style="vertical-align: baseline;">
+      <div class="visible content"><%= t('complete_task_alt') %></div>
+      <div class="hidden content"><%= t('complete_task') %></div>
+    </button>
+  </div>
+<% end %>

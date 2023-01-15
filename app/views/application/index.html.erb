@@ -2,35 +2,32 @@
 
 <%= render partial: 'application/index/header' %>
 
-<div class="ui placeholder segment">
-  <div class="ui two column stackable center aligned grid">
-    <div class="ui vertical divider">Or</div>
-    <div class="middle aligned row">
-      <div class="column">
-        <div class="ui icon header">
-          <i class="ellipsis horizontal icon"></i>
-        </div>
-        <%= link_to t('index.expressions_trainer'),
-                    '/expressions',
-                    class: "ui primary button"
-        %>
-        <div class="ui small purple message">
-          <%= t('index.expressions_trainer_description') %>
-        </div>
-      </div>
-      <div class="column">
-        <div class="ui icon header">
-          <i class="tasks icon"></i>
-        </div>
-        <%= link_to t('index.algorithms_trainer'),
-                    '/algorithms',
-                    class: "ui primary button"
-        %>
-        <div class="ui small purple message">
-          <%= t('index.algorithms_trainer_description') %>
-        </div>
-      </div>
-    </div>
+<div class="ui vertical stripe segment">
+  <div class="ui text container">
+    <h3 class="ui header"><%= t('index.expressions_trainer') %></h3>
+    <p><%= t('index.expressions_trainer_description') %></p>
+    <%= link_to 'Read more',
+                '/expressions',
+                class: "ui large button"
+    %>
+
+    <div class="ui divider"></div>
+
+    <h3 class="ui header"><%= t('index.algorithms_trainer') %></h3>
+    <p><%= t('index.algorithms_trainer_description') %></p>
+    <%= link_to 'Try it',
+                '/algorithms',
+                class: "ui large button"
+    %>
+
+    <div class="ui divider"></div>
+
+    <h3 class="ui header">How It Works: English words order</h3>
+    <p>How It Works: English words order is a constraint-based online tutor for developing comprehension of concepts affecting the order of words in sentence.</p>
+    <%= link_to 'Learn more',
+                '/words_order',
+                class: "ui large button"
+    %>
   </div>
 </div>
 

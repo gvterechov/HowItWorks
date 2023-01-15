@@ -37,6 +37,11 @@ gem 'pry-rails'
 # Flexible authentication solution for Rails with Warden (https://github.com/heartcombo/devise)
 gem 'devise'
 
+# GRPC system in Ruby (https://github.com/google/grpc/tree/master/src/ruby)
+gem 'grpc'
+# Development tools for Ruby gRPC (https://github.com/google/grpc/tree/master/src/ruby/tools)
+gem 'grpc-tools'
+
 # group :development, :test do
 #   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 #   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

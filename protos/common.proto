@@ -1,0 +1,50 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.gpch.grpc.protobuf;
+
+service SentenceCheckerService {
+  rpc ValidateTokenPosition(ValidateTokenPositionRequest) returns (ValidateTokenPositionResponse) {};
+  rpc GetTaskSetup(GetTaskSetupRequest) returns (GetTaskSetupResponse) {};
+}
+
+message ValidateTokenPositionRequest {
+  Language lang = 1;
+  string taskInTTLFormat = 2;
+  repeated Token studentAnswer = 3; // item_0: The
+  repeated string wordsToSelect = 4;
+}
+
+message ValidateTokenPositionResponse {
+  repeated Error errors = 1;
+  string taskInTTLFormat = 2;
+  repeated Token studentAnswer = 3; // item_0: The
+  repeated string wordsToSelect = 4;
+}
+
+message GetTaskSetupRequest {
+  string taskInTTLFormat = 1;
+}
+
+message GetTaskSetupResponse {
+  string task = 1;
+  map<string,string> tokens = 2; // item_0: The
+}
+
+enum Language {
+  RU = 0;
+  EN = 1;
+}
+
+message Token {
+  string id = 1;
+  string name = 2;
+}
+
+message Error {
+  repeated ErrorPart error = 1;
+}
+
+message ErrorPart {
+  string text = 1;
+  string type = 2;
+}

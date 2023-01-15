@@ -1,0 +1,53 @@
+<% title t('words_order.index.title') %>
+
+<%= render partial: 'words_order/index/header' %>
+
+<!--<script src="https://code.jquery.com/jquery-3.6.3.js"></script>-->
+<!--<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>-->
+
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <div class="row">
+      <div class="ui form">
+        <div class="field">
+<!--          <label><%#= @task.assignment %></label>-->
+          <label><%= @task.data[:assignment][I18n.locale] %></label>
+        </div>
+
+        <div class="row">
+          <div class="ui header">
+            <div class="sub header">
+              <% if @task.data[:availableLexemes].any? { |lexeme, _| WordsOrderTask::INFINITE_LEXEMES.include?(lexeme) } %>
+                <p id="select_help"><i class="info circle icon"></i><small><%= t('words_order.task.select_words') %></small></p>
+                <p id="select_help_step1" style="display: none;"><i class="info circle icon"></i><small><%= t('words_order.task.select_words_step1') %></small></p>
+                <p id="select_help_step2" style="display: none;"><i class="info circle icon"></i><small><%= t('words_order.task.select_words_step2') %></small></p>
+              <% end %>
+              <p id="release_lexeme" style="display: none;"><i class="info circle icon"></i><small><%= t('words_order.task.release_lexeme') %></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="sentence_trainer">
+          <%= render partial: 'words_order/common/sentence_trainer', locals: { task: @task } %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<input type="hidden"
+       id="task_in_ttl_format"
+       value="<%= @task.data[:taskInTTLFormat] %>"
+>
+
+<%= render partial: 'common/footer' %>
+
+<%= render partial: 'common/success_modal' %>
+
+<%# if @task.introduce_yourself? %>
+  <%#= render partial: 'common/student_modal' %>
+<%# end %>
+
+<%= javascript_pack_tag 'words_order' %>

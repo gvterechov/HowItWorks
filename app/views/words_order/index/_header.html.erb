@@ -1,0 +1,18 @@
+<div class="ui stackable menu">
+  <div class="header item">
+    <%= link_to 'How It Works', root_path %>
+  </div>
+
+  <%#= save_button(enable_hints: true) %>
+
+  <%#= tasks_button("/#{I18n.locale}/expressions/tasks") %>
+
+  <div class="right menu">
+    <div class="item">
+      <%= claim_task_button %>
+      <%= feedback_button %>
+      <%= user_session_button %>
+      <%= language_switcher %>
+    </div>
+  </div>
+</div>

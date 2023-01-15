@@ -1,0 +1,11 @@
+en:
+  words_order:
+    index:
+      title: 'How It Works: English words order'
+    task:
+      assignment: 'Make a phrase where %{tail} referenced to %{noun}'
+      linking: ' and then '
+      select_words: 'Hold Alt to select the words between which you want to insert a hyphen.'
+      select_words_step1: 'Choose the first word.'
+      select_words_step2: 'Choose the second word.'
+      release_lexeme: 'Press Esc to deselect the token'

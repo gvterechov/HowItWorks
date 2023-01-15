@@ -49,18 +49,32 @@ Rails.application.routes.draw do
   routes = -> do
     namespace :algorithms do
       get '/', to: 'algorithms#index'
-      get '/beta', to: 'algorithms#index', defaults: {beta: false}
+      get '/beta', to: 'algorithms#index', defaults: { beta: false }
 
       get :tasks, to: 'algorithms#tasks'
       get "/tasks/preview", to: 'algorithms#preview_task'
-      get "/beta/tasks/preview", to: 'algorithms#preview_task', defaults: {beta: true}
+      get "/beta/tasks/preview", to: 'algorithms#preview_task', defaults: { beta: true }
       get "/tasks/:token", to: 'algorithms#show_task'
       get "/tasks/:token/statistic", to: 'algorithms#task_statistic'
-      get "/beta/tasks/:token", to: 'algorithms#show_task', defaults: {beta: true}
+      get "/beta/tasks/:token", to: 'algorithms#show_task', defaults: { beta: true }
       get :check_expression, to: 'algorithms#check_expression', format: :json
       post :create_task, to: 'algorithms#create_task', format: :json
       post :verify_trace_act, to: 'algorithms#verify_trace_act', format: :json
       get :available_syntaxes, to: 'algorithms#available_syntaxes', format: :json
+    end
+  end
+
+  routes.call
+  scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
+    routes.call
+  end
+
+
+  routes = -> do
+    namespace :words_order do
+      get '/', to: 'words_order#index'
+
+      get :check_expression, to: 'words_order#check_expression', format: :json
     end
   end
 

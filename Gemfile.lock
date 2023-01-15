@@ -102,6 +102,13 @@ GEM
     ffi (1.15.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    google-protobuf (3.23.2)
+    googleapis-common-protos-types (1.6.0)
+      google-protobuf (~> 3.14)
+    grpc (1.55.0)
+      google-protobuf (~> 3.23)
+      googleapis-common-protos-types (~> 1.0)
+    grpc-tools (1.55.0)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
@@ -249,6 +256,8 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   capybara (>= 3.26)
   devise
+  grpc
+  grpc-tools
   jbuilder (~> 2.7)
   lefthook
   listen (~> 3.3)
