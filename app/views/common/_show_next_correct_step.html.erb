@@ -8,6 +8,11 @@
   </button>
 </div>
 
+<button class="ui animated button green compact" id="complete_task" style="vertical-align: baseline;">
+  <div class="visible content"><%= t('complete_task_alt') %></div>
+  <div class="hidden content"><%= t('complete_task') %></div>
+</button>
+
 <input id="max_available_hints_count"
        type="hidden"
        value="<%= max_hints_count %>">

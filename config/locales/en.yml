@@ -127,6 +127,8 @@ en:
   help_explain: 'Can I help you understand causes of the problem?'
   learn_more: 'Learn more'
   understand: 'thanks, I understood my error'
+  complete_task: 'Complete task'
+  complete_task_alt: 'I chose everything I wanted'
   next: 'Next'
   help: 'Help'
   syntax: 'Syntax'
