@@ -4,6 +4,7 @@ module Expressions::TaskHelper
   def expression_language_name(task_lang)
     {
       'cpp' => 'C++',
+      'сs' => 'C#',
       'python' => 'Python'
     }[task_lang]
   end
