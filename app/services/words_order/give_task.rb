@@ -363,7 +363,7 @@ class WordsOrder::GiveTask
           }
         ],
         "taskInTTLFormat": "@prefix ns1: <http://www.vstu.ru/poas/code#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\nns1:item_0 a ns1:DET ;\n    rdfs:label \"a\" ;\n    ns1:isChild ns1:item_3 .\n\nns1:item_1 a ns1:ADJ ;\n    rdfs:label \"big\" ;\n    ns1:hasHypernym ns1:Size ;\n    ns1:isChild ns1:item_3 .\n\nns1:item_2 a ns1:ADJ ;\n    rdfs:label \"black\" ;\n    ns1:hasHypernym ns1:Colour ;\n    ns1:isChild ns1:item_3 .\n\nns1:item_3 a ns1:NOUN ;\n    rdfs:label \"car\" .",
-        "wordsToSelect": ["a", "big", "black", "car"]
+        "wordsToSelect": ["a", "big", "black"]
       }
     end
 
