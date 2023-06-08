@@ -10,7 +10,7 @@ class WordsOrder < BaseService # TODO BaseGrpcService
 
   def initialize
     @host = 'localhost'
-    @port = 8081
+    @port = 9000
   end
 
   def verify(expression)
