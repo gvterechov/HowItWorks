@@ -18,4 +18,12 @@ module IconsHelper
   def sign_in_icon
     '<i class="sign-in icon"></i>'.html_safe
   end
+
+  def sync_icon
+    '<i class="sync icon"></i>'.html_safe
+  end
+
+  def close_icon(klass = '')
+    "<i class='#{klass} close icon'></i>".html_safe
+  end
 end

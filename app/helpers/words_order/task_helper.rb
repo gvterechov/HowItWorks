@@ -9,10 +9,7 @@ module WordsOrder::TaskHelper
   end
 
   def count_sign(num)
-    num == WordsOrderTask::MAX_LEXEME_COUNT ? infinite_sign : num
+    num == WordsOrderTask::MAX_LEXEME_COUNT ? sync_icon : "#{close_icon('small')}#{num}".html_safe
   end
 
-  def infinite_sign
-    '&#8734;'.html_safe
-  end
 end

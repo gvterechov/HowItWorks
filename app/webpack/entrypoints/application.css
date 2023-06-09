@@ -1,1 +1,7 @@
 /*@import '../../../node_modules/semantic-ui/dist/semantic.min';*/
+.label-detail {
+    background: rgba(0,0,0,.1);
+    margin: -.5833em -.833em -.5833em .5em;
+    padding: .5833em .833em;
+    border-radius: 0 .28571429rem .28571429rem 0;
+}
