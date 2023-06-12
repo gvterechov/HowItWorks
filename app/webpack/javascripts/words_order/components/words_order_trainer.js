@@ -26,6 +26,7 @@ export class WordsOrderTrainer {
     // Показать подсказку по Esc
     this.showReleaseLexeme();
     // Выделить кликнутое слово
+    elem.addClass('green');
     this.disableLexemes();
     this.$selected_word = elem.find('> .lexeme-text');
     this.$selected_word.removeClass('disabled');
@@ -280,6 +281,7 @@ export class WordsOrderTrainer {
     if (this.$selected_word !== null) {
       this.$selected_word = null;
       this.disablePlaceholders(this.placeholders());
+      $('.word.green').removeClass('green');
       this.enableLexemes();
     }
   }
@@ -316,6 +318,7 @@ export class WordsOrderTrainer {
           // TODO включить только если есть дефис
           if (original_context.taskSolved()) return;
           original_context.showSelectHelpStep1();
+          original_context.releaseLexeme();
           original_context.enableWordsSelection();
           break;
       }
