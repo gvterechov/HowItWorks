@@ -3,10 +3,10 @@
 class WordsOrder::GiveTask
   def call(used_tasks)
     # Если задачи закончились, удаляем самую первую выданную задачу
-    used_tasks.shift if used_tasks.count == tasks.count
+    used_tasks.shift(used_tasks.count - tasks.count) if used_tasks.count > tasks.count
     # Находим новую еще не выданную задачу
     new_task_index = nil
-    loop do
+    tasks.count.times do
       new_task_index = rand(0...tasks.count)
       break if used_tasks.exclude?(tasks[new_task_index][:id])
     end
