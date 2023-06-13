@@ -31,6 +31,10 @@ export class WordsOrderTrainer {
     this.$selected_word = elem.find('> .lexeme-text');
     this.$selected_word.removeClass('disabled');
 
+    // Удалить ошибочное слово из предложения, если оно есть
+    let $error_placeholder = this.errorPlaceholder();
+    $error_placeholder.removeClass(['red', 'filled']);
+    $error_placeholder.text($error_placeholder.data('alt-placeholder'));
     // Выделить свободные поля в предложении
     let placeholders = null;
     if (this.$selected_word.text() === '-') {
@@ -153,6 +157,10 @@ export class WordsOrderTrainer {
 
   filledPlaceholders() {
     return $('.word-placeholder.filled');
+  }
+
+  errorPlaceholder() {
+    return $($('.word-placeholder.red')[0]);
   }
 
   hidePlaceholders(objs) {

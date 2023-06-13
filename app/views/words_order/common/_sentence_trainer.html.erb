@@ -4,20 +4,34 @@
 
     <% prev_lexeme = nil %>
     <% task.data[:studentAnswer].each do |lexeme| %>
-      <%
-        between_words =
-          WordsOrderTask::INFINITE_LEXEMES.exclude?(lexeme[:name]) &&
-            prev_lexeme.present? && WordsOrderTask::INFINITE_LEXEMES.exclude?(prev_lexeme)
-        klass = 'between-words' if between_words
-      %>
-      <%= placeholder(klass: klass) %>
+      <% if lexeme[:id].blank? %>
+        <%=
+          placeholder(label: lexeme[:name],
+                      attributes: { 'data-alt-placeholder': default_placeholder },
+                      error: true)
+        %>
 
-      <%= placeholder(label: lexeme[:name], attributes: { 'data-id': lexeme[:id] }) %>
+        <% prev_lexeme = lexeme %>
+      <% else %>
+        <% if prev_lexeme.nil? || prev_lexeme[:id].present? %>
+          <%
+            between_words =
+              WordsOrderTask::INFINITE_LEXEMES.exclude?(lexeme[:name]) &&
+                prev_lexeme.present? && WordsOrderTask::INFINITE_LEXEMES.exclude?(prev_lexeme[:name])
+            klass = 'between-words' if between_words
+          %>
+          <%= placeholder(klass: klass) %>
+        <% end %>
 
-      <% prev_lexeme = lexeme[:name] %>
+        <%= placeholder(label: lexeme[:name], attributes: { 'data-id': lexeme[:id] }) %>
+
+        <% if lexeme == task.data[:studentAnswer].last %>
+          <%= placeholder %>
+        <% end %>
+
+        <% prev_lexeme = lexeme %>
+      <% end %>
     <% end %>
-
-    <%= placeholder %>
   </div>
 </div>
 

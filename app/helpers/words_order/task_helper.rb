@@ -1,11 +1,17 @@
 module WordsOrder::TaskHelper
-  def placeholder(label: nil, attributes: {}, klass: nil)
+  def default_placeholder
+    '___'.freeze
+  end
+
+  def placeholder(label: nil, attributes: {}, klass: '', error: false)
     attributes = attributes.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
 
-    "<div class=\"ui large label disabled word-placeholder #{klass} #{'filled' if label}\"
+    klass += "#{klass} red between-words" if error
+
+    "<div class=\"ui large label disabled word-placeholder #{klass} #{'filled' if label && !error}\"
           style=\"cursor: default;\"
           #{attributes}
-    >#{label || '___'}</div>".html_safe
+    >#{label || default_placeholder}</div>".html_safe
   end
 
   def count_sign(num)
