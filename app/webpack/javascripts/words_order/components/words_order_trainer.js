@@ -322,7 +322,7 @@ export class WordsOrderTrainer {
 
     $(document).keydown(function(e) {
       switch (e.key) {
-        case "Alt":
+        case "Shift":
           // TODO включить только если есть дефис
           if (original_context.taskSolved()) return;
           original_context.showSelectHelpStep1();
@@ -338,7 +338,7 @@ export class WordsOrderTrainer {
           original_context.hideReleaseLexeme();
           original_context.releaseLexeme();
           break;
-        case "Alt":
+        case "Shift":
           // TODO включить только если есть дефис
           original_context.showSelectHelp();
           original_context.disableWordsSelection();
