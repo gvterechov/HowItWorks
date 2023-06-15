@@ -21,7 +21,7 @@ class WordsOrder::GiveTask
       #  entertaining_novelties, tin_box, black_car, mash_soup, yellow_curtains, young_man, old_man, double_word]
       [beautiful_books, cod_sellers, japanese_car, young_woman, amazingly_sellers, amazingly_smart,
        silver_necklace, yellow_car, red_coat, ceramic_accessories, purple_carpet, coffee_mug, velvet_dress,
-       entertaining_novelties, tin_box, black_car, mash_soup, yellow_curtains, young_man, old_man, double_word]
+       entertaining_novelties, tin_box, black_car, mash_soup, yellow_curtains, young_man, old_man]
     end
 
     # The beautiful books
