@@ -18,10 +18,10 @@ class WordsOrder::GiveTask
     def tasks
       # [beautiful_books, cod_sellers, amazing_sellers, japanese_car, young_woman, amazingly_sellers, amazingly_smart,
       #  silver_necklace, yellow_car, red_coat, ceramic_accessories, purple_carpet, coffee_mug, velvet_dress,
-      #  entertaining_novelties, tin_box, black_car, mash_soup, yellow_curtains, young_man, old_man]
+      #  entertaining_novelties, tin_box, black_car, mash_soup, yellow_curtains, young_man, old_man, double_word]
       [beautiful_books, cod_sellers, japanese_car, young_woman, amazingly_sellers, amazingly_smart,
        silver_necklace, yellow_car, red_coat, ceramic_accessories, purple_carpet, coffee_mug, velvet_dress,
-       entertaining_novelties, tin_box, black_car, mash_soup, yellow_curtains, young_man, old_man]
+       entertaining_novelties, tin_box, black_car, mash_soup, yellow_curtains, young_man, old_man, double_word]
     end
 
     # The beautiful books
@@ -444,6 +444,26 @@ class WordsOrder::GiveTask
         ],
         "taskInTTLFormat": "@prefix ns1: <http://www.vstu.ru/poas/code#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\nns1:item_0 a ns1:ADJ ;\n    rdfs:label \"smart\" ;\n    ns1:hasHypernym ns1:Opinion ;\n    ns1:isChild ns1:item_2 .\n\nns1:item_1 a ns1:ADJ ;\n    rdfs:label \"old\" ;\n    ns1:hasHypernym ns1:Age ;\n    ns1:isChild ns1:item_2 .\n\nns1:item_2 a ns1:NOUN ;\n    rdfs:label \"man\" .",
         "wordsToSelect": ["smart", "old"]
+      }
+    end
+
+    # amazing big-amazing-salt-cod sellers
+    def double_word
+      {
+        "id": 22,
+        "assignment": {
+          "ru": 'Составьте фразу про удивительных продавцов большой соленой и удивительной селедки',
+          "en": 'Make a phrase about amazing sellers of big salt and amazing cod'
+        },
+        "lang": 1,
+        "studentAnswer": [
+          {
+            "id": "item_5",
+            "name": "sellers"
+          }
+        ],
+        "taskInTTLFormat": "@prefix ns1:  <http://www.vstu.ru/poas/code#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\nns1:item_0\n    a               ns1:ADJ ;\n    rdfs:label      \"amazing\" ;\n    ns1:hasHypernym ns1:Opinion ;\n    ns1:isChild     ns1:item_5 .\n\nns1:item_1\n    a               ns1:ADJ ;\n    rdfs:label      \"big\" ;\n    ns1:hasHypernym ns1:Opinion ;\n    ns1:isChild     ns1:item_2 .\n\nns1:item_2\n    a               ns1:ADJ ;\n    rdfs:label      \"amazing\" ;\n    ns1:hasHypernym ns1:Opinion ;\n    ns1:isChild     ns1:item_3 .\n\nns1:item_3\n    a               ns1:ADJ ;\n    rdfs:label      \"salt\" ;\n    ns1:hasHypernym ns1:Material ;\n    ns1:isChild     ns1:item_4 .\n\nns1:item_4\n    a               ns1:ADJ ;\n    rdfs:label      \"cod\" ;\n    ns1:hasHypernym ns1:Material ;\n    ns1:isChild     ns1:item_5 .\n\nns1:item_5\n    a          ns1:NOUN ;\n    rdfs:label \"sellers\" .",
+        "wordsToSelect": ["amazing", "amazing", "big", "salt", "cod", "-"]
       }
     end
 end
