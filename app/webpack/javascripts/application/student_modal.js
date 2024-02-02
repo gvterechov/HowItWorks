@@ -1,3 +1,5 @@
+import { getCookie } from './teacher'
+
 export class StudentModal {
   constructor() {
     this.$student_modal = $('.ui.modal.student');
@@ -10,12 +12,23 @@ export class StudentModal {
     this.$task_type = $('#task_type');
     this.$task_token = $('#task_token');
 
-    this.showModal();
-    // Создаем попытку, когда студент ввел имя
-    let original_context = this;
-    $('#student_modal_submit_btn').click(function () {
-      original_context.createAttempt($(this))
-    });
+    if (this.getStudentName() == '') {
+      this.showModal();
+
+      // Создаем попытку, когда студент ввел имя
+      let original_context = this;
+      $('#student_modal_submit_btn').click(function () {
+        let student_name = original_context.$student_name.val();
+        if(student_name != '') {
+          // запомнить (на 1 год) введенное имя студента
+          document.cookie = `tmp_student_name=${student_name}; max-age=31536000`;
+
+          original_context.createAttempt($(this));
+        }
+      });
+    } else {
+      this.createAttempt();
+    }
   }
 
   showModal() {
@@ -23,15 +36,17 @@ export class StudentModal {
     this.$student_modal.modal('show');
   }
 
-  createAttempt(elem) {
-    elem.toggleClass('loading');
+  createAttempt(elem = null) {
+    if (elem != null) {
+      elem.toggleClass('loading');
+    }
 
     $.ajax({
       method: "POST",
       url: '/attempts.json',
       data: {
         attempt: {
-          student_name: this.$student_name.val(),
+          student_name: this.getStudentName(),
           task_type: this.$task_type.val(),
           task_token: this.$task_token.val()
         }
@@ -47,12 +62,18 @@ export class StudentModal {
       },
       complete: function() {
         // TODO разблокировать нажатие на элементы алгоритма
-        elem.toggleClass('loading');
+        if (elem != null) {
+          elem.toggleClass('loading');
+        }
       }
     });
   }
 
   getAttemptId() {
     return this.$attempt_id.val();
+  }
+
+  getStudentName() {
+    return this.$student_name.val() || getCookie('tmp_student_name') || '';
   }
 }
