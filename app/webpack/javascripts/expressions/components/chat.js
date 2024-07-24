@@ -42,7 +42,20 @@ export class Chat {
     this.$chat = $('#chat');
   }
 
+  // Задержа ответа чат-бота, мс
+  loadAnswerDelay() {
+    return 600;
+  }
+
   loadQuestion() {
+    this.addStub();
+
+    setTimeout(() => {
+      this.firstQuestion();
+    }, this.loadAnswerDelay());
+  }
+
+  firstQuestion() {
     let error_index = this.errorOperatorIndex();
 
     $.ajax({
@@ -51,23 +64,33 @@ export class Chat {
       data: {
         data: JSON.stringify(this.expression.prepare(error_index, 'find_errors')),
       },
-      error: function (jqXHR) {
+      error: (jqXHR) => {
         // TODO показать сообщение об ошибке
         alert('error');
       },
       success: (data) => {
         this.update(data);
       },
-      complete: function () {
+      complete: () => {
+        this.removeStub();
         // TODO разблокировать нажатие на элементы алгоритма
       }
     });
   }
 
   loadNextQuestion(elem) {
+    // Блокируем варианты ответов
+    this.disableAnswers();
     // Добавляем выбранный студентом ответ в чат
     this.addText(elem.text(), 'right');
+    this.addStub();
 
+    setTimeout((elem) => {
+      this.nextQuestion(elem);
+    }, this.loadAnswerDelay(), elem);
+  }
+
+  nextQuestion(elem) {
     let error_index = this.errorOperatorIndex();
     let type = elem.data('additional-info');
 
@@ -77,7 +100,7 @@ export class Chat {
       data: {
         data: JSON.stringify(this.expression.prepare(error_index, 'get_supplement', type)),
       },
-      error: function (jqXHR) {
+      error: (jqXHR) => {
         // TODO показать сообщение об ошибке
         alert('error');
       },
@@ -89,7 +112,8 @@ export class Chat {
 
         this.update(data);
       },
-      complete: function () {
+      complete: () => {
+        this.removeStub();
         // TODO разблокировать нажатие на элементы алгоритма
       }
     });
@@ -169,6 +193,19 @@ export class Chat {
     return $answer;
   }
 
+  // Добавить заглушку в виде многоточий для чат-бота
+  addStub() {
+    let $stub = this.addText('...', 'left');
+    $stub.attr('id', 'message_stub');
+
+    return $stub;
+  }
+
+  // Удалить последнее сообщение из чата
+  removeStub() {
+    $('#message_stub').remove();
+  }
+
   // Очистить чат
   clear() {
     this.$chat_feed.empty();
@@ -178,6 +215,11 @@ export class Chat {
   // Очистить предоставленные студенту ответы
   clearAnswers() {
     this.$chat_answers.empty();
+  }
+
+  // Заблокировать ответы
+  disableAnswers() {
+    this.$chat_answers.children().each(function() { $(this).addClass('disabled'); })
   }
 
   // Свернуть чат
