@@ -61,14 +61,40 @@
       </div>
     </div>
     <div class="extra content" id="chat_answers_block">
-      <!-- Шаблон кнопки с ответом -->
+      <!-- Шаблон кнопки с ответом для single -->
       <button class="ui basic button tiny"
               id="answer"
               style="margin-bottom: 5px; display: none;">
       </button>
-      <!-- /Шаблон кнопки с ответом -->
+      <!-- /Шаблон кнопки с ответом для single-->
+
+      <!-- Шаблон кнопки для multiple -->
+      <button class="ui basic toggle button tiny"
+              id="multiple_answer"
+              style="margin-bottom: 5px; display: none;">
+      </button>
+      <!-- /Шаблон кнопки для multiple -->
+
+      <!-- Шаблон для matching -->
+      <div style='display: none;'>
+        <div style="margin-bottom: 5px;" id="match_answer">
+          <span class="match_text"></span>
+        </div>
+
+        <select class="ui dropdown answer_variant mini input" id="match_select"></select>
+      </div>
+      <!-- /Шаблон для matching -->
 
       <div id="chat_answers"></div>
+
+      <div style="margin-bottom: 15px;">
+        <button class="ui button tiny disabled"
+            id="chat_send_answers_btd"
+            style="display: none;"
+        >
+          <i class="paper plane icon"></i><%= t('send') %>
+        </button>
+      </div>
 
       <button class="ui button tiny"
               id="chat_understand_btn"
@@ -78,9 +104,6 @@
     </div>
   </div>
 </div>
-
-<input type="hidden" id="chat_correct" value="<%= t('corrects').join(', ') %>" />
-<input type="hidden" id="chat_incorrect" value="<%= t('incorrects').join(', ') %>"/>
 
 <div class="ui basic modal" id="chat_close_alert">
   <div class="content">

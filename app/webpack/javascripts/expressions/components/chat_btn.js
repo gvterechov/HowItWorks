@@ -4,7 +4,7 @@ export class ChatBtn {
     this.$chat_btn = $('#chat_btn');
 
     let original_context = this;
-    this.$chat_btn.click(function () {
+    this.$chat_btn.on('click', function () {
       original_context.click($(this));
     });
   }

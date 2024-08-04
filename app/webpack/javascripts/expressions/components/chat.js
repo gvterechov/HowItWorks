@@ -1,20 +1,30 @@
 import { ChatBtn } from "./chat_btn";
+import { SingleKeyboard } from "./chat/single_keyboard";
+import { MultipleKeyboard } from "./chat/multiple_keyboard";
+import { MatchingKeyboard } from "./chat/matching_keyboard";
+import { SendAnswersBtn } from "./chat/send_answers_btn";
 
 export class Chat {
   constructor(expression) {
+    this.supplementary_info = '';
+
     this.expression = expression;
     this.chat_btn = new ChatBtn(this);
 
-    let original_context = this;
-    $('#chat_understand_btn').click(function () {
-      original_context.understandClick($(this));
+    this.keyboard = null;
+    this.$chat_answers_block = $('#chat_answers_block');
+
+    this.send_btd = new SendAnswersBtn();
+
+    $('#chat_understand_btn').on('click', () => {
+      this.understandClick($(this));
     });
 
-    $('#chat_close_btn').click(() => {
+    $('#chat_close_btn').on('click', () => {
       // Показываем дополнительный вопрос студенту,
       // если он хочет закрыть чат, в котором еще есть активный диалог
       // (есть кнопки с ответами)
-      if ($('button[data-additional-info]').length > 0) {
+      if ($('#chat_answers').children().length > 0) {
         this.hide(); // TODO баг - чат прыгает, теперь хотя бы скрываем
         $('#chat_close_alert').modal('show');
       } else {
@@ -22,30 +32,26 @@ export class Chat {
       }
     });
 
-    $('#chat_close_yes').click(() => {
+    $('#chat_close_yes').on('click', () => {
       this.collapse();
-      this.clearAnswers();
+      this.clearKeyboard();
     });
 
-    $('#chat_close_no').click(() => { this.open() });
+    $('#chat_close_no').on('click', () => { this.open() });
 
-    $(document).keyup(function(event) {
+    $(document).on('keyup', (event) => {
       if (event.key === "Escape") {
         this.collapse();
       }
     });
 
-    this.$chat_answers_block = $('#chat_answers_block');
     this.$chat_content = $('#chat_content');
     this.$chat_feed = $('#chat_feed');
-    this.$chat_answers = $('#chat_answers');
     this.$chat = $('#chat');
   }
 
   // Задержа ответа чат-бота, мс
-  loadAnswerDelay() {
-    return 600;
-  }
+  loadAnswerDelay() { return 0; }
 
   loadQuestion() {
     this.addStub();
@@ -62,75 +68,110 @@ export class Chat {
       method: "GET",
       url: '/expressions/get_supplement',
       data: {
-        data: JSON.stringify(this.expression.prepare(error_index, 'find_errors')),
+        data: JSON.stringify(this.expression.prepare(error_index, 'get_supplement')),
       },
       error: (jqXHR) => {
         // TODO показать сообщение об ошибке
         alert('error');
+        this.removeStub();
+        this.supplementary_info = '';
       },
       success: (data) => {
         this.update(data);
       },
       complete: () => {
-        this.removeStub();
         // TODO разблокировать нажатие на элементы алгоритма
       }
     });
   }
 
-  loadNextQuestion(elem) {
-    // Блокируем варианты ответов
-    this.disableAnswers();
+  loadNextQuestion(answer_texts, answer_data) {
     // Добавляем выбранный студентом ответ в чат
-    this.addText(elem.text(), 'right');
+    answer_texts.forEach((answer_text) => {
+      this.addText(answer_text, 'right');
+    });
+
     this.addStub();
 
-    setTimeout((elem) => {
-      this.nextQuestion(elem);
-    }, this.loadAnswerDelay(), elem);
+    setTimeout((answer_data) => {
+      this.nextQuestion(answer_data);
+    }, this.loadAnswerDelay(), answer_data);
   }
 
-  nextQuestion(elem) {
+  nextQuestion(answer_data) {
     let error_index = this.errorOperatorIndex();
-    let type = elem.data('additional-info');
+
+    if (this.supplementary_info != null) {
+      answer_data['supplementaryInfo'] = this.supplementary_info;
+    }
 
     $.ajax({
       method: "GET",
       url: '/expressions/get_next_supplement',
       data: {
-        data: JSON.stringify(this.expression.prepare(error_index, 'get_supplement', type)),
+        data: JSON.stringify(this.expression.prepare(error_index, 'get_supplement', answer_data)),
       },
       error: (jqXHR) => {
         // TODO показать сообщение об ошибке
         alert('error');
+        this.removeStub();
+        this.supplementary_info = '';
       },
       success: (data) => {
-        if (data['answers'].length > 0) {
-          // Добавляем в чат, правильно ли ответил студент
-          this.addStudentAnswerReaction(elem);
-        }
-
         this.update(data);
       },
       complete: () => {
-        this.removeStub();
         // TODO разблокировать нажатие на элементы алгоритма
       }
     });
   }
 
   update(data) {
-    // Добавляем вопрос в нужное место
-    this.addText(data['text'], 'left');
+    this.supplementary_info = data['supplementaryInfo'];
 
-    this.clearAnswers();
-    // Добавляем кнопки с ответами
-    if (data['answers'].length > 0) {
-      this.$chat_answers_block.show();
-      data['answers'].forEach((answer) => {
-        this.addAnswer(answer);
+    this.removeStub();
+
+    // Печатаем объяснения
+    if (data['explanations'] != null && data['explanations'].length > 0) {
+      data['explanations'].forEach((explanation) => {
+        this.addText(explanation['text'], 'left');
       });
+    }
+
+    // Печатаем вопрос
+    if ('questionInfo' in data) {
+      if ('text' in data.questionInfo) {
+        this.addText(data['questionInfo']['text'], 'left');
+      }
+
+      // Печатаем варианты ответов
+      this.clearKeyboard();
+
+      if ('answerOptions' in data.questionInfo) {
+        let answers = data['questionInfo']['answerOptions'];
+        if (answers.length > 0) {
+          this.$chat_answers_block.show();
+
+          switch(data['questionInfo']['type']) {
+            case 'single':
+              this.keyboard = new SingleKeyboard(this);
+              this.keyboard.addAnswers(answers);
+              break;
+            case 'multiple':
+              this.keyboard = new MultipleKeyboard(this, this.send_btd);
+              this.keyboard.addAnswers(answers);
+              break;
+            case 'matching':
+              this.keyboard = new MatchingKeyboard(this, this.send_btd);
+              this.keyboard.addAnswers(answers, data['questionInfo']['matchOptions']);
+              break;
+          }
+        } else {
+          this.$chat_answers_block.hide();
+        }
+      }
     } else {
+      this.clearKeyboard();
       this.$chat_answers_block.hide();
     }
   }
@@ -138,14 +179,6 @@ export class Chat {
   // Скроллим чат до последнего сообщения
   scrollDown() {
     this.$chat_content.scrollTop(this.$chat_content.prop("scrollHeight"));
-  }
-
-  // Оценивает ответ студентв в словестной форме,
-  // одним из вариантов слов "верно" или "неверно"
-  rateStudentAnswer(elem) {
-    let answers_selector = elem.data('status') === 'correct' ? '#chat_correct' : '#chat_incorrect';
-    let answers = $(answers_selector).val().split(', ');
-    return answers[Math.floor(Math.random() * answers.length)];
   }
 
   // Добавить фразу в чат
@@ -162,37 +195,6 @@ export class Chat {
     return $message;
   }
 
-  // Добавить в чат слева реакцию на ответ студент
-  // (корректный или некорректный у студента был ответ)
-  addStudentAnswerReaction(elem) {
-    let rate_answer = this.rateStudentAnswer(elem);
-    return this.addText(rate_answer, 'left');
-  }
-
-  // Добавить вариант ответа в чат
-  // options
-  //  text - текст варианта ответа
-  //  enabled - доступен ли для выбора вариант ответа
-  //  status - правильный или нет ответ
-  //  additional_info - доп. инфо
-  addAnswer(options) {
-    let $answer = $('#answer').clone();
-    $answer.text(options['text']);
-    if (options['enabled'] === false) {
-      $answer.addClass('disabled');
-    }
-    $answer.attr('data-status', options['status']);
-    $answer.attr('data-additional-info', options['additional_info']);
-    $answer.removeAttr('id');
-    this.$chat_answers.append($answer);
-    let original_context = this;
-    $answer.click(function () {
-      original_context.loadNextQuestion($(this));
-    });
-    $answer.show();
-    return $answer;
-  }
-
   // Добавить заглушку в виде многоточий для чат-бота
   addStub() {
     let $stub = this.addText('...', 'left');
@@ -206,20 +208,16 @@ export class Chat {
     $('#message_stub').remove();
   }
 
+  clearKeyboard() {
+    if (this.keyboard != null) {
+      this.keyboard.clear();
+    }
+  }
+
   // Очистить чат
   clear() {
     this.$chat_feed.empty();
-    this.clearAnswers();
-  }
-
-  // Очистить предоставленные студенту ответы
-  clearAnswers() {
-    this.$chat_answers.empty();
-  }
-
-  // Заблокировать ответы
-  disableAnswers() {
-    this.$chat_answers.children().each(function() { $(this).addClass('disabled'); })
+    this.clearKeyboard();
   }
 
   // Свернуть чат
@@ -246,6 +244,7 @@ export class Chat {
     this.clear();
   }
 
+  // TODO: вынести?
   understandClick(elem) {
     elem.toggleClass('loading');
     // Добавить ответ студента в чат

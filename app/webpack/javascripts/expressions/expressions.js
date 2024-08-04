@@ -14,7 +14,7 @@ $(function() {
   let expression_trainer = new ExpressionTrainer(expression, chat);
 
   let save_expression_task = new SaveExpressionTask(expression, available_syntaxes);
-  $('#create_task').click(() => save_expression_task.save());
+  $('#create_task').on('click', () => save_expression_task.save());
 
   $('.ui.button.share').popup({
     popup: $('.popup.share'),
@@ -34,24 +34,24 @@ $(function() {
   });
 
   // Кнокпка "запустить"
-  $('#prepare').click(function() {
+  $('#prepare').on('click', function() {
     chat.renew();
     expression_trainer.update($(this));
   });
 
   // Кнокпка "запустить" по нажатию на Enter
-  $(document).keyup(function(event) {
+  $(document).on('keyup', function(event) {
     if (event.key === "Enter") {
-      $('#prepare').click();
+      $('#prepare').trigger('click');
     }
   });
 
-  $('#save_task').click(function() {
+  $('#save_task').on('click', function() {
     $('#task_info_form').show();
     $('#task_url_form').hide();
   });
 
-  $('#copy_task_url').click(function() {
+  $('#copy_task_url').on('click', function() {
     navigator.clipboard.writeText($("#task_url").val());
   });
 

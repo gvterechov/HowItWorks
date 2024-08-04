@@ -4,15 +4,20 @@ export class Expression {
   }
 
   // Возвращает выражение в ввиде json
-  prepare(selected_index = null, action = 'find_errors', error_type = null) {
+  prepare(selected_index = null, action = 'find_errors', options = null) {
     let lang = $('#lang').val();
     let task_lang = this.available_syntaxes.taskLang();
     let tokens_json = this.tokens(selected_index);
 
     let result = { expression: tokens_json, task_lang: task_lang, lang: lang, action: action };
 
-    if (error_type != null) {
-      result['errors'] = [{ "parts": [], "type": error_type }]
+    if (options != null) {
+      if (options['answers'] != null) {
+        result['answers'] = options['answers'];
+      }
+      if (options['supplementaryInfo'] != null) {
+        result['supplementaryInfo'] = options['supplementaryInfo'];
+      }
     }
 
     return result;
