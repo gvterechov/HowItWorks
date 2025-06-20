@@ -16,6 +16,9 @@
 #  max_hints_count    :integer          default(0)
 #
 class ExpressionTask < ApplicationRecord
+  has_many :expression_task_tags, dependent: :destroy
+  has_many :task_tags, through: :expression_task_tags
+
   include TaskModule
   include Tokenable
 
