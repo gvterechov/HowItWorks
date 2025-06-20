@@ -108,6 +108,7 @@ en:
     hope_for_best: 'We are working to improve our service!'
   copyright: 'POAS department, VSTU©'
   new: 'New learning problem'
+  new_tag: 'New tag'
   save_task: 'Save learning problem'
   my_tasks: 'My learning problems'
   show_next_correct_step: 'Show next correct step'

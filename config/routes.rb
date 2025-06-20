@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get '/', to: 'expressions#index'
 
       get :tasks, to: 'expressions#tasks'
+      get :new_tag, to: 'expressions#new_tag'
       get "/tasks/:token", to: 'expressions#show_task'
       get "/tasks/:token/statistic", to: 'expressions#task_statistic'
       get :check_expression, to: 'expressions#check_expression', format: :json

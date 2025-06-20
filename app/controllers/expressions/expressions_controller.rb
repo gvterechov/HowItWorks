@@ -121,6 +121,10 @@ class Expressions::ExpressionsController < ApplicationController
     render '/expressions/task_statistic'
   end
 
+  def new_tag
+    render "/expressions/new_tag"
+  end
+
   private
     # TODO вынести в tasks_controller
     def task_params

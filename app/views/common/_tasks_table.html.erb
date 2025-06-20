@@ -9,6 +9,10 @@
                   new_task_path,
                   class: 'ui basic button'
       %>
+      <%= link_to "<i class='plus icon'></i>#{t('new_tag')}".html_safe,
+                  new_task_tag,
+                  class: 'ui basic button'
+      %>
     </h3>
     <div class="row">
       <table class="ui selectable striped table">
