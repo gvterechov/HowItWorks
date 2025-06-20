@@ -6,6 +6,7 @@
     <tr>
       <th>ID</th>
       <th><%= t('tasks.name') %></th>
+      <th>Действия</th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,14 @@
       <tr>
         <td><%= task.id %></td>
         <td><%= task.title %></td>
+        <td>
+          <button class="ui mini green button add-task" data-task-id="<%= task.id %>">
+            <i class="plus icon"></i> Добавить
+          </button>
+          <button class="ui mini red button remove-task" data-task-id="<%= task.id %>">
+            <i class="minus icon"></i> Убрать
+          </button>
+        </td>
       </tr>
     <% end %>
   </tbody>
