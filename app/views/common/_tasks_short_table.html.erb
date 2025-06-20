@@ -1,0 +1,19 @@
+<%
+  enable_hints ||= false
+%>
+<table class="ui selectable striped table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th><%= t('tasks.name') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tasks.each do |task| %>
+      <tr>
+        <td><%= task.id %></td>
+        <td><%= task.title %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

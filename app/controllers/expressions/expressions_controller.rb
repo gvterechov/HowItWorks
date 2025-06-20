@@ -122,6 +122,10 @@ class Expressions::ExpressionsController < ApplicationController
   end
 
   def new_tag
+    @tasks = current_user.expression_tasks
+                         .order(:created_at)
+
+    
     render "/expressions/new_tag"
   end
 
