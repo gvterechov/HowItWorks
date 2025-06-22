@@ -23,7 +23,7 @@
               <td><%= tag.name %></td>
               <td class="center aligned">
                 <div class="ui buttons">
-                    <%= link_to expressions_edit_tags_path, class: 'ui tiny basic primary button' do %>
+                    <%= link_to expressions_edit_tags_path(id: tag.id), class: 'ui tiny basic primary button' do %>
                         <i class="edit icon"></i> <%= t('edit') %>
                     <% end %>
 

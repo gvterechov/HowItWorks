@@ -171,8 +171,33 @@ class Expressions::ExpressionsController < ApplicationController
   end
 
   def edit_tags
-    @tags = current_user.task_tags.order(:created_at)
-    render '/expressions/edit_tags' # Создадим потом этот вид
+    @task_tag = TaskTag.find(params[:id])
+    @tasks = current_user.expression_tasks.order(:created_at)
+    @selected_task_ids = (params[:selected_task_ids] || @task_tag.expression_tasks.pluck(:id).map(&:to_s))
+
+    if params[:add_task_id]
+      @selected_task_ids << params[:add_task_id].to_s unless @selected_task_ids.include?(params[:add_task_id].to_s)
+    elsif params[:remove_task_id]
+      @selected_task_ids.delete(params[:remove_task_id].to_s)
+    end
+
+    @selected_task_ids.uniq!
+
+    render '/expressions/edit_tags'
+  end
+
+  def update_tag
+    @task_tag = TaskTag.find(params[:id])
+    @task_tag.name = params[:tag_name]
+    task_ids = (params[:selected_task_ids] || []).map(&:to_i)
+
+    @task_tag.expression_tasks = ExpressionTask.where(id: task_ids)
+
+    if @task_tag.save
+      redirect_to expressions_path, notice: 'Тег успешно обновлён'
+    else
+      render :edit_tags
+    end
   end
 
   private
