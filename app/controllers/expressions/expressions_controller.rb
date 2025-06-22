@@ -164,6 +164,12 @@ class Expressions::ExpressionsController < ApplicationController
     redirect_to expressions_tasks_path
   end
 
+  def destroy_tag
+    tag = TaskTag.find(params[:id])
+    tag.destroy
+    redirect_to expressions_tags_path, notice: t('tag_deleted', default: 'Тег удалён')
+  end
+
   # def create_tag
   #   tag_name = params[:tag_name].to_s.strip
   #   if tag_name.blank?

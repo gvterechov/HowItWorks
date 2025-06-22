@@ -24,9 +24,21 @@
               <td><%= tag.id %></td>
               <td><%= tag.name %></td>
               <td class="center aligned">
-                <%= link_to tag(tag), class: 'ui tiny basic primary button' do %>
-                  <i class="edit icon"></i> <%= t('edit', default: 'Редактировать') %>
+                <div class="ui buttons">
+                  <%= link_to tag(tag), class: 'ui tiny basic primary button' do %>
+                    <i class="edit icon"></i> <%= t('edit', default: 'Редактировать') %>
+                  <% end %>
+
+                <%= button_to expressions_destroy_tag_path(id: tag.id),
+                    method: :delete,
+                    data: { confirm: 'Вы уверены, что хотите удалить тег?' },
+                    class: 'ui red basic button' do %>
+                <i class="trash icon"></i>
+                    Удалить
                 <% end %>
+
+
+                             </div>
               </td>
             </tr>
           <% end %>
