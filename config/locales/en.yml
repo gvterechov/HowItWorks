@@ -150,3 +150,12 @@ en:
   max_hints_count: 'Number of available hints'
   loading_please_wait: 'Loading... Please wait...'
   choose_another_answer: 'Wrong, choose another answer.'
+  edit: 'Edit'
+  delete: 'Delete'
+  tags_name: 'Tags name'
+  actions: 'Actions'
+  add: 'Add'
+  remove: 'Remove'
+  available_tasks: "Available tasks"
+  create_tag: 'Create tag'
+  enter_tag_name: 'Enter name'

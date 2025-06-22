@@ -1,18 +1,20 @@
 <%= render partial: 'expressions/common/header' %>
 
-<div class="ui grid">
+<div class="ui stackable grid">
 
-  <!-- Левая колонка: Таблица с задачами -->
+  <!-- Левая колонка: Таблица задач -->
   <div class="eight wide column">
+    <h3 class="ui header"> <%= t('available_tasks', default: 'Доступные задачи') %></h3>
+
     <%= form_with url: expressions_new_tag_path, method: :get, local: true, class: 'ui form' do %>
-        <%= hidden_field_tag :tag_name, @tag_name %>
-      
-        <table class="ui selectable striped table">
+      <%= hidden_field_tag :tag_name, @tag_name %>
+
+      <table class="ui compact celled selectable striped table">
         <thead>
           <tr>
             <th>ID</th>
-            <th><%= t('tasks.name') %></th>
-            <th>Действия</th>
+            <th><%= t('tasks.name', default: 'Название') %></th>
+            <th class="center aligned"><%= t('actions', default: 'Действия') %></th>
           </tr>
         </thead>
         <tbody>
@@ -21,25 +23,29 @@
             <tr>
               <td><%= task.id %></td>
               <td><%= task.title %></td>
-              <td>
+              <td class="center aligned">
                 <% if included %>
                   <%= hidden_field_tag 'selected_task_ids[]', task.id %>
-                  <button class="ui mini green disabled button" type="button">
-                    <i class="plus icon"></i> Добавить
-                  </button>
-                  <button class="ui mini red button" type="submit" name="remove_task_id" value="<%= task.id %>">
-                    <i class="minus icon"></i> Убрать
-                  </button>
+                  <div class="ui mini buttons">
+                    <button class="ui green disabled button" type="button">
+                      <i class="plus icon"></i> <%= t('add', default: 'Добавить') %>
+                    </button>
+                    <button class="ui red button" type="submit" name="remove_task_id" value="<%= task.id %>">
+                      <i class="minus icon"></i> <%= t('remove', default: 'Убрать') %>
+                    </button>
+                  </div>
                 <% else %>
                   <% @selected_task_ids.each do |id| %>
                     <%= hidden_field_tag 'selected_task_ids[]', id %>
                   <% end %>
-                  <button class="ui mini green button" type="submit" name="add_task_id" value="<%= task.id %>">
-                    <i class="plus icon"></i> Добавить
-                  </button>
-                  <button class="ui mini red disabled button" type="button">
-                    <i class="minus icon"></i> Убрать
-                  </button>
+                  <div class="ui mini buttons">
+                    <button class="ui green button" type="submit" name="add_task_id" value="<%= task.id %>">
+                      <i class="plus icon"></i> <%= t('add', default: 'Добавить') %>
+                    </button>
+                    <button class="ui red disabled button" type="button">
+                      <i class="minus icon"></i> <%= t('remove', default: 'Убрать') %>
+                    </button>
+                  </div>
                 <% end %>
               </td>
             </tr>
@@ -51,20 +57,20 @@
 
   <!-- Правая колонка: Форма сохранения тега -->
   <div class="eight wide column">
+    <h3 class="ui header"> <%= t('create_tag', default: 'Создание тега') %></h3>
+
     <%= form_with url: expressions_create_tag_path, method: :post, local: true, class: 'ui form' do %>
       <div class="field">
-        <label>Название тега</label>
-        <%= text_field_tag :tag_name, @tag_name, placeholder: "Введите название...", required: true %>
+        <label><%= t('tags_name', default: 'Название тега') %></label>
+        <%= text_field_tag :tag_name, @tag_name, placeholder: t('enter_tag_name', default: "Введите название..."), required: true %>
       </div>
 
       <% @selected_task_ids.each do |task_id| %>
         <%= hidden_field_tag 'selected_task_ids[]', task_id %>
       <% end %>
 
-      <%= submit_tag "Сохранить", class: "ui primary button" %>
+      <%= submit_tag t('save', default: 'Сохранить'), class: "ui primary button" %>
     <% end %>
   </div>
 
 </div>
-
-<%#= render partial: 'common/footer' %>

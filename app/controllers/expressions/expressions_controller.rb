@@ -161,7 +161,7 @@ class Expressions::ExpressionsController < ApplicationController
     end
 
     flash[:success] = "Тег успешно сохранён и привязан к задачам"
-    redirect_to expressions_tasks_path
+    redirect_to expressions_tags_path
   end
 
   def destroy_tag
