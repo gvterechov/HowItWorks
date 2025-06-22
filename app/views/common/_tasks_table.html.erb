@@ -3,17 +3,63 @@
 %>
 <div class="ui aligned basic segment">
   <div class="ui centered grid">
-    <h3>
-      <%= t('my_tasks') %>
-      <%= link_to "<i class='plus icon'></i>#{t('new')}".html_safe,
-                  new_task_path,
-                  class: 'ui basic button'
-      %>
-      <%= link_to "<i class='plus icon'></i>#{t('new_tag')}".html_safe,
-                  new_task_tag,
-                  class: 'ui basic button'
-      %>
-    </h3>
+
+    <!-- Заголовок и кнопки -->
+    <div class="row">
+      <div class="center aligned sixteen wide column">
+        <h3><%= t('my_tasks') %></h3>
+        <div class="ui buttons">
+          <%= link_to "<i class='plus icon'></i>#{t('new')}".html_safe,
+                      new_task_path,
+                      class: 'ui primary button' %>
+
+          <%= link_to "<i class='plus icon'></i>#{t('new_tag')}".html_safe,
+              new_task_tag,
+              class: 'ui button teal',
+              style: 'margin-left: 0.5em;' %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Фильтр -->
+    <div class="row">
+      <div class="sixteen wide column">
+        <h4 class="ui dividing header">Фильтр по тегам</h4>
+        <%= form_with url: request.path, method: :get, local: true, class: 'ui form' do %>
+          <div class="inline fields">
+            <% @all_tags.each do |tag| %>
+              <div class="field">
+                <div class="ui checkbox">
+                  <%= check_box_tag "filter_tag_ids[]", tag.id, @selected_tag_ids.include?(tag.id), id: "tag_#{tag.id}", onchange: "this.form.submit();" %>
+                  <%= label_tag "tag_#{tag.id}", tag.name %>
+                </div>
+              </div>
+            <% end %>
+            <div class="field">
+              <%= link_to "Сбросить", request.path, class: "ui basic button" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Таблица -->
+    <div class="row">
+      <div class="sixteen wide column">
+        <table class="ui selectable striped table">
+          <!-- table content -->
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    $('.ui.checkbox').checkbox();
+  });
+</script>
+    
     <div class="row">
       <table class="ui selectable striped table">
         <thead>

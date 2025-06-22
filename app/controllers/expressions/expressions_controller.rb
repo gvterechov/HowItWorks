@@ -103,11 +103,21 @@ class Expressions::ExpressionsController < ApplicationController
 
   # TODO вынести в tasks_controller
   def tasks
-    @tasks = current_user.expression_tasks
-                         .includes(:attempts)
-                         .order(:created_at)
+    @all_tags = current_user.task_tags.order(:name)
 
-    render '/expressions/tasks'
+    @selected_tag_ids = (params[:filter_tag_ids] || []).map(&:to_i)
+
+    @tasks = current_user.expression_tasks
+                        .includes(:attempts, :task_tags)
+                        .order(:created_at)
+
+    if @selected_tag_ids.any?
+      @tasks = @tasks.joins(:task_tags)
+                    .where(task_tags: { id: @selected_tag_ids })
+                    .distinct
+  end
+
+  render '/expressions/tasks'
   end
 
   def tags
@@ -194,7 +204,7 @@ class Expressions::ExpressionsController < ApplicationController
     @task_tag.expression_tasks = ExpressionTask.where(id: task_ids)
 
     if @task_tag.save
-      redirect_to expressions_path, notice: 'Тег успешно обновлён'
+      redirect_to expressions_tags_path, notice: 'Тег успешно обновлён'
     else
       render :edit_tags
     end
