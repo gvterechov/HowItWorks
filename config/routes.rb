@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       post :remove_task_from_tag, to: 'expressions#remove_task_from_tag'
 
       get :tasks, to: 'expressions#tasks'
+      get :tags, to: 'expressions#tags'
       get :new_tag, to: 'expressions#new_tag'
       get "/tasks/:token", to: 'expressions#show_task'
       get "/tasks/:token/statistic", to: 'expressions#task_statistic'

@@ -1,0 +1,15 @@
+<% title t('expressions.index.title') %>
+
+<%= render partial: 'expressions/common/header' %>
+
+<%= render partial: 'common/tags_table',
+           locals: {
+             tags: @tags,
+             new_task_tag_path: "/#{I18n.locale}/expressions/new_tag",
+             #edit_task_tag_path: "/#{I18n.locale}/expressions/new_tag",
+             #show_tags_path: "/expressions/tags",
+             enable_hints: true
+           }
+%>
+
+<%#= render partial: 'common/footer' %>

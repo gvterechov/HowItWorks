@@ -110,6 +110,12 @@ class Expressions::ExpressionsController < ApplicationController
     render '/expressions/tasks'
   end
 
+  def tags
+    @tags = current_user.task_tags.order(:created_at)
+
+    render '/expressions/tags'
+  end
+
   # TODO вынести в tasks_controller
   def task_statistic
     @task = current_user.expression_tasks

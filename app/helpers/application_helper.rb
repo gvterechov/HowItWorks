@@ -48,6 +48,16 @@ module ApplicationHelper
     end
   end
 
+  def tags_button(href)
+    if current_user.present?
+      css_class = 'item'
+      css_class += 'active' if request.fullpath.match(href)
+      link_to t('my_tags'),
+              href,
+              class: css_class
+    end
+  end
+
   def sign_out_button
     link_to("#{sign_out_icon}#{t('sign_out')}".html_safe,
             destroy_user_session_url,
