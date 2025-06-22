@@ -1,26 +1,70 @@
-<% title t('expressions.index.title') %>
-
 <%= render partial: 'expressions/common/header' %>
 
 <div class="ui grid">
-  <!-- Левая колонка: Таблица -->
+
+  <!-- Левая колонка: Таблица с задачами -->
   <div class="eight wide column">
-    <%= render partial: 'common/tasks_short_table', locals: { tasks: @tasks } %>
+    <%= form_with url: expressions_new_tag_path, method: :get, local: true, class: 'ui form' do %>
+        <%= hidden_field_tag :tag_name, @tag_name %>
+      
+        <table class="ui selectable striped table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th><%= t('tasks.name') %></th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tasks.each do |task| %>
+            <% included = @selected_task_ids.include?(task.id.to_s) %>
+            <tr>
+              <td><%= task.id %></td>
+              <td><%= task.title %></td>
+              <td>
+                <% if included %>
+                  <%= hidden_field_tag 'selected_task_ids[]', task.id %>
+                  <button class="ui mini green disabled button" type="button">
+                    <i class="plus icon"></i> Добавить
+                  </button>
+                  <button class="ui mini red button" type="submit" name="remove_task_id" value="<%= task.id %>">
+                    <i class="minus icon"></i> Убрать
+                  </button>
+                <% else %>
+                  <% @selected_task_ids.each do |id| %>
+                    <%= hidden_field_tag 'selected_task_ids[]', id %>
+                  <% end %>
+                  <button class="ui mini green button" type="submit" name="add_task_id" value="<%= task.id %>">
+                    <i class="plus icon"></i> Добавить
+                  </button>
+                  <button class="ui mini red disabled button" type="button">
+                    <i class="minus icon"></i> Убрать
+                  </button>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
-  <!-- Правая колонка: Форма -->
+  <!-- Правая колонка: Форма сохранения тега -->
   <div class="eight wide column">
-    <div class="ui form">
+    <%= form_with url: expressions_create_tag_path, method: :post, local: true, class: 'ui form' do %>
       <div class="field">
-        <label>Название tag</label>
-        <input type="text" name="task_name" placeholder="Введите название...">
+        <label>Название тега</label>
+        <%= text_field_tag :tag_name, @tag_name, placeholder: "Введите название...", required: true %>
       </div>
-      <button class="ui primary button">
-        <i class="save icon"></i>
-        Сохранить
-      </button>
-    </div>
+
+      <% @selected_task_ids.each do |task_id| %>
+        <%= hidden_field_tag 'selected_task_ids[]', task_id %>
+      <% end %>
+
+      <%= submit_tag "Сохранить", class: "ui primary button" %>
+    <% end %>
   </div>
+
 </div>
 
 <%#= render partial: 'common/footer' %>

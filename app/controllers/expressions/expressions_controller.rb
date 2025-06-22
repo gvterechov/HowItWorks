@@ -122,12 +122,63 @@ class Expressions::ExpressionsController < ApplicationController
   end
 
   def new_tag
-    @tasks = current_user.expression_tasks
-                         .order(:created_at)
+    @tasks = current_user.expression_tasks.order(:created_at)
+    @selected_task_ids = (params[:selected_task_ids] || []).map(&:to_s)
+    @tag_name = params[:tag_name]
 
-    
-    render "/expressions/new_tag"
+    if params[:add_task_id]
+      add_id = params[:add_task_id].to_s
+      @selected_task_ids << add_id unless @selected_task_ids.include?(add_id)
+    elsif params[:remove_task_id]
+      remove_id = params[:remove_task_id].to_s
+      @selected_task_ids.delete(remove_id)
+    end
+
+    @selected_task_ids.uniq!
+
+    render '/expressions/new_tag'
   end
+
+  def create_tag
+    tag_name = params[:tag_name].to_s.strip
+    selected_task_ids = Array(params[:selected_task_ids])
+
+    if tag_name.blank? || selected_task_ids.empty?
+      flash[:error] = "Необходимо указать название тега и выбрать хотя бы одну задачу"
+      redirect_to expressions_new_tag_path(tag_name: tag_name, selected_task_ids: selected_task_ids) and return
+    end
+
+    tag = TaskTag.find_or_create_by(name: tag_name, user: current_user)
+
+    selected_task_ids.each do |task_id|
+      ExpressionTaskTag.find_or_create_by(expression_task_id: task_id, task_tag_id: tag.id)
+    end
+
+    flash[:success] = "Тег успешно сохранён и привязан к задачам"
+    redirect_to expressions_tasks_path
+  end
+
+  # def create_tag
+  #   tag_name = params[:tag_name].to_s.strip
+  #   if tag_name.blank?
+  #     redirect_to expressions_new_tag_path(selected_task_ids: params[:selected_task_ids], tag_name: params[:tag_name]), alert: "Название тега не может быть пустым"
+  #     return
+  #   end
+
+  #   tag = TaskTag.new(name: params[:tag_name])
+
+  #   if tag.save
+  #     selected_ids = (params[:selected_task_ids] || []).map(&:to_i)
+  #     selected_ids.each do |task_id|
+  #       ExpressionTaskTag.create(expression_task_id: task_id, task_tag_id: tag.id)
+  #     end
+
+  #     redirect_to expressions_tasks_path, notice: "Тег создан"
+  #   else
+  #     #redirect_to expressions_tasks_path, notice: "Тег ne создан"
+  #     #redirect_to expressions_new_tag_path(selected_task_ids: params[:selected_task_ids], tag_name: params[:tag_name]), alert: "Ошибка при создании тега"
+  #   end
+  # end
 
   private
     # TODO вынести в tasks_controller

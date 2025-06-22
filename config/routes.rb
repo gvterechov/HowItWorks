@@ -29,6 +29,10 @@ Rails.application.routes.draw do
     namespace :expressions do
       get '/', to: 'expressions#index'
 
+      post :create_tag, to: 'expressions#create_tag'
+      post :add_task_to_tag, to: 'expressions#add_task_to_tag'
+      post :remove_task_from_tag, to: 'expressions#remove_task_from_tag'
+
       get :tasks, to: 'expressions#tasks'
       get :new_tag, to: 'expressions#new_tag'
       get "/tasks/:token", to: 'expressions#show_task'
