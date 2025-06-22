@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       post :add_task_to_tag, to: 'expressions#add_task_to_tag'
       post :remove_task_from_tag, to: 'expressions#remove_task_from_tag'
       delete :destroy_tag, to: 'expressions#destroy_tag'
+      get :edit_tags, to: 'expressions#edit_tags'
+      
 
       get :tasks, to: 'expressions#tasks'
       get :tags, to: 'expressions#tags'

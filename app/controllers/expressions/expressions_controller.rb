@@ -170,27 +170,10 @@ class Expressions::ExpressionsController < ApplicationController
     redirect_to expressions_tags_path, notice: t('tag_deleted', default: 'Тег удалён')
   end
 
-  # def create_tag
-  #   tag_name = params[:tag_name].to_s.strip
-  #   if tag_name.blank?
-  #     redirect_to expressions_new_tag_path(selected_task_ids: params[:selected_task_ids], tag_name: params[:tag_name]), alert: "Название тега не может быть пустым"
-  #     return
-  #   end
-
-  #   tag = TaskTag.new(name: params[:tag_name])
-
-  #   if tag.save
-  #     selected_ids = (params[:selected_task_ids] || []).map(&:to_i)
-  #     selected_ids.each do |task_id|
-  #       ExpressionTaskTag.create(expression_task_id: task_id, task_tag_id: tag.id)
-  #     end
-
-  #     redirect_to expressions_tasks_path, notice: "Тег создан"
-  #   else
-  #     #redirect_to expressions_tasks_path, notice: "Тег ne создан"
-  #     #redirect_to expressions_new_tag_path(selected_task_ids: params[:selected_task_ids], tag_name: params[:tag_name]), alert: "Ошибка при создании тега"
-  #   end
-  # end
+  def edit_tags
+    @tags = current_user.task_tags.order(:created_at)
+    render '/expressions/edit_tags' # Создадим потом этот вид
+  end
 
   private
     # TODO вынести в tasks_controller
