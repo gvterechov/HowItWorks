@@ -175,13 +175,21 @@ class Expressions::ExpressionsController < ApplicationController
   end
 
   def destroy_tag
-    tag = TaskTag.find(params[:id])
+    @tag = TaskTag.find(params[:id])
+    if tag.user != current_user
+      redirect_to expressions_tags_path, alert: 'У вас нет доступа к удалению этого тега' and return
+    end
+
     tag.destroy
     redirect_to expressions_tags_path, notice: t('tag_deleted', default: 'Тег удалён')
   end
 
   def edit_tags
     @task_tag = TaskTag.find(params[:id])
+    unless @task_tag.user == current_user
+      redirect_to expressions_tags_path, alert: 'У вас нет доступа к этому тегу' and return
+    end
+
     @tasks = current_user.expression_tasks.order(:created_at)
     @selected_task_ids = (params[:selected_task_ids] || @task_tag.expression_tasks.pluck(:id).map(&:to_s))
 
@@ -192,22 +200,26 @@ class Expressions::ExpressionsController < ApplicationController
     end
 
     @selected_task_ids.uniq!
-
     render '/expressions/edit_tags'
   end
 
   def update_tag
     @task_tag = TaskTag.find(params[:id])
+    unless @task_tag.user == current_user
+      redirect_to expressions_tags_path, alert: 'У вас нет доступа к этому тегу' and return
+    end
+
     @task_tag.name = params[:tag_name]
     task_ids = (params[:selected_task_ids] || []).map(&:to_i)
 
-    @task_tag.expression_tasks = ExpressionTask.where(id: task_ids)
-
+    @task_tag.expression_tasks = ExpressionTask.where(id: task_ids, user: current_user)
     if @task_tag.save
-      redirect_to expressions_tags_path, notice: 'Тег успешно обновлён'
+      flash[:success] = 'Тег обновлён'
     else
-      render :edit_tags
+      flash[:error] = 'Ошибка при сохранении тега'
     end
+
+    redirect_to expressions_tags_path
   end
 
   private
