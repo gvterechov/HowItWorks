@@ -1,2 +1,10 @@
-<h1>User#edit</h1>
-<p>Find me in app/views/user/edit.html.erb</p>
+<h2>Редактировать пользователя</h2>
+
+<%= form_with model: @user, url: user_path(@user, locale: I18n.locale), method: :patch, local: true, class: "ui form" do |f| %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <%= f.submit "Сохранить", class: "ui primary button" %>
+<% end %>
