@@ -17,8 +17,6 @@ Rails.application.routes.draw do
 
     resources :users, only: [:index, :edit, :update, :destroy] 
 
-    root 'application#index', as :root_with_locale
-
     root 'application#index', as: :root_with_locale
     get :publications, to: 'application#publications'
     resource :teacher_feedback, only: :create

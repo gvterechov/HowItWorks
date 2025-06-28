@@ -1,3 +1,5 @@
+<%= render partial: 'expressions/common/header' %>
+
 <div class="ui aligned basic segment">
   <div class="ui centered grid">
     <h3>
@@ -23,7 +25,12 @@
               <td><%= user.created_at.strftime('%d.%m.%Y') %></td>
               <td class="center aligned">
                 <div class="ui buttons">
-                  
+                  <%= button_to user_path(user, locale: I18n.locale),
+                                method: :delete,
+                                data: { confirm: 'Вы уверены, что хотите удалить пользователя?' },
+                                class: 'ui red basic button' do %>
+                    <i class="trash icon"></i> Удалить
+                  <% end %>
                 </div>
               </td>
             </tr>
@@ -33,3 +40,5 @@
     </div>
   </div>
 </div>
+
+<%#= render partial: 'common/footer' %>

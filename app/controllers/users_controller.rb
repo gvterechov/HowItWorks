@@ -27,6 +27,16 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def destroy
+    user = User.find(params[:id])
+    if user.destroy
+      flash[:notice] = "Пользователь удалён"
+    else
+      flash[:alert] = "Ошибка при удалении пользователя"
+    end
+    redirect_to users_path(locale: I18n.locale)
+  end
+
   private
     def find_task_by_url(url)
       url_parts = url.split('/')
