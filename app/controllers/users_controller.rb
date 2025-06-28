@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_admin!, only: [:index, :edit, :update, :destroy]
 
   def claim_task
     task = find_task_by_url(params[:task_url])
@@ -48,6 +49,13 @@ class UsersController < ApplicationController
       flash[:alert] = "Ошибка при удалении пользователя"
     end
     redirect_to users_path(locale: I18n.locale)
+  end
+
+  def require_admin!
+    unless current_user&.admin?
+      flash[:alert] = 'Доступ запрещён'
+      redirect_to root_path(locale: I18n.locale)
+    end
   end
 
   private

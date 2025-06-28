@@ -28,6 +28,11 @@ class User < ApplicationRecord
          :rememberable,
          :validatable
 
+
+  def admin?
+    role&.name == "админ"
+  end
+
   # validates :email, presence: { message: 'Email должен быть указан!' },
   #           uniqueness: { message: 'Такой пользователь уже существует!' },
   #           format: { with: EMAIL_REGEX }
