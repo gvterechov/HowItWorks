@@ -20,6 +20,13 @@ class UsersController < ApplicationController
     render json: { message: message }, status: :ok
   end
 
+  def index
+    @users = User.all
+  end
+
+  def edit
+  end
+
   private
     def find_task_by_url(url)
       url_parts = url.split('/')

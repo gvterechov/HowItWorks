@@ -1,0 +1,35 @@
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <h3>
+      <%= t('users_list', default: 'Список пользователей') %>
+      <!-- Пока без кнопки "Новый пользователь" -->
+    </h3>
+
+    <div class="row">
+      <table class="ui selectable striped celled table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th><%= t('email', default: 'Email') %></th>
+            <th><%= t('created_at', default: 'Дата создания') %></th>
+            <th class="center aligned"><%= t('actions', default: 'Действия') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each_with_index do |user, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= user.email %></td>
+              <td><%= user.created_at.strftime('%d.%m.%Y') %></td>
+              <td class="center aligned">
+                <div class="ui buttons">
+                  
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
