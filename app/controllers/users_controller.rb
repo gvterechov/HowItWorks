@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:role).all
+    @users = User.includes(:role).order(:created_at).page(params[:page]).per(30)
   end
 
   def edit
