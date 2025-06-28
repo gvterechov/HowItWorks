@@ -13,6 +13,7 @@
           <tr>
             <th>#</th>
             <th><%= t('email', default: 'Email') %></th>
+            <th><%= t('role', default: 'Роль') %></th> <!-- Добавлен столбец Роль -->
             <th><%= t('created_at', default: 'Дата создания') %></th>
             <th class="center aligned"><%= t('actions', default: 'Действия') %></th>
           </tr>
@@ -22,6 +23,7 @@
             <tr>
               <td><%= index + 1 %></td>
               <td><%= user.email %></td>
+              <td><%= user.role&.name || '—' %></td> <!-- Вывод роли с защитой от nil -->
               <td><%= user.created_at.strftime('%d.%m.%Y') %></td>
               <td class="center aligned">
                 <div class="ui buttons">

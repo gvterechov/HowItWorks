@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.includes(:role).all
   end
 
   def edit
@@ -39,12 +39,6 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-
-  def user_params
-    params.require(:user).permit(:email)
-  end
-
   def destroy
     user = User.find(params[:id])
     if user.destroy
@@ -56,6 +50,10 @@ class UsersController < ApplicationController
   end
 
   private
+    def user_params
+      params.require(:user).permit(:email)
+    end
+
     def find_task_by_url(url)
       url_parts = url.split('/')
       task_token = url_parts.last

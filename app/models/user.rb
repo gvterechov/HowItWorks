@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :task_tags, dependent: :destroy
   has_many :algorithm_tasks, dependent: :destroy
 
+  belongs_to :role
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
