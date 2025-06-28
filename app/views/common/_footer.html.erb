@@ -2,4 +2,10 @@
      style="bottom: 0; width: 100%; position: absolute;"
 >
   <%= t('copyright') %>
+
+  <% if current_user&.admin? %>
+    <div class="ui small header" style="margin-top: 0.5em;">
+      <%= link_to 'Редактировать пользователей', users_path(locale: I18n.locale), class: 'ui inverted link' %>
+    </div>
+  <% end %>
 </div>
