@@ -12,13 +12,13 @@ Rails.application.routes.draw do
   end
   put '/users/claim_task', to: 'users#claim_task', format: :json
 
-
   resources :tasks, only: [:create]
   scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
     devise_for :users
 
+    get 'tasks/:token', to: 'tasks#show', as: :task_by_token
     resources :users, only: [:index, :edit, :update, :destroy]
-    resources :tasks, only: [:show, :index] do
+    resources :tasks, only: [:index] do
       get 'statistics', on: :member
     end
 
