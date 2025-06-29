@@ -12,10 +12,15 @@ Rails.application.routes.draw do
   end
   put '/users/claim_task', to: 'users#claim_task', format: :json
 
+
+  resources :tasks, only: [:create]
   scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
     devise_for :users
 
-    resources :users, only: [:index, :edit, :update, :destroy] 
+    resources :users, only: [:index, :edit, :update, :destroy]
+    resources :tasks, only: [:show, :index] do
+      get 'statistics', on: :member
+    end
 
     root 'application#index', as: :root_with_locale
     get :publications, to: 'application#publications'
@@ -42,15 +47,15 @@ Rails.application.routes.draw do
       post :update_tag, to: 'expressions#update_tag'
       #patch :update_tag, to: 'expressions#update_tag'
 
-      get :tasks, to: 'expressions#tasks'
+      #get :tasks, to: 'expressions#tasks'
       get :tags, to: 'expressions#tags'
       get :new_tag, to: 'expressions#new_tag'
-      get "/tasks/:token", to: 'expressions#show_task'
-      get "/tasks/:token/statistic", to: 'expressions#task_statistic'
+      #get "/tasks/:token", to: 'expressions#show_task'
+      #get "/tasks/:token/statistic", to: 'expressions#task_statistic'
       get :check_expression, to: 'expressions#check_expression', format: :json
       get :get_supplement, to: 'expressions#get_supplement', format: :json
       get :get_next_supplement, to: 'expressions#get_next_supplement', format: :json
-      post :create_task, to: 'expressions#create_task', format: :json
+      #post :create_task, to: 'expressions#create_task', format: :json
       get :available_syntaxes, to: 'expressions#available_syntaxes', format: :json
     end
   end

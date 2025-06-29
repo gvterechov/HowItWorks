@@ -7,23 +7,6 @@ class Expressions::ExpressionsController < ApplicationController
     render '/expressions/index'
   end
 
-  # TODO вынести в tasks_controller
-  def show_task
-    @task = ExpressionTask.find_by(token: params[:token])
-    @task.update_column(:views_count, @task.views_count + 1)
-
-    @task_lang = @task.task_lang
-
-    expression_json = JSON.parse(@task.expression)
-    @expression_sting = expression_json.reduce("") { |memo, elem| memo << "#{elem['text']} " }.chop!
-
-    expression = { expression: expression_json, lang: I18n.locale.to_s }
-
-    @result_data = OwlEvaluationOrderCheck.new.verify_expression(expression)
-
-    render '/expressions/show_task'
-  end
-
   def check_expression
     data = JSON.parse(params[:data])
     result = OwlEvaluationOrderCheck.new.verify_expression(data)
@@ -68,21 +51,6 @@ class Expressions::ExpressionsController < ApplicationController
     end
   end
 
-  # TODO вынести в tasks_controller
-  def create_task
-    task = ExpressionTask.new(task_params)
-    task.user_id = current_user.id if current_user.present?
-
-    respond_to do |format|
-      if task.save
-        # TODO вот тут бы совсем правильный путь получить, с учетом языка клиента
-        format.json { render json: { task_path: "/tasks/#{task.token}", task_title: task.title }, status: :created }
-      else
-        head :bad_request
-      end
-    end
-  end
-
   def available_syntaxes
     result = OwlEvaluationOrderCheck.new.available_syntaxes
     available_syntaxes_names = { 'cpp' => 'C++', 'cs' => 'C#' }.freeze
@@ -101,40 +69,10 @@ class Expressions::ExpressionsController < ApplicationController
     end
   end
 
-  # TODO вынести в tasks_controller
-  def tasks
-    @all_tags = current_user.task_tags.order(:name)
-
-    @selected_tag_ids = (params[:filter_tag_ids] || []).map(&:to_i)
-
-    @tasks = current_user.expression_tasks
-                        .includes(:attempts, :task_tags)
-                        .order(:created_at)
-
-    if @selected_tag_ids.any?
-      @tasks = @tasks.joins(:task_tags)
-                    .where(task_tags: { id: @selected_tag_ids })
-                    .distinct
-  end
-
-  render '/expressions/tasks'
-  end
-
   def tags
     @tags = current_user.task_tags.order(:created_at)
 
     render '/expressions/tags'
-  end
-
-  # TODO вынести в tasks_controller
-  def task_statistic
-    @task = current_user.expression_tasks
-                        .includes(:attempts)
-                        .find_by(token: params[:token])
-
-    return if @task.blank?
-
-    render '/expressions/task_statistic'
   end
 
   def new_tag
@@ -223,12 +161,6 @@ class Expressions::ExpressionsController < ApplicationController
   end
 
   private
-    # TODO вынести в tasks_controller
-    def task_params
-      params.require(:task).permit(:expression, :task_lang, :title, :introduce_yourself,
-                                   :enable_hints, :max_hints_count)
-    end
-
     def check_trainer_available!
       raise BaseService::ServiceNotAvailableException.new unless OwlEvaluationOrderCheck.new.available?
     end

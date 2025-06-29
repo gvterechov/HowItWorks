@@ -26,7 +26,7 @@ export class SaveExpressionTask {
 
     $.ajax({
       method: "POST",
-      url: '/expressions/create_task',
+      url: '/tasks',
       data: {
         task: {
           expression: JSON.stringify(this.expression.tokens()),
