@@ -23,16 +23,16 @@
               <td><%= tag.name %></td>
               <td class="center aligned">
                 <div class="ui buttons">
-                    <%= link_to expressions_edit_tags_path(id: tag.id), class: 'ui tiny basic primary button' do %>
+                    <%= link_to edit_tag_path(locale: I18n.locale, id: tag.id), class: 'ui tiny basic primary button' do %>
                         <i class="edit icon"></i> <%= t('edit') %>
                     <% end %>
 
-                    <%= button_to expressions_destroy_tag_path(id: tag.id),
-                        method: :delete,
-                        data: { confirm: 'Вы уверены, что хотите удалить тег?' },
-                        class: 'ui red basic button' do %>
-                    <i class="trash icon"></i>
-                        <%= link_to t('delete') =%>
+                    <%= button_to tag_path(locale: I18n.locale, id: tag.id),
+                                  method: :delete,
+                                  data: { confirm: 'Вы уверены, что хотите удалить тег?' },
+                                  class: 'ui red basic button' do %>
+                      <i class="trash icon"></i>
+                      <%= t('delete') %>
                     <% end %>
                 </div>
               </td>

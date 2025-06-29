@@ -6,7 +6,7 @@
   <div class="eight wide column">
     <h3 class="ui header"> <%= t('available_tasks', default: 'Доступные задачи') %></h3>
 
-    <%= form_with url: expressions_new_tag_path, method: :get, local: true, class: 'ui form' do %>
+    <%= form_with url: new_tag_path(locale: I18n.locale), method: :get, local: true, class: 'ui form' do %>
       <%= hidden_field_tag :tag_name, @tag_name %>
 
       <table class="ui compact celled selectable striped table">
@@ -59,7 +59,7 @@
   <div class="eight wide column">
     <h3 class="ui header"> <%= t('create_tag', default: 'Создание тега') %></h3>
 
-    <%= form_with url: expressions_create_tag_path, method: :post, local: true, class: 'ui form' do %>
+    <%= form_with url: tags_path(locale: I18n.locale), method: :post, local: true, class: 'ui form' do %>
       <div class="field">
         <label><%= t('tags_name', default: 'Название тега') %></label>
         <%= text_field_tag :tag_name, @tag_name, placeholder: t('enter_tag_name', default: "Введите название..."), required: true %>

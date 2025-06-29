@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
     get 'tasks/:token', to: 'tasks#show', as: :task_by_token
     resources :users, only: [:index, :edit, :update, :destroy]
+    resources :tags, controller: 'tags', except: [:show]
     resources :tasks, only: [:index] do
       get 'statistics', on: :member
     end
@@ -39,17 +40,17 @@ Rails.application.routes.draw do
     namespace :expressions do
       get '/', to: 'expressions#index'
 
-      post :create_tag, to: 'expressions#create_tag'
-      post :add_task_to_tag, to: 'expressions#add_task_to_tag'
-      post :remove_task_from_tag, to: 'expressions#remove_task_from_tag'
-      delete :destroy_tag, to: 'expressions#destroy_tag'
-      get :edit_tags, to: 'expressions#edit_tags'
-      post :update_tag, to: 'expressions#update_tag'
+      # post :create_tag, to: 'expressions#create_tag'
+      # post :add_task_to_tag, to: 'expressions#add_task_to_tag'
+      # post :remove_task_from_tag, to: 'expressions#remove_task_from_tag'
+      # delete :destroy_tag, to: 'expressions#destroy_tag'
+      # get :edit_tags, to: 'expressions#edit_tags'
+      # post :update_tag, to: 'expressions#update_tag'
       #patch :update_tag, to: 'expressions#update_tag'
 
       #get :tasks, to: 'expressions#tasks'
-      get :tags, to: 'expressions#tags'
-      get :new_tag, to: 'expressions#new_tag'
+      #get :tags, to: 'expressions#tags'
+      #get :new_tag, to: 'expressions#new_tag'
       #get "/tasks/:token", to: 'expressions#show_task'
       #get "/tasks/:token/statistic", to: 'expressions#task_statistic'
       get :check_expression, to: 'expressions#check_expression', format: :json

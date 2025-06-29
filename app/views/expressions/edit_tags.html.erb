@@ -4,10 +4,9 @@
 
   <!-- Левая колонка: Таблица задач -->
   <div class="eight wide column">
-    <h3 class="ui header"> <%= t('available_tasks', default: 'Доступные задачи') %></h3>
+    <h3 class="ui header"><%= t('available_tasks', default: 'Доступные задачи') %></h3>
 
-    <%= form_with url: expressions_edit_tags_path, method: :get, local: true, class: 'ui form' do %>
-      <%= hidden_field_tag :id, @task_tag.id %>
+    <%= form_with url: edit_tag_path(locale: I18n.locale, id: @task_tag.id), method: :get, local: true, class: 'ui form' do %>
       <%= hidden_field_tag :tag_name, @task_tag.name %>
 
       <table class="ui compact celled selectable striped table">
@@ -58,15 +57,13 @@
 
   <!-- Правая колонка: Форма сохранения изменений -->
   <div class="eight wide column">
-    <h3 class="ui header"> <%= t('edit_tag', default: 'Редактирование тега') %></h3>
+    <h3 class="ui header"><%= t('edit_tag', default: 'Редактирование тега') %></h3>
 
-    <%= form_with url: expressions_update_tag_path, method: :post, local: true, class: 'ui form' do %>
+    <%= form_with url: tag_path(locale: I18n.locale, id: @task_tag.id), method: :patch, local: true, class: 'ui form' do %>
       <div class="field">
         <label><%= t('tags_name', default: 'Название тега') %></label>
         <%= text_field_tag :tag_name, @task_tag.name, required: true %>
       </div>
-
-      <%= hidden_field_tag :id, @task_tag.id %>
 
       <% @selected_task_ids.each do |task_id| %>
         <%= hidden_field_tag 'selected_task_ids[]', task_id %>
