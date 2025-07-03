@@ -51,16 +51,18 @@ class UsersController < ApplicationController
     redirect_to users_path(locale: I18n.locale)
   end
 
-  def require_admin!
-    unless current_user&.admin?
-      flash[:alert] = 'Доступ запрещён'
-      redirect_to root_path(locale: I18n.locale)
-    end
-  end
+  
 
   private
     def user_params
       params.require(:user).permit(:role_id)
+    end
+
+    def require_admin!
+      unless current_user&.admin?
+        flash[:alert] = 'Доступ запрещён'
+        redirect_to root_path(locale: I18n.locale)
+      end
     end
 
     def find_task_by_url(url)
