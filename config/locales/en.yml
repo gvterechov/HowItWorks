@@ -159,3 +159,13 @@ en:
   available_tasks: "Available tasks"
   create_tag: 'Create tag'
   enter_tag_name: 'Enter name'
+  edit_tag: 'Edit tag'
+  filter_by_tags: 'Filter by tags'
+  reset: 'Reset'
+  edit_users: 'Edit users'
+  users_list: 'List of users'
+  email: 'Email'
+  role: 'Role'
+  created_at: 'Created at'
+  confirmation_deletion_user: 'Are you sure you want to delete the user?'
+  confirmation_deletion_tag: 'Are you sure you want to delete the tag?'

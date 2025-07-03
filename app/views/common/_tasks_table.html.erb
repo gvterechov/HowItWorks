@@ -24,7 +24,7 @@
     <!-- Фильтр -->
     <div class="row">
       <div class="sixteen wide column">
-        <h4 class="ui dividing header">Фильтр по тегам</h4>
+        <h4 class="ui dividing header"><%= t('filter_by_tags') %></h4>
         <%= form_with url: request.path, method: :get, local: true, class: 'ui form' do %>
           <div class="inline fields">
             <% @all_tags.each do |tag| %>
@@ -36,7 +36,7 @@
               </div>
             <% end %>
             <div class="field">
-              <%= link_to "Сбросить", request.path, class: "ui basic button" %>
+              <%= link_to t('reset'), request.path, class: "ui basic button" %>
             </div>
           </div>
         <% end %>

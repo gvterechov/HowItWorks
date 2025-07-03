@@ -29,7 +29,7 @@
 
                     <%= button_to tag_path(locale: I18n.locale, id: tag.id),
                                   method: :delete,
-                                  data: { confirm: 'Вы уверены, что хотите удалить тег?' },
+                                  data: { confirm: t('confirmation_deletion_tag') },
                                   class: 'ui red basic button' do %>
                       <i class="trash icon"></i>
                       <%= t('delete') %>

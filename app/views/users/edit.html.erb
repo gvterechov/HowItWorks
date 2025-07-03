@@ -1,16 +1,16 @@
 <%= render partial: 'expressions/common/header' %>
 
-<h2 class="ui center aligned header">Редактировать пользователя</h2>
+<h2 class="ui center aligned header"><%= t('edit_user') %></h2>
 
 <div class="ui centered grid">
-  <div class="eight wide column"> <!-- ширина: половина сетки (из 16) -->
+  <div class="eight wide column">
     <%= form_with model: @user, url: user_path(@user, locale: I18n.locale), method: :patch, local: true, class: "ui form segment" do |f| %>
       <div class="field">
-        <%= f.label :role_id, 'Роль' %>
+        <%= f.label :role_id, t('role') %>
         <%= f.select :role_id, options_from_collection_for_select(@roles, :id, :name, @user.role_id), {}, class: "ui dropdown" %>
       </div>
 
-      <%= f.submit "Сохранить", class: "ui primary button" %>
+      <%= f.submit t('save'), class: "ui primary button" %>
     <% end %>
   </div>
 </div>

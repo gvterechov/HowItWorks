@@ -13,7 +13,7 @@
           <tr>
             <th>#</th>
             <th><%= t('email', default: 'Email') %></th>
-            <th><%= t('role', default: 'Роль') %></th> <!-- Добавлен столбец Роль -->
+            <th><%= t('role', default: 'Роль') %></th>
             <th><%= t('created_at', default: 'Дата создания') %></th>
             <th class="center aligned"><%= t('actions', default: 'Действия') %></th>
           </tr>
@@ -23,19 +23,19 @@
             <tr>
               <td><%= index + 1 %></td>
               <td><%= user.email %></td>
-              <td><%= user.role&.name || '—' %></td> <!-- Вывод роли с защитой от nil -->
+              <td><%= user.role&.name || '—' %></td>
               <td><%= user.created_at.strftime('%d.%m.%Y') %></td>
               <td class="center aligned">
                 <div class="ui buttons">
                   <%= link_to edit_user_path(user, locale: I18n.locale), class: 'ui tiny basic primary button' do %>
-                    <i class="edit icon"></i> Редактировать
+                    <i class="edit icon"></i> <%= t('edit') %>
                   <% end %>
 
                   <%= button_to user_path(user, locale: I18n.locale),
                                 method: :delete,
-                                data: { confirm: 'Вы уверены, что хотите удалить пользователя?' },
+                                data: { confirm: t("confirmation_deletion_user") },
                                 class: 'ui red basic button' do %>
-                    <i class="trash icon"></i> Удалить
+                    <i class="trash icon"></i> <%= t('delete') %>
                   <% end %>
                 </div>
               </td>
