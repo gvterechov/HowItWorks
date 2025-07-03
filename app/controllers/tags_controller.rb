@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
+  before_action :set_user_tag, only: [:destroy, :edit, :update]
 
   def index
     @tags = current_user.task_tags.order(:created_at)
@@ -28,11 +29,6 @@ class TagsController < ApplicationController
     tag_name = params[:tag_name].to_s.strip
     selected_task_ids = Array(params[:selected_task_ids])
 
-    if tag_name.blank? || selected_task_ids.empty?
-      flash[:error] = "Необходимо указать название тега и выбрать хотя бы одну задачу"
-      redirect_to new_expressions_tag_path(tag_name: tag_name, selected_task_ids: selected_task_ids) and return
-    end
-
     tag = TaskTag.find_or_create_by(name: tag_name, user: current_user)
 
     selected_task_ids.each do |task_id|
@@ -44,21 +40,11 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    @tag = TaskTag.find(params[:id])
-    if @tag.user != current_user
-      redirect_to tags_path(locale: I18n.locale), alert: 'У вас нет доступа к удалению этого тега' and return
-    end
-
-    @tag.destroy
+    @task_tag.destroy
     redirect_to tags_path(locale: I18n.locale), notice: t('tag_deleted', default: 'Тег удалён')
   end
 
   def edit
-    @task_tag = TaskTag.find(params[:id])
-    unless @task_tag.user == current_user
-      redirect_to tags_path(locale: I18n.locale), alert: 'У вас нет доступа к этому тегу' and return
-    end
-
     @tasks = current_user.expression_tasks.order(:created_at)
     @selected_task_ids = (params[:selected_task_ids] || @task_tag.expression_tasks.pluck(:id).map(&:to_s))
 
@@ -73,11 +59,6 @@ class TagsController < ApplicationController
   end
 
   def update
-    @task_tag = TaskTag.find(params[:id])
-    unless @task_tag.user == current_user
-      redirect_to tags_path(locale: I18n.locale), alert: 'У вас нет доступа к этому тегу' and return
-    end
-
     @task_tag.name = params[:tag_name]
     task_ids = (params[:selected_task_ids] || []).map(&:to_i)
 
@@ -90,4 +71,13 @@ class TagsController < ApplicationController
 
     redirect_to tags_path(locale: I18n.locale)
   end
+
+  private
+
+    def set_user_tag
+      @task_tag = TaskTag.find(params[:id])
+      if @task_tag.user != current_user
+        redirect_to tags_path(locale: I18n.locale), alert: 'У вас нет доступа к этому тегу' and return
+      end
+    end
 end
