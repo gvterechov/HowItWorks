@@ -37,7 +37,6 @@ class UsersController < ApplicationController
       redirect_to users_path(locale: I18n.locale)
     else
       flash.now[:alert] = "Ошибка при обновлении"
-      render :edit
     end
   end
 
@@ -50,8 +49,6 @@ class UsersController < ApplicationController
     end
     redirect_to users_path(locale: I18n.locale)
   end
-
-  
 
   private
     def user_params

@@ -12,8 +12,6 @@ class TasksController < ApplicationController
 
     expression = { expression: expression_json, lang: I18n.locale.to_s }
     @result_data = OwlEvaluationOrderCheck.new.verify_expression(expression)
-
-    render '/expressions/show_task'
   end
 
   def create
@@ -37,15 +35,11 @@ class TasksController < ApplicationController
     if @selected_tag_ids.any?
       @tasks = @tasks.joins(:task_tags).where(task_tags: { id: @selected_tag_ids }).distinct
     end
-
-    render '/expressions/tasks'
   end
 
   def statistics
     @task = current_user.expression_tasks.includes(:attempts).find_by(token: params[:token])
     return if @task.blank?
-
-    render '/expressions/task_statistic'
   end
 
   private

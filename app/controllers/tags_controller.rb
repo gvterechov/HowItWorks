@@ -5,7 +5,6 @@ class TagsController < ApplicationController
 
   def index
     @tags = current_user.task_tags.order(:created_at)
-    render '/expressions/tags'
   end
 
   def new
@@ -22,7 +21,6 @@ class TagsController < ApplicationController
     end
 
     @selected_task_ids.uniq!
-    render '/expressions/new_tag'
   end
 
   def create
@@ -55,7 +53,6 @@ class TagsController < ApplicationController
     end
 
     @selected_task_ids.uniq!
-    render '/expressions/edit_tags'
   end
 
   def update
