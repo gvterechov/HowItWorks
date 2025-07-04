@@ -11,16 +11,20 @@ Rails.application.routes.draw do
   end
   put '/users/claim_task', to: 'users#claim_task', format: :json
 
-  resources :tasks, only: [:create]
+  
   scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
+    namespace :expressions do
+      get :tasks, to: 'tasks#tasks'
+    end
+
+    get "/tasks/:token", to: 'expressions/tasks#show_task'
+    get "/tasks/:token/statistic", to: 'expressions/tasks#task_statistic'
+  
     devise_for :users
 
-    get 'tasks/:token', to: 'tasks#show', as: :task_by_token
     resources :users, only: [:index, :edit, :update, :destroy]
     resources :tags, controller: 'tags', except: [:show]
-    resources :tasks, only: [:index] do
-      get 'statistics', on: :member
-    end
+    
 
     root 'application#index', as: :root_with_locale
     get :publications, to: 'application#publications'
@@ -35,10 +39,18 @@ Rails.application.routes.draw do
 
   get '/diagram-demo', to: redirect('/en/algorithms/beta/tasks/bd51df206deb86779699461bb4122822')
 
+  
+
   routes = -> do
     namespace :expressions do
       get '/', to: 'expressions#index'
 
+      # resources :tasks, only: [:index, :create] do
+      #   get 'statistics', on: :member
+      # end
+      #get 'tasks/:token', to: 'expressions#show_task', as: :task_by_token
+
+      post :create_task, to: 'tasks#create_task', format: :json
       get :check_expression, to: 'expressions#check_expression', format: :json
       get :get_supplement, to: 'expressions#get_supplement', format: :json
       get :get_next_supplement, to: 'expressions#get_next_supplement', format: :json

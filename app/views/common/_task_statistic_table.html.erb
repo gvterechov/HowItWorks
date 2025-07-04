@@ -16,7 +16,7 @@
                   tasks_path,
                   class: 'ui basic button'
       %>
-      <%= t('task_statistic.attempts') %>: <%= task_name(task) %>
+      <%= t('task_statistic.attempts') %>: <%= task_name(@task) %>
     </h3>
     <div class="row">
       <table class="ui sortable selectable striped table">
@@ -27,7 +27,7 @@
           <th><%= t('task_statistic.student') %></th>
           <th><%= t('task_statistic.steps') %></th>
           <th><%= t('task_statistic.errors') %></th>
-          <% if enable_hints && task&.enable_hints? %>
+          <% if enable_hints && @task&.enable_hints? %>
             <th><%= t('task_statistic.hints') %></th>
           <% end %>
           <th><%= t('task_statistic.duration') %></th>
@@ -35,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        <% task.attempts
+        <% @task.attempts
                 .order(updated_at: :desc)
                 .each_with_index do |attempt, index| %>
           <tr>
@@ -44,7 +44,7 @@
             <td><%= attempt.student_name %></td>
             <td><%= attempt.total_steps %></td>
             <td><%= attempt.error_steps %></td>
-            <% if enable_hints && task&.enable_hints? %>
+            <% if enable_hints && @task&.enable_hints? %>
               <td><%= attempt.hint_steps %></td>
             <% end %>
             <td><%= full_time(attempt.duration) %></td>
