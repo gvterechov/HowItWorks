@@ -4,7 +4,6 @@
   <div class="ui centered grid">
     <h3>
       <%= t('users_list', default: 'Список пользователей') %>
-      <!-- Пока без кнопки "Новый пользователь" -->
     </h3>
 
     <div class="row">
@@ -23,7 +22,7 @@
             <tr>
               <td><%= index + 1 %></td>
               <td><%= user.email %></td>
-              <td><%= user.role&.name || '—' %></td>
+              <td><%= user.roles.map(&:capitalize).join(', ').presence || '—' %></td>
               <td><%= user.created_at.strftime('%d.%m.%Y') %></td>
               <td class="center aligned">
                 <div class="ui buttons">
@@ -51,5 +50,3 @@
     </div>
   </div>
 </div>
-
-<%#= render partial: 'common/footer' %>

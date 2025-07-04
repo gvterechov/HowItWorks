@@ -10,7 +10,7 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  role_id                :bigint           default(3), not null
+#  roles                  :string           default: [], null: false, array: true
 #
 class User < ApplicationRecord
   # EMAIL_REGEX = /\A[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})\z/
@@ -18,8 +18,6 @@ class User < ApplicationRecord
   has_many :expression_tasks, dependent: :destroy
   has_many :task_tags, dependent: :destroy
   has_many :algorithm_tasks, dependent: :destroy
-
-  belongs_to :role
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -31,7 +29,13 @@ class User < ApplicationRecord
 
 
   def admin?
-    role&.name == "админ"
+    roles.include?('admin')
+  end
+
+  after_initialize :set_default_roles, if: :new_record?
+
+  def set_default_roles
+    self.roles = ['basic'] if roles.blank?
   end
 
   # validates :email, presence: { message: 'Email должен быть указан!' },

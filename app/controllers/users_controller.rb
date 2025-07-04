@@ -22,37 +22,49 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:role).order(:created_at).page(params[:page]).per(30)
+    @users = User.order(:created_at).page(params[:page]).per(30)
   end
 
   def edit
     @user = User.find(params[:id])
-    @roles = Role.all
+    @available_roles = ['basic', 'admin']
   end
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    new_roles = Array(user_params[:roles]).reject(&:blank?)
+
+    if prevent_admin_demotion?(@user, new_roles)
+      flash[:alert] = "Нельзя снять роль администратора с самого себя"
+      redirect_to users_path(locale: I18n.locale)
+    elsif @user.update(roles: new_roles)
       flash[:notice] = "Пользователь обновлён"
       redirect_to users_path(locale: I18n.locale)
     else
       flash.now[:alert] = "Ошибка при обновлении"
+      @available_roles = ['basic', 'admin']
+      render :edit
     end
   end
 
   def destroy
     user = User.find(params[:id])
-    if user.destroy
+
+    if user == current_user
+      flash[:alert] = "Вы не можете удалить самого себя"
+    elsif user.destroy
       flash[:notice] = "Пользователь удалён"
     else
       flash[:alert] = "Ошибка при удалении пользователя"
     end
+
     redirect_to users_path(locale: I18n.locale)
   end
 
   private
+
     def user_params
-      params.require(:user).permit(:role_id)
+      params.require(:user).permit(roles: [])
     end
 
     def require_admin!
@@ -65,11 +77,13 @@ class UsersController < ApplicationController
     def find_task_by_url(url)
       url_parts = url.split('/')
       task_token = url_parts.last
-      task_model = url_parts[-3].singularize
-                               .concat('Task')
-                               .classify
-                               .constantize
-
+      task_model = url_parts[-3].singularize.concat('Task').classify.constantize
       task_model.find_by(token: task_token)
+    end
+
+    def prevent_admin_demotion?(user, new_roles)
+      user == current_user &&
+        user.admin? &&
+        !new_roles.include?('admin')
     end
 end
