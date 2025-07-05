@@ -5,7 +5,8 @@
 <%= render partial: 'common/tags_table',
            locals: {
              tags: @tags,
-             new_task_tag_path: "/#{I18n.locale}/tags/new",
+             taggable_type: @taggable_type,
+             new_tag_path: url_for([:new, :tag, locale: I18n.locale, taggable_type: @taggable_type]),
              enable_hints: true
            }
 %>

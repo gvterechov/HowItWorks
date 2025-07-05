@@ -1,13 +1,15 @@
 <%= render partial: 'expressions/common/header' %>
 
 <div class="ui stackable grid">
-
-  <!-- Левая колонка: Таблица задач -->
   <div class="eight wide column">
     <h3 class="ui header"><%= t('available_tasks', default: 'Доступные задачи') %></h3>
 
-    <%= form_with url: edit_tag_path(locale: I18n.locale, id: @task_tag.id), method: :get, local: true, class: 'ui form' do %>
+    <%= form_with url: edit_tag_path(locale: I18n.locale, id: @task_tag.id, taggable_type: @taggable_type), method: :get, local: true, class: 'ui form' do %>
       <%= hidden_field_tag :tag_name, @task_tag.name %>
+
+      <% @selected_task_ids.each do |id| %>
+        <%= hidden_field_tag 'selected_task_ids[]', id %>
+      <% end %>
 
       <table class="ui compact celled selectable striped table">
         <thead>
@@ -25,7 +27,6 @@
               <td><%= task.title %></td>
               <td class="center aligned">
                 <% if included %>
-                  <%= hidden_field_tag 'selected_task_ids[]', task.id %>
                   <div class="ui mini buttons">
                     <button class="ui green disabled button" type="button">
                       <i class="plus icon"></i> <%= t('add', default: 'Добавить') %>
@@ -35,9 +36,6 @@
                     </button>
                   </div>
                 <% else %>
-                  <% @selected_task_ids.each do |id| %>
-                    <%= hidden_field_tag 'selected_task_ids[]', id %>
-                  <% end %>
                   <div class="ui mini buttons">
                     <button class="ui green button" type="submit" name="add_task_id" value="<%= task.id %>">
                       <i class="plus icon"></i> <%= t('add', default: 'Добавить') %>
@@ -55,7 +53,6 @@
     <% end %>
   </div>
 
-  <!-- Правая колонка: Форма сохранения изменений -->
   <div class="eight wide column">
     <h3 class="ui header"><%= t('edit_tag', default: 'Редактирование тега') %></h3>
 
@@ -65,8 +62,10 @@
         <%= text_field_tag :tag_name, @task_tag.name, required: true %>
       </div>
 
+      <%= hidden_field_tag :taggable_type, @taggable_type %>
+
       <% @selected_task_ids.each do |task_id| %>
-        <%= hidden_field_tag 'selected_task_ids[]', task_id %>
+        <%= hidden_field_tag 'selected_ids[]', task_id %>
       <% end %>
 
       <%= submit_tag t('save', default: 'Сохранить'), class: "ui primary button" %>
