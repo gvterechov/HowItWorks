@@ -31,7 +31,19 @@ class TagsController < ApplicationController
     taggable_class = taggable_type.constantize
     selected_ids = Array(params[:selected_ids])
 
-    tag = TaskTag.find_or_create_by(name: tag_name, user: current_user)
+    if current_user.task_tags.exists?(name: tag_name)
+      flash.now[:error] = t("tag_exist")
+
+      @taggable_type = taggable_type
+      @taggable_class = taggable_class
+      @selected_ids = selected_ids
+      @items = current_user.send(@taggable_type.underscore.pluralize)
+      @task_tag = TaskTag.new(name: tag_name)
+
+      return render :new, status: :unprocessable_entity
+    end
+
+    tag = current_user.task_tags.create(name: tag_name)
 
     selected_ids.each do |id|
       obj = taggable_class.find_by(id: id, user: current_user)
@@ -39,9 +51,10 @@ class TagsController < ApplicationController
       obj.taggings.find_or_create_by(task_tag: tag)
     end
 
-    flash[:success] = "Тег сохранён"
     redirect_to tags_path
   end
+
+
 
   def edit
     @taggable_type = params[:taggable_type] || 'ExpressionTask'
@@ -72,13 +85,11 @@ class TagsController < ApplicationController
       @task_tag.taggings.find_or_create_by(taggable: taggable)
     end
 
-    flash[:success] = "Тег обновлён"
     redirect_to tags_path
   end
 
   def destroy
     @task_tag.destroy
-    flash[:notice] = 'Тег удалён'
     redirect_to tags_path
   end
 

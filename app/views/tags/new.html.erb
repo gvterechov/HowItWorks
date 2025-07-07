@@ -1,5 +1,13 @@
 <%= render partial: 'expressions/common/header' %>
 
+<% if flash[:error] %>
+  <div class="ui red message">
+    <i class="exclamation triangle icon"></i>
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+
 <div class="ui stackable grid">
   <div class="eight wide column">
     <h3 class="ui header"><%= t("available_tasks", default: 'Доступные объекты') %></h3>
