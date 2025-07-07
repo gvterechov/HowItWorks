@@ -32,7 +32,7 @@ class TagsController < ApplicationController
     selected_ids = Array(params[:selected_ids])
 
     if current_user.task_tags.exists?(name: tag_name)
-      flash.now[:error] = t("tag_exist")
+      flash.now[:error] = t("tags.tag_exist")
 
       @taggable_type = taggable_type
       @taggable_class = taggable_class

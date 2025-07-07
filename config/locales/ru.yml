@@ -77,10 +77,10 @@ ru:
     hope_for_best: 'Мы работаем над тем чтобы улучшить наш сервис!'
   copyright: 'Кафедра ПОАС, ВолгГТУ©'
   new: 'Новая задача'
-  new_tag: 'Новый тэг'
+  
   save_task: 'Сохранить задачу'
   my_tasks: 'Мои задачи'
-  my_tags: 'Мои тэги'
+  
   show_next_correct_step: 'Показать следующий правильный шаг'
   left: 'осталось'
   chat_close: 'Вы поняли, почему ваш ответ неверен?'
@@ -119,17 +119,15 @@ ru:
   max_hints_count: 'Количество доступных подсказок'
   loading_please_wait: 'Загрузка... Подождите...'
   choose_another_answer: 'Неверно, выберите другой ответ.'
-  new_task_tag: 'Новый тег для задачи'
+  
   edit: 'Редактировать'
   delete: 'Удалить'
-  tags_name: 'Имя тега'
+  
   actions: 'Действия'
   add: 'Добавить'
   remove: 'Убрать'
   available_tasks: 'Доступные задачи'
-  create_tag: 'Создание тега'
-  enter_tag_name: 'Введите название'
-  filter_by_tags: 'Фильтр по тегам'
+  
   reset: 'Сбросить'
   edit_users: 'Редактировать пользователей'
   users_list: 'Список пользователей'
@@ -137,6 +135,16 @@ ru:
   role: 'Роль'
   created_at: 'Дата создания'
   confirmation_deletion_user: 'Вы уверены, что хотите удалить пользователя?'
-  confirmation_deletion_tag: 'Вы уверены, что хотите удалить тег?'
-  tag_exist: 'Тег с таким названием уже существует'
+  
+  tags:
+    new_tag: 'Новый тэг'
+    my_tags: 'Мои тэги'
+    new_task_tag: 'Новый тег для задачи'
+    tags_name: 'Имя тега'
+    create_tag: 'Создание тега'
+    enter_tag_name: 'Введите название'
+    filter_by_tags: 'Фильтр по тегам'
+    confirmation_deletion_tag: 'Вы уверены, что хотите удалить тег?'
+    tag_exist: 'Тег с таким названием уже существует'
+
   

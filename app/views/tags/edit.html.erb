@@ -54,11 +54,11 @@
   </div>
 
   <div class="eight wide column">
-    <h3 class="ui header"><%= t('edit_tag', default: 'Редактирование тега') %></h3>
+    <h3 class="ui header"><%= t('tags.edit_tag', default: 'Редактирование тега') %></h3>
 
     <%= form_with url: tag_path(locale: I18n.locale, id: @task_tag.id), method: :patch, local: true, class: 'ui form' do %>
       <div class="field">
-        <label><%= t('tags_name', default: 'Название тега') %></label>
+        <label><%= t('tags.tags_name', default: 'Название тега') %></label>
         <%= text_field_tag :tag_name, @task_tag.name, required: true %>
       </div>
 

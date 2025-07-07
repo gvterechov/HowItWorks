@@ -68,7 +68,7 @@
   </div>
 
   <div class="eight wide column">
-    <h3 class="ui header"><%= t('create_tag') %></h3>
+    <h3 class="ui header"><%= t('tags.create_tag') %></h3>
 
     <%= form_with url: tags_path(locale: I18n.locale, taggable_type: @taggable_type), method: :post, local: true, class: 'ui form' do |f| %>
       <% selected_ids.each do |id| %>
@@ -76,7 +76,7 @@
       <% end %>
 
       <div class="field">
-        <%= f.label :tag_name, t('tags_name') %>
+        <%= f.label :tag_name, t('tags.tags_name') %>
         <%= f.text_field :tag_name, value: @task_tag.name, required: true, placeholder: t('enter_tag_name', default: 'Введите имя тега') %>
       </div>
 

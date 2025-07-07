@@ -52,7 +52,7 @@ module ApplicationHelper
     if current_user.present?
       css_class = 'item'
       css_class += 'active' if request.fullpath.match(href)
-      link_to t('my_tags'),
+      link_to t('tags.my_tags'),
               href,
               class: css_class
     end

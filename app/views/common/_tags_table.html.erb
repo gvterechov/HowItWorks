@@ -1,8 +1,8 @@
 <div class="ui aligned basic segment">
   <div class="ui centered grid">
     <h3>
-      <%= t('my_tags') %>
-      <%= link_to "<i class='plus icon'></i>#{t('new_tag', default: 'Новый тег')}".html_safe,
+      <%= t('tags.my_tags') %>
+      <%= link_to "<i class='plus icon'></i>#{t('tags.new_tag', default: 'Новый тег')}".html_safe,
                   new_tag_path,
                   class: 'ui basic button' %>
     </h3>
@@ -12,7 +12,7 @@
         <thead>
           <tr>
             <th>#</th>
-            <th><%= t('tags_name') %></th>
+            <th><%= t('tags.tags_name') %></th>
             <th class="center aligned"><%= t('actions') %></th>
           </tr>
         </thead>
@@ -30,7 +30,7 @@
 
                   <%= button_to tag_path(locale: I18n.locale, id: tag.id, taggable_type: taggable_type),
                                 method: :delete,
-                                data: { confirm: t('confirmation_deletion_tag') },
+                                data: { confirm: t('tags.confirmation_deletion_tag') },
                                 class: 'ui red basic button' do %>
                     <i class="trash icon"></i>
                     <%= t('delete') %>
