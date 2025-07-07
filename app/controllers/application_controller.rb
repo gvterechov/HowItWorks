@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from BaseService::ServiceNotAvailableException, with: :render_not_available
 
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = 'Доступ запрещён'
+    redirect_to root_path(locale: I18n.locale)
+  end
+
   class << self
     def default_url_options
       { locale: I18n.locale }

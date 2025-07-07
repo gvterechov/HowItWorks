@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin!, only: [:index, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def claim_task
     task = find_task_by_url(params[:task_url])
