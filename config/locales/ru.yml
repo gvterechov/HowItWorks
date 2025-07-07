@@ -76,11 +76,9 @@ ru:
     not_available: 'Сервис временно недоступен'
     hope_for_best: 'Мы работаем над тем чтобы улучшить наш сервис!'
   copyright: 'Кафедра ПОАС, ВолгГТУ©'
-  new: 'Новая задача'
-  
+  new: 'Новая задача'  
   save_task: 'Сохранить задачу'
-  my_tasks: 'Мои задачи'
-  
+  my_tasks: 'Мои задачи'  
   show_next_correct_step: 'Показать следующий правильный шаг'
   left: 'осталось'
   chat_close: 'Вы поняли, почему ваш ответ неверен?'
@@ -118,24 +116,25 @@ ru:
   enable_hints: 'Включить подсказки?'
   max_hints_count: 'Количество доступных подсказок'
   loading_please_wait: 'Загрузка... Подождите...'
-  choose_another_answer: 'Неверно, выберите другой ответ.'
-  
+  choose_another_answer: 'Неверно, выберите другой ответ.'  
   edit: 'Редактировать'
-  delete: 'Удалить'
-  
+  delete: 'Удалить' 
   actions: 'Действия'
   add: 'Добавить'
   remove: 'Убрать'
   available_tasks: 'Доступные задачи'
-  
   reset: 'Сбросить'
-  edit_users: 'Редактировать пользователей'
-  users_list: 'Список пользователей'
   email: 'Почта'
-  role: 'Роль'
-  created_at: 'Дата создания'
-  confirmation_deletion_user: 'Вы уверены, что хотите удалить пользователя?'
   
+  created_at: 'Дата создания'
+  
+  
+  users:
+    role: 'Роль'
+    edit_users: 'Редактировать пользователей'
+    users_list: 'Список пользователей'
+    confirmation_deletion_user: 'Вы уверены, что хотите удалить пользователя?'
+
   tags:
     new_tag: 'Новый тэг'
     my_tags: 'Мои тэги'

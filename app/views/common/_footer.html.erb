@@ -5,7 +5,7 @@
 
   <% if current_user&.admin? %>
     <div class="ui small header" style="margin-top: 0.5em;">
-      <%= link_to t('edit_users'), users_path(locale: I18n.locale), class: 'ui inverted link' %>
+      <%= link_to t('users.edit_users'), users_path(locale: I18n.locale), class: 'ui inverted link' %>
     </div>
   <% end %>
 </div>

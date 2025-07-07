@@ -108,10 +108,8 @@ en:
     hope_for_best: 'We are working to improve our service!'
   copyright: 'POAS department, VSTU©'
   new: 'New learning problem'
-  
   save_task: 'Save learning problem'
   my_tasks: 'My learning problems'
-  
   show_next_correct_step: 'Show next correct step'
   left: 'left'
   chat_close: 'Are you sure you understood the causes of your error?'
@@ -152,19 +150,19 @@ en:
   choose_another_answer: 'Wrong, choose another answer.'
   edit: 'Edit'
   delete: 'Delete'
-  
   actions: 'Actions'
   add: 'Add'
   remove: 'Remove'
   available_tasks: "Available tasks"
-  
   reset: 'Reset'
-  edit_users: 'Edit users'
-  users_list: 'List of users'
   email: 'Email'
-  role: 'Role'
+  
   created_at: 'Created at'
-  confirmation_deletion_user: 'Are you sure you want to delete the user?'
+  users:
+    role: 'Role'
+    edit_users: 'Edit users'
+    users_list: 'List of users'
+    confirmation_deletion_user: 'Are you sure you want to delete the user?'
 
   tags:
     new_tag: 'New tag'
