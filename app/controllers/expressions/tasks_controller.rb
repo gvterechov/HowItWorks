@@ -38,7 +38,7 @@ class Expressions::TasksController < ApplicationController
   end
 
   def statistic
-    @task = current_user.expression_tasks.includes(:attempts).find_by(token: params[:token])
+    @task = current_user.expression_tasks.includes(:attempts).find_by!(token: params[:token])
     return if @task.blank?
   end
 
