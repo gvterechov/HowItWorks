@@ -2,7 +2,7 @@ class Expressions::TasksController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
 
-  def show_task
+  def show
     @task = ExpressionTask.find_by(token: params[:token])
     @task.update_column(:views_count, @task.views_count + 1)
 
@@ -14,7 +14,7 @@ class Expressions::TasksController < ApplicationController
     @result_data = OwlEvaluationOrderCheck.new.verify_expression(expression)
   end
 
-  def create_task
+  def create
     task = ExpressionTask.new(task_params)
     task.user_id = current_user.id
 
@@ -37,7 +37,7 @@ class Expressions::TasksController < ApplicationController
     end
   end
 
-  def task_statistic
+  def statistic
     @task = current_user.expression_tasks.includes(:attempts).find_by(token: params[:token])
     return if @task.blank?
   end
