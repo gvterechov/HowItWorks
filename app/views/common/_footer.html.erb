@@ -3,7 +3,7 @@
 >
   <%= t('copyright') %>
 
-  <% if current_user&.admin? %>
+  <% if can?(:manage, User) %>
     <div class="ui small header" style="margin-top: 0.5em;">
       <%= link_to t('users.edit_users'), users_path(locale: I18n.locale), class: 'ui inverted link' %>
     </div>
