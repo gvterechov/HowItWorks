@@ -99,6 +99,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    enumerize (2.8.1)
+      activesupport (>= 3.2)
     erubi (1.10.0)
     ffi (1.15.0)
     globalid (1.0.0)
@@ -270,6 +272,7 @@ DEPENDENCIES
   cancancan (~> 3.0)
   capybara (>= 3.26)
   devise
+  enumerize
   grpc
   grpc-tools
   jbuilder (~> 2.7)

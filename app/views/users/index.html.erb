@@ -32,7 +32,7 @@
 
                   <%= button_to user_path(user, locale: I18n.locale),
                                 method: :delete,
-                                data: { confirm: t("confirmation_deletion_user") },
+                                data: { confirm: t("users.confirmation_deletion_user") },
                                 class: 'ui red basic button' do %>
                     <i class="trash icon"></i> <%= t('delete') %>
                   <% end %>
