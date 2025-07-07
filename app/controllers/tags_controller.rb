@@ -12,7 +12,7 @@ class TagsController < ApplicationController
 
     @tag_name = params[:tag_name].to_s
     @selected_ids = (params[:selected_ids] || []).map(&:to_s)
-    @items = current_user.send(@taggable_type.underscore.pluralize)
+    @items = current_user.public_send(@taggable_type.underscore.pluralize)
 
     if params[:add_id]
       @selected_ids << params[:add_id].to_s unless @selected_ids.include?(params[:add_id].to_s)
@@ -37,7 +37,7 @@ class TagsController < ApplicationController
       @taggable_type = taggable_type
       @taggable_class = taggable_class
       @selected_ids = selected_ids
-      @items = current_user.send(@taggable_type.underscore.pluralize)
+      @items = current_user.public_send(@taggable_type.underscore.pluralize)
       @task_tag = TaskTag.new(name: tag_name)
 
       return render :new, status: :unprocessable_entity
@@ -76,6 +76,8 @@ class TagsController < ApplicationController
     taggable_type = params[:taggable_type]
     taggable_class = taggable_type.constantize
     selected_ids = Array(params[:selected_ids]).map(&:to_i)
+
+    @task_tag.save!
 
     @task_tag.taggings.where(taggable_type: taggable_type).where.not(taggable_id: selected_ids).destroy_all
 
