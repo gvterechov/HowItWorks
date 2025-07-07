@@ -54,20 +54,20 @@ class TagsController < ApplicationController
     redirect_to tags_path
   end
 
-
-
   def edit
     @taggable_type = params[:taggable_type] || 'ExpressionTask'
     @taggable_class = @taggable_type.constantize
     @tasks = @taggable_class.all
 
-    @selected_task_ids = (params[:selected_task_ids] || @task_tag.taggings.where(taggable_type: @taggable_type).pluck(:taggable_id).map(&:to_s)).uniq
+    @selected_task_ids =
+      (params[:selected_task_ids] || @task_tag.taggings.where(taggable_type: @taggable_type).pluck(:taggable_id).map(&:to_s)).uniq
 
     if params[:add_task_id].present?
       @selected_task_ids << params[:add_task_id].to_s unless @selected_task_ids.include?(params[:add_task_id].to_s)
     elsif params[:remove_task_id].present?
       @selected_task_ids.delete(params[:remove_task_id].to_s)
     end
+
     @selected_task_ids.uniq!
   end
 
@@ -96,6 +96,6 @@ class TagsController < ApplicationController
   private
 
   def set_user_tag
-    @task_tag = current_user.task_tags.find(params[:id])
+    @task_tag = current_user.task_tags.find_by!(id: params[:id])
   end
 end
