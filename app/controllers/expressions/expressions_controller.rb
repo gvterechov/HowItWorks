@@ -3,7 +3,6 @@ class Expressions::ExpressionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    render '/expressions/index'
   end
 
   def check_expression
