@@ -35,13 +35,10 @@ class UsersController < ApplicationController
     new_roles = Array(user_params[:roles]).reject(&:blank?)
 
     if prevent_admin_demotion?(@user, new_roles)
-      flash[:alert] = "Нельзя снять роль администратора с самого себя"
       redirect_to users_path(locale: I18n.locale)
     elsif @user.update(roles: new_roles)
-      flash[:notice] = "Пользователь обновлён"
       redirect_to users_path(locale: I18n.locale)
     else
-      flash.now[:alert] = "Ошибка при обновлении"
       @available_roles = ['basic', 'admin']
       render :edit
     end
@@ -49,14 +46,6 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-
-    if user == current_user
-      flash[:alert] = "Вы не можете удалить самого себя"
-    elsif user.destroy
-      flash[:notice] = "Пользователь удалён"
-    else
-      flash[:alert] = "Ошибка при удалении пользователя"
-    end
 
     redirect_to users_path(locale: I18n.locale)
   end
@@ -69,7 +58,6 @@ class UsersController < ApplicationController
 
     def require_admin!
       unless current_user&.admin?
-        flash[:alert] = 'Доступ запрещён'
         redirect_to root_path(locale: I18n.locale)
       end
     end
