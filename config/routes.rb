@@ -45,11 +45,6 @@ Rails.application.routes.draw do
     namespace :expressions do
       get '/', to: 'expressions#index'
 
-      # resources :tasks, only: [:index, :create] do
-      #   get 'statistics', on: :member
-      # end
-      #get 'tasks/:token', to: 'expressions#show_task', as: :task_by_token
-
       post :create_task, to: 'tasks#create', format: :json
       get :check_expression, to: 'expressions#check_expression', format: :json
       get :get_supplement, to: 'expressions#get_supplement', format: :json
