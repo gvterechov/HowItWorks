@@ -34,9 +34,11 @@ class User < ApplicationRecord
 
   after_initialize :set_default_roles, if: :new_record?
 
-  def set_default_roles
-    self.roles = ['basic'] if roles.blank?
-  end
+  private 
+  
+    def set_default_roles
+      self.roles = ['basic'] if roles.blank?
+    end
 
   # validates :email, presence: { message: 'Email должен быть указан!' },
   #           uniqueness: { message: 'Такой пользователь уже существует!' },

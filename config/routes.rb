@@ -17,8 +17,8 @@ Rails.application.routes.draw do
       get :tasks, to: 'tasks#tasks'
     end
 
-    get "/tasks/:token", to: 'expressions/tasks#show_task'
-    get "/tasks/:token/statistic", to: 'expressions/tasks#task_statistic'
+    get "/tasks/:token", to: 'expressions/tasks#show'
+    get "/tasks/:token/statistic", to: 'expressions/tasks#statistic'
   
     devise_for :users
 
@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       # end
       #get 'tasks/:token', to: 'expressions#show_task', as: :task_by_token
 
-      post :create_task, to: 'tasks#create_task', format: :json
+      post :create_task, to: 'tasks#create', format: :json
       get :check_expression, to: 'expressions#check_expression', format: :json
       get :get_supplement, to: 'expressions#get_supplement', format: :json
       get :get_next_supplement, to: 'expressions#get_next_supplement', format: :json
