@@ -57,7 +57,7 @@ class TagsController < ApplicationController
   def edit
     @taggable_type = params[:taggable_type] || 'ExpressionTask'
     @taggable_class = @taggable_type.constantize
-    @tasks = @taggable_class.all
+    @tasks = @taggable_class.where(user: current_user)
 
     @selected_task_ids =
       (params[:selected_task_ids] || @task_tag.taggings.where(taggable_type: @taggable_type).pluck(:taggable_id).map(&:to_s)).uniq
