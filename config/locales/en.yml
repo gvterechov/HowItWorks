@@ -156,7 +156,6 @@ en:
   available_tasks: "Available tasks"
   reset: 'Reset'
   email: 'Email'
-  
   created_at: 'Created at'
   content: 'Content'
   users:
@@ -164,7 +163,6 @@ en:
     edit_users: 'Edit users'
     users_list: 'List of users'
     confirmation_deletion_user: 'Are you sure you want to delete the user?'
-
   tags:
     new_tag: 'New tag'
     my_tags: 'My tags'

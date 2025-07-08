@@ -9,4 +9,3 @@ en:
       select_words_step1: 'Choose the first word.'
       select_words_step2: 'Choose the second word.'
       release_lexeme: 'Press Esc to deselect the token'
-      
