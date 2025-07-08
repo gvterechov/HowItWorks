@@ -6,7 +6,7 @@ class Ability
   def initialize(user)
     @user = user
 
-    return unless user.present?
+    return if user.blank?
 
     user.roles.each do |role|
       send("#{role}_can") if respond_to?("#{role}_can", true)
