@@ -18,9 +18,6 @@
 class ExpressionTask < ApplicationRecord
   belongs_to :user
 
-  has_many :taggings, as: :taggable, dependent: :destroy
-  has_many :task_tags, through: :tagging
-
   include TaskModule
   include Tokenable
   include Taggable
