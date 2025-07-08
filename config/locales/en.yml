@@ -166,6 +166,7 @@ en:
   tags:
     new_tag: 'New tag'
     my_tags: 'My tags'
+    new_task_tag: 'New tag for task'
     tags_name: 'Tags name'
     create_tag: 'Create tag'
     enter_tag_name: 'Enter name'
