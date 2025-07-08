@@ -127,7 +127,7 @@ ru:
   email: 'Почта'
   
   created_at: 'Дата создания'
-  
+  content: 'Контент'
   
   users:
     role: 'Роль'
@@ -145,11 +145,4 @@ ru:
     filter_by_tags: 'Фильтр по тегам'
     confirmation_deletion_tag: 'Вы уверены, что хотите удалить тег?'
     tag_exist: 'Тег с таким названием уже существует'
-
-  # publications:
-  #   updated: "Публикации обновлены"
-  #   edit: "Редактирование публикаций"
-  #   content: "Содержимое"
-
-
   

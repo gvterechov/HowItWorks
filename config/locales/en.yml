@@ -158,6 +158,7 @@ en:
   email: 'Email'
   
   created_at: 'Created at'
+  content: 'Content'
   users:
     role: 'Role'
     edit_users: 'Edit users'
@@ -174,8 +175,3 @@ en:
     filter_by_tags: 'Filter by tags'
     confirmation_deletion_tag: 'Are you sure you want to delete the tag?'
     tag_exist: 'Tag with this name already exist'
-
-  # publications:
-  #   updated: "Публикации обновлены"
-  #   edit: "Редактирование публикаций"
-  #   content: "Содержимое"
