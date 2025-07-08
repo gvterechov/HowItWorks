@@ -10,7 +10,7 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  roles                  :string           default: [], null: false, array: true
+#  roles                  :string           default([]), not null, is an Array
 #
 class User < ApplicationRecord
   # EMAIL_REGEX = /\A[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})\z/
