@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'application#index'
-  get :publications, to: 'application#publications'
+  resources :publications, only: [:index, :edit, :update]
   resource :teacher_feedback, only: :create
   resources :attempts, only: :create do
     member do
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     
 
     root 'application#index', as: :root_with_locale
-    get :publications, to: 'application#publications'
+    resources :publications, only: [:index, :edit, :update]
     resource :teacher_feedback, only: :create
     resources :attempts, only: :create do
       member do

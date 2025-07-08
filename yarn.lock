@@ -953,6 +953,13 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.1.3.tgz#c8a67ec4d22ecd6931f7ebd98143fddbc815419a"
   integrity sha512-m02524MR9cTnUNfGz39Lkx9jVvuL0tle4O7YgvouJ7H83FILxzG1nQ5jw8pAjLAr9XQGu+P1sY4SKE3zyhCNjw==
 
+"@rails/actiontext@^6.1.4-4":
+  version "6.1.710"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-6.1.710.tgz#484abaaacc22369bb1b422b58b37dadcec2b1fe5"
+  integrity sha512-j1BhLadXPJ3g4cG/5xRKvdfofYeBdTK75MjBJSMHL3gCTpOqwvdPavDj7eZTnpzLo6/sfMAo0GbB1JK61JZYCg==
+  dependencies:
+    "@rails/activestorage" "^6.0.0"
+
 "@rails/activestorage@^6.0.0":
   version "6.1.3"
   resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-6.1.3.tgz#d76ce0fe59b5778e05b967c22c61b2964fde112a"
@@ -5216,7 +5223,7 @@ jest-worker@^26.5.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jquery@^3.5.1, jquery@^3.6.3:
+jquery@^3.5.1, jquery@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
@@ -9115,6 +9122,11 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+
+trix@^1.2.0:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/trix/-/trix-1.3.5.tgz#87c214ce75fbaacff127f6e70fc64b2ff41e3e7a"
+  integrity sha512-JGQtfTU40DZYWS64rjUSbzAN6C+VFbyMLtdVzVTbI1mt3WJCP9+e3lju8Mtuivs9NwXOxowInNA4B34h7dVEZg==
 
 ts-pnp@^1.1.6:
   version "1.2.0"

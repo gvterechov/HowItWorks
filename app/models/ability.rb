@@ -19,6 +19,7 @@ class Ability
 
   def basic_can
     can :manage, TaskTag, user_id: user.id
+    can :read, Publication
   end
 
   def admin_can

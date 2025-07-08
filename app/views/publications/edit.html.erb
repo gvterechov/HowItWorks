@@ -1,0 +1,12 @@
+<h2><%= t('publications.edit') %></h2>
+
+<%= form_with model: @publication, url: publication_path(@publication, locale: I18n.locale), method: :patch, local: true do |form| %>
+  <div class="field">
+    <%= form.label :content, t('publications.content') %><br>
+    <%= form.rich_text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit t('save'), class: 'ui button primary' %>
+  </div>
+<% end %>
