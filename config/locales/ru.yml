@@ -116,7 +116,7 @@ ru:
   enable_hints: 'Включить подсказки?'
   max_hints_count: 'Количество доступных подсказок'
   loading_please_wait: 'Загрузка... Подождите...'
-  choose_another_answer: 'Неверно, выберите другой ответ.'  
+  choose_another_answer: 'Неверно, выберите другой ответ.'
   edit: 'Редактировать'
   delete: 'Удалить' 
   actions: 'Действия'
