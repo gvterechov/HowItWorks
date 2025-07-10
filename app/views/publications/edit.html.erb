@@ -2,6 +2,8 @@
 
 <h2><%= t('edit') %></h2>
 
+# TODO проблема с отображением rich_text_area. Я думаю проблема в том, что не загружаются стили и js-скрипты для ActionText
+
 <%= form_with model: @publication, url: publication_path(@publication, locale: I18n.locale), method: :patch, local: true do |form| %>
   <div class="field">
     <%= form.label :content, t('content') %><br>
