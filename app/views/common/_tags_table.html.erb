@@ -2,9 +2,9 @@
   <div class="ui centered grid">
     <h3>
       <%= t('tags.my_tags') %>
-      <%= link_to "<i class='plus icon'></i>#{t('tags.new_tag')}".html_safe,
-                  new_tag_path,
-                  class: 'ui basic button' %>
+      <%= link_to "<i class='plus icon'></i>#{t('tags.new_tag_for_expression_tasks')}".html_safe,
+        new_tag_path(locale: I18n.locale, taggable_type: "ExpressionTask"),
+        class: 'ui basic button' %>
     </h3>
 
     <div class="row">
@@ -23,12 +23,12 @@
               <td><%= tag.name %></td>
               <td class="center aligned">
                 <div class="ui buttons">
-                  <%= link_to edit_tag_path(locale: I18n.locale, id: tag.id, taggable_type: taggable_type),
+                  <%= link_to edit_tag_path(locale: I18n.locale, id: tag.id, taggable_type: "ExpressionTask"),
                               class: 'ui tiny basic primary button' do %>
                     <i class="edit icon"></i> <%= t('edit') %>
                   <% end %>
 
-                  <%= button_to tag_path(locale: I18n.locale, id: tag.id, taggable_type: taggable_type),
+                  <%= button_to tag_path(locale: I18n.locale, id: tag.id, taggable_type: "ExpressionTask"),
                                 method: :delete,
                                 data: { confirm: t('tags.confirmation_deletion_tag') },
                                 class: 'ui red basic button' do %>

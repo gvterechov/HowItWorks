@@ -1,15 +1,14 @@
 class TagsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user_tag, only: [:destroy, :edit, :update]
+  before_action :check_taggable_type, only: [:new, :create, :edit, :update]
 
   def index
     @tags = current_user.task_tags.order(:created_at)
   end
 
   def new
-    @taggable_type = params[:taggable_type] || 'ExpressionTask'
     @taggable_class = @taggable_type.constantize
-
     @tag_name = params[:tag_name].to_s
     @selected_ids = (params[:selected_ids] || []).map(&:to_s)
     @items = current_user.public_send(@taggable_type.underscore.pluralize)
@@ -27,20 +26,18 @@ class TagsController < ApplicationController
 
   def create
     tag_name = params[:tag_name].to_s.strip
-    taggable_type = params[:taggable_type]
-    taggable_class = taggable_type.constantize
+    taggable_class = @taggable_type.constantize
     selected_ids = Array(params[:selected_ids])
 
     if current_user.task_tags.exists?(name: tag_name)
       flash.now[:error] = t("tags.tag_exist")
 
-      @taggable_type = taggable_type
       @taggable_class = taggable_class
       @selected_ids = selected_ids
       @items = current_user.public_send(@taggable_type.underscore.pluralize)
       @task_tag = TaskTag.new(name: tag_name)
 
-      return redirect_to new_tag_path(locale: I18n.locale, tag_name: tag_name, selected_ids: selected_ids, taggable_type: taggable_type)
+      return redirect_to new_tag_path(locale: I18n.locale, tag_name: tag_name, selected_ids: selected_ids, taggable_type: @taggable_type)
     end
 
     tag = current_user.task_tags.create(name: tag_name)
@@ -55,7 +52,6 @@ class TagsController < ApplicationController
   end
 
   def edit
-    @taggable_type = params[:taggable_type] || 'ExpressionTask'
     @taggable_class = @taggable_type.constantize
     @tasks = @taggable_class.where(user: current_user)
 
@@ -73,14 +69,12 @@ class TagsController < ApplicationController
 
   def update
     tag_name = params[:tag_name].to_s.strip
-    taggable_type = params[:taggable_type]
-    taggable_class = taggable_type.constantize
+    taggable_class = @taggable_type.constantize
     selected_ids = Array(params[:selected_ids]).map(&:to_i)
 
     if current_user.task_tags.where.not(id: @task_tag.id).exists?(name: tag_name)
       flash.now[:error] = t("tags.tag_exist")
 
-      @taggable_type = taggable_type
       @taggable_class = taggable_class
       @tasks = @taggable_class.all
       @selected_task_ids = selected_ids.map(&:to_s)
@@ -92,7 +86,7 @@ class TagsController < ApplicationController
     @task_tag.name = tag_name
     @task_tag.save!
 
-    @task_tag.taggings.where(taggable_type: taggable_type).where.not(taggable_id: selected_ids).destroy_all
+    @task_tag.taggings.where(taggable_type: @taggable_type).where.not(taggable_id: selected_ids).destroy_all
 
     selected_ids.each do |id|
       taggable = taggable_class.find_by(id: id, user: current_user)
@@ -103,7 +97,6 @@ class TagsController < ApplicationController
     redirect_to tags_path
   end
 
-
   def destroy
     @task_tag.destroy
     redirect_to tags_path
@@ -113,5 +106,10 @@ class TagsController < ApplicationController
 
   def set_user_tag
     @task_tag = current_user.task_tags.find_by!(id: params[:id])
+  end
+
+  def check_taggable_type
+    @taggable_type = params[:taggable_type]
+    head :unprocessable_entity unless @taggable_type.present?
   end
 end

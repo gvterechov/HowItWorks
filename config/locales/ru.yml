@@ -133,7 +133,7 @@ ru:
     users_list: 'Список пользователей'
     confirmation_deletion_user: 'Вы уверены, что хотите удалить пользователя?'
   tags:
-    new_tag: 'Новый тэг'
+    new_tag_for_expression_tasks: 'Новый тэг для задач по выражениями'
     my_tags: 'Мои тэги'
     new_task_tag: 'Новый тег для задачи'
     tags_name: 'Имя тега'

@@ -5,7 +5,7 @@
 <%= form_with model: @publication, url: publication_path(@publication, locale: I18n.locale), method: :patch, local: true do |form| %>
   <div class="field">
     <%= form.label :content, t('content') %><br>
-    <%= form.rich_text_area :content %>
+    <%= form.text_area :content %>
   </div>
 
   <div class="actions">

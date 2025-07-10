@@ -164,7 +164,7 @@ en:
     users_list: 'List of users'
     confirmation_deletion_user: 'Are you sure you want to delete the user?'
   tags:
-    new_tag: 'New tag'
+    new_tag_for_expression_tasks: 'New tag for expression tasks'
     my_tags: 'My tags'
     new_task_tag: 'New tag for task'
     tags_name: 'Tags name'
