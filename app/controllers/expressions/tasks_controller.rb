@@ -27,7 +27,7 @@ class Expressions::TasksController < ApplicationController
     end
   end
 
-  def tasks
+  def index
     @all_tags = current_user.task_tags.order(:name)
     @selected_tag_ids = (params[:filter_tag_ids] || []).map(&:to_i)
 

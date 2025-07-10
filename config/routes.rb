@@ -13,10 +13,6 @@ Rails.application.routes.draw do
 
   
   scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
-    namespace :expressions do
-      get :tasks, to: 'tasks#tasks'
-    end
-
     get "/tasks/:token", to: 'expressions/tasks#show'
     get "/tasks/:token/statistic", to: 'expressions/tasks#statistic'
   
@@ -45,6 +41,7 @@ Rails.application.routes.draw do
     namespace :expressions do
       get '/', to: 'expressions#index'
 
+      get :tasks, to: 'tasks#index'
       post :create_task, to: 'tasks#create', format: :json
       get :check_expression, to: 'expressions#check_expression', format: :json
       get :get_supplement, to: 'expressions#get_supplement', format: :json
