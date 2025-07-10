@@ -16,7 +16,7 @@ class User < ApplicationRecord
   # EMAIL_REGEX = /\A[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})\z/
 
   extend Enumerize
-  
+
   ROLES = %i[admin basic].freeze
 
   enumerize :roles, in: ROLES, multiple: true, predicates: true
@@ -33,14 +33,13 @@ class User < ApplicationRecord
 
   after_initialize :set_default_roles, if: :new_record?
 
-  private
-
-  def set_default_roles
-    self.roles = ['basic'] if roles.blank?
-  end
-
-
   # validates :email, presence: { message: 'Email должен быть указан!' },
   #           uniqueness: { message: 'Такой пользователь уже существует!' },
   #           format: { with: EMAIL_REGEX }
+
+  private
+
+    def set_default_roles
+      self.roles = ['basic'] if roles.blank?
+    end
 end

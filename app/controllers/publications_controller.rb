@@ -21,7 +21,7 @@ class PublicationsController < ApplicationController
 
   private
 
-  def publication_params
-    params.require(:publication).permit(:content)
-  end
+    def publication_params
+      params.require(:publication).permit(:content)
+    end
 end

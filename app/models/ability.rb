@@ -15,12 +15,12 @@ class Ability
 
   private
 
-  def basic_can
-    can :manage, TaskTag, user_id: user.id
-    can :read, Publication
-  end
+    def basic_can
+      can :manage, TaskTag, user_id: user.id
+      can :read, Publication
+    end
 
-  def admin_can
-    can :manage, :all
-  end
+    def admin_can
+      can :manage, :all
+    end
 end

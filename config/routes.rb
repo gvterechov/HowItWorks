@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'application#index'
   resources :publications, only: [:index, :edit, :update]
@@ -11,16 +10,14 @@ Rails.application.routes.draw do
   end
   put '/users/claim_task', to: 'users#claim_task', format: :json
 
-  
   scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
     get "/tasks/:token", to: 'expressions/tasks#show'
     get "/tasks/:token/statistic", to: 'expressions/tasks#statistic'
-  
+
     devise_for :users
 
     resources :users, only: [:index, :edit, :update, :destroy]
     resources :tags, controller: 'tags', except: [:show]
-    
 
     root 'application#index', as: :root_with_locale
     resources :publications, only: [:index, :edit, :update]
@@ -34,8 +31,6 @@ Rails.application.routes.draw do
   end
 
   get '/diagram-demo', to: redirect('/en/algorithms/beta/tasks/bd51df206deb86779699461bb4122822')
-
-  
 
   routes = -> do
     namespace :expressions do

@@ -43,8 +43,8 @@ class Expressions::TasksController < ApplicationController
 
   private
 
-  def task_params
-    params.require(:task).permit(:expression, :task_lang, :title, :introduce_yourself,
-                                 :enable_hints, :max_hints_count)
-  end
+    def task_params
+      params.require(:task).permit(:expression, :task_lang, :title, :introduce_yourself,
+                                  :enable_hints, :max_hints_count)
+    end
 end

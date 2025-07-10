@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
     end
 
     def render_404
-      render file: Rails.root.join('public/404.html'), status: :not_found, layout: false
+      render file: Rails.root.join('public', '404.html'), status: :not_found, layout: false
     end
 
     def extract_locale_from_accept_language_header

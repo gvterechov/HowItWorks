@@ -104,12 +104,12 @@ class TagsController < ApplicationController
 
   private
 
-  def set_user_tag
-    @task_tag = current_user.task_tags.find_by!(id: params[:id])
-  end
+    def set_user_tag
+      @task_tag = current_user.task_tags.find_by!(id: params[:id])
+    end
 
-  def check_taggable_type
-    @taggable_type = params[:taggable_type]
-    head :unprocessable_entity unless @taggable_type.present?
-  end
+    def check_taggable_type
+      @taggable_type = params[:taggable_type]
+      head :unprocessable_entity if @taggable_type.blank?
+    end
 end
