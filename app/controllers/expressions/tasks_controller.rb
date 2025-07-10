@@ -39,7 +39,6 @@ class Expressions::TasksController < ApplicationController
 
   def statistic
     @task = current_user.expression_tasks.includes(:attempts).find_by!(token: params[:token])
-    return if @task.blank?
   end
 
   private
