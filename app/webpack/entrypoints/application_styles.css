@@ -1,3 +1,6 @@
+@import '../../../node_modules/trix/dist/trix.css';
+@import '../stylesheets/algorithms.css';
+
 /*@import '../../../node_modules/semantic-ui/dist/semantic.min';*/
 .label-detail {
     background: rgba(0,0,0,.1);

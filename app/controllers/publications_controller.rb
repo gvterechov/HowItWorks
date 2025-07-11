@@ -3,7 +3,7 @@ class PublicationsController < ApplicationController
   load_and_authorize_resource only: [:edit, :update]
 
   def index
-    @publication = Publication.first
+    @publication = Publication.first_or_create
   end
 
   def edit

@@ -2,18 +2,13 @@
 
 <%= render partial: 'application/index/header' %>
 
-<h2><%= t('publications') %></h2>
+<div class="ui aligned basic segment">
+  <h2><%= t('publications') %></h2>
+  <%= (@publication&.content&.to_s || '').html_safe %>
 
-<% if @publication.present? %>
-  <div class="ui bulleted list">
-    <div class="item">
-      <%= @publication.content.to_s.html_safe %>
-    </div>
-  </div>
-<% end %>
-
-<% if user_signed_in? && can?(:edit, Publication) && @publication.present? %>
-  <%= link_to t('edit'), edit_publication_path(@publication, locale: I18n.locale), class: 'ui button primary' %>
-<% end %>
+  <% if user_signed_in? && can?(:edit, Publication) %>
+    <%= link_to t('edit'), edit_publication_path(@publication, locale: I18n.locale), class: 'ui button primary' %>
+  <% end %>
+</div>
 
 <%= render partial: 'common/footer' %>
