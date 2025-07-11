@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'application#index'
-  get :publications, to: 'application#publications'
+  resources :publications, only: [:index, :edit, :update]
   resource :teacher_feedback, only: :create
   resources :attempts, only: :create do
     member do
@@ -11,9 +11,16 @@ Rails.application.routes.draw do
   put '/users/claim_task', to: 'users#claim_task', format: :json
 
   scope ":locale", locale: /#{I18n.available_locales.join('|')}/ do
+    get "/tasks/:token", to: 'expressions/tasks#show'
+    get "/tasks/:token/statistic", to: 'expressions/tasks#statistic'
+
     devise_for :users
+
+    resources :users, only: [:index, :edit, :update, :destroy]
+    resources :tags, controller: 'tags', except: [:show]
+
     root 'application#index', as: :root_with_locale
-    get :publications, to: 'application#publications'
+    resources :publications, only: [:index, :edit, :update]
     resource :teacher_feedback, only: :create
     resources :attempts, only: :create do
       member do
@@ -29,13 +36,11 @@ Rails.application.routes.draw do
     namespace :expressions do
       get '/', to: 'expressions#index'
 
-      get :tasks, to: 'expressions#tasks'
-      get "/tasks/:token", to: 'expressions#show_task'
-      get "/tasks/:token/statistic", to: 'expressions#task_statistic'
+      get :tasks, to: 'tasks#index'
+      post :create_task, to: 'tasks#create', format: :json
       get :check_expression, to: 'expressions#check_expression', format: :json
       get :get_supplement, to: 'expressions#get_supplement', format: :json
       get :get_next_supplement, to: 'expressions#get_next_supplement', format: :json
-      post :create_task, to: 'expressions#create_task', format: :json
       get :available_syntaxes, to: 'expressions#available_syntaxes', format: :json
     end
   end

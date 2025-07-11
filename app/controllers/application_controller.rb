@@ -3,6 +3,12 @@ class ApplicationController < ActionController::Base
 
   rescue_from BaseService::ServiceNotAvailableException, with: :render_not_available
 
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_path(locale: I18n.locale)
+  end
+
   class << self
     def default_url_options
       { locale: I18n.locale }
@@ -10,9 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def index
-  end
-
-  def publications
   end
 
   private
@@ -26,6 +29,10 @@ class ApplicationController < ActionController::Base
         else
           I18n.default_locale
         end
+    end
+
+    def render_404
+      render file: Rails.root.join('public', '404.html'), status: :not_found, layout: false
     end
 
     def extract_locale_from_accept_language_header

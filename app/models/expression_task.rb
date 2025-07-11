@@ -16,8 +16,11 @@
 #  max_hints_count    :integer          default(0)
 #
 class ExpressionTask < ApplicationRecord
+  belongs_to :user
+
   include TaskModule
   include Tokenable
+  include Taggable
 
   token_for_model :expression_task
 end

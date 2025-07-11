@@ -1,0 +1,14 @@
+<% title t('expressions.index.title') %>
+
+<%= render partial: 'expressions/common/header' %>
+
+<%= render partial: 'common/tags_table',
+           locals: {
+             tags: @tags,
+             taggable_type: @taggable_type,
+             new_tag_path: url_for([:new, :tag, locale: I18n.locale, taggable_type: @taggable_type]),
+             enable_hints: true
+           }
+%>
+
+<%#= render partial: 'common/footer' %>

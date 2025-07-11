@@ -1,0 +1,46 @@
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <h3>
+      <%= t('tags.my_tags') %>
+      <%= link_to "<i class='plus icon'></i>#{t('tags.new_tag_for_expression_tasks')}".html_safe,
+        new_tag_path(locale: I18n.locale, taggable_type: "ExpressionTask"),
+        class: 'ui basic button' %>
+    </h3>
+
+    <div class="row">
+      <table class="ui selectable striped celled table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th><%= t('tags.tags_name') %></th>
+            <th class="center aligned"><%= t('actions') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tags.each_with_index do |tag, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= tag.name %></td>
+              <td class="center aligned">
+                <div class="ui buttons">
+                  <%= link_to edit_tag_path(locale: I18n.locale, id: tag.id, taggable_type: "ExpressionTask"),
+                              class: 'ui tiny basic primary button' do %>
+                    <i class="edit icon"></i> <%= t('edit') %>
+                  <% end %>
+
+                  <%= button_to tag_path(locale: I18n.locale, id: tag.id, taggable_type: "ExpressionTask"),
+                                method: :delete,
+                                data: { confirm: t('tags.confirmation_deletion_tag') },
+                                class: 'ui red basic button' do %>
+                    <i class="trash icon"></i>
+                    <%= t('delete') %>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

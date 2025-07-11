@@ -1,0 +1,44 @@
+<% title t('expressions.index.title') %>
+
+<%= render partial: 'expressions/common/header' %>
+
+<input type="hidden" id="task_lang" value="<%= @task_lang %>">
+<input type="hidden" id="expression" value="<%= @expression_sting %>">
+<input type="hidden" id="task_token" value="<%= @task.token %>">
+<input type="hidden" id="task_type" value="<%= @task.class.name %>">
+
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <div class="row">
+      <div class="ui form ">
+        <div class="field">
+          <label>
+            <%= t('expressions.show_task.expression') %>
+            <div class="ui label">
+              <%= expression_language_name(@task_lang) %>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div id="expression_trainer">
+      <%= render partial: 'expressions/common/expression_trainer', locals: { data: @result_data } %>
+    </div>
+
+    <% if @task.enable_hints? %>
+      <%= show_next_correct_step_button(@task.max_hints_count || 0) %>
+      <%= render partial: 'expressions/common/expression_quiz_mk2' %>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: 'common/footer' %>
+
+<%= render partial: 'common/success_modal' %>
+
+<% if @task.introduce_yourself? %>
+  <%= render partial: 'common/student_modal' %>
+<% end %>
+
+<%= javascript_pack_tag 'expressions' %>

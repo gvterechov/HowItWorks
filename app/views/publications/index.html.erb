@@ -1,0 +1,14 @@
+<% title "#{t('index.title')} | #{t('publications')}" %>
+
+<%= render partial: 'application/index/header' %>
+
+<div class="ui aligned basic segment">
+  <h2><%= t('publications') %></h2>
+  <%= (@publication&.content&.to_s || '').html_safe %>
+
+  <% if user_signed_in? && can?(:edit, Publication) %>
+    <%= link_to t('edit'), edit_publication_path(@publication, locale: I18n.locale), class: 'ui button primary' %>
+  <% end %>
+</div>
+
+<%= render partial: 'common/footer' %>

@@ -7,16 +7,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!--    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">-->
-    <!--    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">-->
-    <!--    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">-->
-    <!--    <link rel="manifest" href="/site.webmanifest">-->
     <%= favicon_link_tag(asset_pack_path("media/assets/images/favicon.png")) %>
 
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload', defer: true %>
+    <%= stylesheet_pack_tag 'application_styles', 'data-turbo-track': 'reload' %>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
-    <%#= stylesheet_pack_tag 'application' %>
   </head>
 
   <body>

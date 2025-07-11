@@ -1,0 +1,17 @@
+<%= render partial: 'application/index/header' %>
+
+<div class="ui aligned basic segment">
+  <h2><%= t('edit') %></h2>
+
+  <%= form_with model: @publication,
+                url: publication_path(@publication, locale: I18n.locale),
+                method: :patch,
+                local: true,
+                class: 'ui form' do |form| %>
+    <div class="field">
+      <%= form.rich_text_area :content %>
+    </div>
+
+    <%= form.submit t('save'), class: 'ui button primary' %>
+  <% end %>
+</div>

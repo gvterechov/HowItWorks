@@ -42,6 +42,11 @@ gem 'grpc'
 # Development tools for Ruby gRPC (https://github.com/google/grpc/tree/master/src/ruby/tools)
 gem 'grpc-tools'
 
+# Simple authorization solution for Rails. (https://github.com/CanCanCommunity/cancancan)
+gem 'cancancan', '~> 3.0'
+
+# Enumerated attributes with I18n and ActiveRecord/Mongoid/MongoMapper support (https://github.com/brainspec/enumerize)
+gem 'enumerize'
 # group :development, :test do
 #   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 #   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -92,6 +97,9 @@ group :test do
   # Easy download and use of browser drivers. (https://github.com/titusfortner/webdrivers)
   gem 'webdrivers'
 end
+
+# A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
+gem 'kaminari'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

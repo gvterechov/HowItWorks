@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   def claim_task
     task = find_task_by_url(params[:task_url])
@@ -20,15 +21,58 @@ class UsersController < ApplicationController
     render json: { message: message }, status: :ok
   end
 
+  def index
+    @users = User.order(:created_at).page(params[:page]).per(30)
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    @available_roles = ['basic', 'admin']
+  end
+
+  def update
+    @user = User.find(params[:id])
+    new_roles = Array(user_params[:roles]).reject(&:blank?)
+
+    if prevent_admin_demotion?(@user, new_roles)
+      redirect_to users_path(locale: I18n.locale)
+    elsif @user.update(roles: new_roles)
+      redirect_to users_path(locale: I18n.locale)
+    else
+      @available_roles = ['basic', 'admin']
+      render :edit
+    end
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+
+    redirect_to users_path(locale: I18n.locale)
+  end
+
   private
+
+    def user_params
+      params.require(:user).permit(roles: [])
+    end
+
+    def require_admin!
+      unless current_user&.admin?
+        redirect_to root_path(locale: I18n.locale)
+      end
+    end
+
     def find_task_by_url(url)
       url_parts = url.split('/')
       task_token = url_parts.last
-      task_model = url_parts[-3].singularize
-                               .concat('Task')
-                               .classify
-                               .constantize
-
+      task_model = url_parts[-3].singularize.concat('Task').classify.constantize
       task_model.find_by(token: task_token)
+    end
+
+    def prevent_admin_demotion?(user, new_roles)
+      user == current_user &&
+        user.admin? &&
+        !new_roles.include?('admin')
     end
 end

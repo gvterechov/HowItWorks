@@ -3,6 +3,10 @@
     <%= link_to 'How It Works', root_path %>
   </div>
 
+  <%= tasks_button("/#{I18n.locale}/expressions/tasks") %>
+
+  <%= tags_button("/#{I18n.locale}/tags") %>
+
   <div class="right menu">
     <div class="item">
       <%= claim_task_button %>

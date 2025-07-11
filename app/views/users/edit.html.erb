@@ -1,0 +1,21 @@
+<%= render partial: 'expressions/common/header' %>
+
+<h2 class="ui center aligned header"><%= t('users.edit_users') %></h2>
+
+<div class="ui centered grid">
+  <div class="eight wide column">
+    <%= form_with model: @user, url: user_path(@user, locale: I18n.locale), method: :patch, local: true, class: "ui form segment" do |f| %>
+      <div class="field">
+        <%= t('users.role') %>
+        <div class="ui segment">
+          <%= f.select :roles, options_for_select(@available_roles, @user_roles),
+                      {},
+                      { multiple: true, size: @available_roles.size, class: "ui fluid selection dropdown", style: "min-height: 6em;" } %>
+        </div>
+      </div>
+      <%= f.submit t('save'), class: "ui primary button" %>
+    <% end %>
+  </div>
+</div>
+
+<%#= render partial: 'common/footer' %>

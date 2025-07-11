@@ -1,0 +1,52 @@
+<%= render partial: 'expressions/common/header' %>
+
+<div class="ui aligned basic segment">
+  <div class="ui centered grid">
+    <h3>
+      <%= t('users.users_list', default: 'Список пользователей') %>
+    </h3>
+
+    <div class="row">
+      <table class="ui selectable striped celled table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th><%= t('email', default: 'Email') %></th>
+            <th><%= t('users.role', default: 'Роль') %></th>
+            <th><%= t('created_at', default: 'Дата создания') %></th>
+            <th class="center aligned"><%= t('actions') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each_with_index do |user, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= user.email %></td>
+              <td><%= user.roles.map(&:capitalize).join(', ').presence || '—' %></td>
+              <td><%= user.created_at.strftime('%d.%m.%Y') %></td>
+              <td class="center aligned">
+                <div class="ui buttons">
+                  <%= link_to edit_user_path(user, locale: I18n.locale), class: 'ui tiny basic primary button' do %>
+                    <i class="edit icon"></i> <%= t('edit') %>
+                  <% end %>
+
+                  <%= button_to user_path(user, locale: I18n.locale),
+                                method: :delete,
+                                data: { confirm: t("users.confirmation_deletion_user") },
+                                class: 'ui red basic button' do %>
+                    <i class="trash icon"></i> <%= t('delete') %>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <div class="ui pagination menu">
+        <%= paginate @users %>
+      </div>
+
+    </div>
+  </div>
+</div>
